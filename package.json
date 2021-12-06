@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "5.15.3",
+    "@mdi/font": "^6.5.95",
     "core-js": "^3.6.5",
     "roboto-fontface": "*",
     "vue": "^2.6.11",
