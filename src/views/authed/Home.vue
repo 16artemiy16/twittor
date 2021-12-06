@@ -3,9 +3,9 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 
 @Component
-export default class App extends Vue {}
+export default class Home extends Vue {}
 </script>
 
 <template>
-  <router-view />
+  <div>Home</div>
 </template>

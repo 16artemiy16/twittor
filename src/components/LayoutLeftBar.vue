@@ -14,18 +14,18 @@ export default class LayoutLeftBar extends Vue {}
 <template>
   <div class="sidebar">
     <nav class="sidebar__nav">
-      <div class="sidebar__nav-item">
+      <router-link :to="{ name: 'home' }" class="sidebar__nav-item">
         <v-icon large arial-label="Home page">
           mdi-home
         </v-icon>
         <span class="sidebar__nav-item-text">Home</span>
-      </div>
-      <div class="sidebar__nav-item">
+      </router-link>
+      <router-link :to="{ name: 'explore' }" class="sidebar__nav-item">
         <v-icon large arial-label="Home page">
           mdi-pound
         </v-icon>
         <span class="sidebar__nav-item-text">Explore</span>
-      </div>
+      </router-link>
     </nav>
   </div>
 </template>
