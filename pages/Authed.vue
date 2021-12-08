@@ -15,7 +15,7 @@ export default class AuthedLayout extends Vue {}
   <div class="logged">
     <LayoutLeftBar/>
     <main class="content">
-      <router-view/>
+      <nuxt-child></nuxt-child>
     </main>
   </div>
 </template>
