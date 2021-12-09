@@ -38,6 +38,15 @@ export default class LayoutLeftBar extends Vue {}
   &__nav {
     display: flex;
     flex-direction: column;
+
+    .nuxt-link-active {
+      i {
+        color: black;
+      }
+      span {
+        text-shadow: 0 0 .75px black;
+      }
+    }
   }
 
   &__nav-item {
