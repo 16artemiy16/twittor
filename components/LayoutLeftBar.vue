@@ -28,7 +28,6 @@ export default class LayoutLeftBar extends Vue {}
 <style scoped lang="scss">
 .sidebar {
   height: 100vh;
-  border-right: 1px solid $grey;
   width: 30%;
   display: flex;
   flex-direction: column;
