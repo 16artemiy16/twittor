@@ -27,9 +27,11 @@ export default class AuthedLayout extends Vue {}
 <style scoped lang="scss">
 .logged {
   display: flex;
+  height: 100vh;
 }
 
 .content {
+  overflow: scroll;
   flex: 1;
   border-right: 1px solid $grey;
   border-left: 1px solid $grey;
