@@ -88,6 +88,7 @@ export default class Explore extends Vue {
     <section class="explore__section explore__trends">
       <h1>Trends for you</h1>
       <ContentCard
+        class="trend"
         v-for="trend in trends"
         :key="trend.id"
         :main-text="trend.title"
@@ -133,7 +134,7 @@ export default class Explore extends Vue {
   }
 
   &__trends {
-    h1, div {
+    h1 {
       padding: .5em 1rem;
     }
   }
