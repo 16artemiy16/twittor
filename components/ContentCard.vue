@@ -41,7 +41,7 @@ export default class ContentCard extends Vue {
     <div v-if="topText" class="card__top-text">{{ topText }}</div>
     <div v-if="mainText" class="card__main-text">{{ mainText }}</div>
     <div v-if="bottomText" class="card__bottom-text">{{ bottomText }}</div>
-    <v-menu v-if="hasActions" bottom>
+    <v-menu v-if="hasActions" bottom left>
       <template v-slot:activator="{ on, attrs }">
         <v-btn
           class="actions-menu"
