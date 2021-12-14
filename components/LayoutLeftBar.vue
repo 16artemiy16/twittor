@@ -1,27 +1,35 @@
 <script lang="ts">
 import Vue from 'vue';
 import Component from 'vue-class-component';
+import TweetBtn from '~/components/TweetBtn.vue';
 
-@Component
+@Component({
+  components: {
+    TweetBtn,
+  },
+})
 export default class LayoutLeftBar extends Vue {}
 </script>
 
 <template>
   <div class="sidebar">
-    <nav class="sidebar__nav">
-      <NuxtLink to="/authed/home" class="sidebar__nav-item">
-        <v-icon large arial-label="Home page">
-          mdi-home
-        </v-icon>
-        <span class="sidebar__nav-item-text">Home</span>
-      </NuxtLink>
-      <NuxtLink to="/authed/explore" class="sidebar__nav-item">
-        <v-icon large arial-label="Home page">
-          mdi-pound
-        </v-icon>
-        <span class="sidebar__nav-item-text">Explore</span>
-      </NuxtLink>
-    </nav>
+    <div class="wrapper">
+      <nav class="sidebar__nav">
+        <NuxtLink to="/authed/home" class="sidebar__nav-item">
+          <v-icon large arial-label="Home page">
+            mdi-home
+          </v-icon>
+          <span class="sidebar__nav-item-text">Home</span>
+        </NuxtLink>
+        <NuxtLink to="/authed/explore" class="sidebar__nav-item">
+          <v-icon large arial-label="Home page">
+            mdi-pound
+          </v-icon>
+          <span class="sidebar__nav-item-text">Explore</span>
+        </NuxtLink>
+      </nav>
+      <TweetBtn />
+    </div>
   </div>
 </template>
 
@@ -34,9 +42,19 @@ export default class LayoutLeftBar extends Vue {}
   align-items: flex-end;
   padding: 3rem;
 
+  .wrapper {
+    width: 230px;
+  }
+
+  &__tweet {
+    width: 100%;
+    margin-top: 1rem;
+  }
+
   &__nav {
     display: flex;
     flex-direction: column;
+    margin-bottom: 1rem;
 
     .nuxt-link-active {
       i {
