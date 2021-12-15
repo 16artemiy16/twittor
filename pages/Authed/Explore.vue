@@ -3,67 +3,27 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 import ContentCard from '~/components/ContentCard.vue';
 import TweetItem from '~/components/TweetItem.vue';
+import { computed, actions } from'~/store/sandboxes/explore.sandbox';
 
 @Component({
   components: {
     ContentCard,
     TweetItem,
-  }
+  },
+  computed: {
+    trends: computed.trends,
+    tweets: computed.tweets,
+  },
+  methods: {
+    fetchTrends: actions.fetchTrends,
+    fetchTweets: actions.fetchTweets,
+  },
 })
 export default class Explore extends Vue {
-  trends = [
-    { id: '1', title: 'First trend' },
-    { id: '2', title: 'Second trend' },
-    { id: '3', title: 'Third trend' },
-  ];
-
-  tweets = [
-    {
-      id: '1',
-      body: 'Hello!!! This is my very first Tweet!',
-      user: { name: 'John Snow', login: '@john-snow', img: 'https://www.pravmir.ru/wp-content/uploads/2011/02/pushkin.jpg' }
-    },
-    {
-      id: '2',
-      body: 'Hi there! `one more tweet!',
-      user: { name: 'John Snow', login: '@john-snow', img: 'https://www.pravmir.ru/wp-content/uploads/2011/02/pushkin.jpg' }
-    },
-    {
-      id: '3',
-      body: 'Hi there! `one more tweet!',
-      user: { name: 'John Snow', login: '@john-snow', img: 'https://www.pravmir.ru/wp-content/uploads/2011/02/pushkin.jpg' }
-    },
-    {
-      id: '4',
-      body: 'Hi there! `one more tweet!',
-      user: { name: 'John Snow', login: '@john-snow', img: 'https://www.pravmir.ru/wp-content/uploads/2011/02/pushkin.jpg' }
-    },
-    {
-      id: '5',
-      body: 'Hi there! `one more tweet!',
-      user: { name: 'John Snow', login: '@john-snow', img: 'https://www.pravmir.ru/wp-content/uploads/2011/02/pushkin.jpg' }
-    },
-    {
-      id: '6',
-      body: 'Hi there! `one more tweet!',
-      user: { name: 'John Snow', login: '@john-snow', img: 'https://www.pravmir.ru/wp-content/uploads/2011/02/pushkin.jpg' }
-    },
-    {
-      id: '7',
-      body: 'Hi there! `one more tweet!',
-      user: { name: 'John Snow', login: '@john-snow', img: 'https://www.pravmir.ru/wp-content/uploads/2011/02/pushkin.jpg' }
-    },
-    {
-      id: '8',
-      body: 'Hi there! `one more tweet!',
-      user: { name: 'John Snow', login: '@john-snow', img: 'https://www.pravmir.ru/wp-content/uploads/2011/02/pushkin.jpg' }
-    },
-    {
-      id: '71',
-      body: 'Hi there! `one more tweet!',
-      user: { name: 'John Snow', login: '@john-snow', img: 'https://www.pravmir.ru/wp-content/uploads/2011/02/pushkin.jpg' }
-    },
-  ];
+  created() {
+    this.fetchTrends();
+    this.fetchTweets()
+  }
 
   reportNotInteresting(id: string) {
   }
