@@ -13,6 +13,8 @@ import { computed, actions } from'~/store/sandboxes/explore.sandbox';
   computed: {
     trends: computed.trends,
     tweets: computed.tweets,
+    isLoadingTweets: computed.isLoadingTweets,
+    isLoadingTrends: computed.isLoadingTrends,
   },
   methods: {
     fetchTrends: actions.fetchTrends,
@@ -47,30 +49,53 @@ export default class Explore extends Vue {
     </header>
     <section class="explore__section explore__trends">
       <h1>Trends for you</h1>
-      <ContentCard
-        class="trend"
-        v-for="trend in trends"
-        :key="trend.id"
-        :main-text="trend.title"
-        :actions="[
+      <v-progress-circular
+        v-if="isLoadingTrends"
+        indeterminate
+        color="primary"
+        class="loader"
+      ></v-progress-circular>
+      <template v-else>
+        <ContentCard
+          class="trend"
+          v-for="trend in trends"
+          :key="trend.id"
+          :main-text="trend.title"
+          :actions="[
           { icon: 'mdi-emoticon-angry-outline', text: 'It \'s not interesting', onClick: () => reportNotInteresting(trend.id) },
           { icon: 'mdi-alert-circle-outline', text: 'Report Spam', onClick: () => reportSpam(trend.id) },
         ]"
-        top-text="Trending"
-        bottom-text="3,504 Twits"
-      />
-      <ContentCard
-        class="link"
-        main-text="Show more"
-      />
+          top-text="Trending"
+          bottom-text="3,504 Twits"
+        />
+        <ContentCard
+          class="link"
+          main-text="Show more"
+        />
+      </template>
     </section>
     <section class="explore__section explore__posts">
-      <TweetItem v-for="tweet in tweets" :key="tweet.id" :tweet="tweet" />
+      <v-progress-circular
+        v-if="isLoadingTweets"
+        indeterminate
+        color="primary"
+        class="loader"
+      ></v-progress-circular>
+      <template v-else>
+        <TweetItem v-for="tweet in tweets" :key="tweet.id" :tweet="tweet" />
+      </template>
     </section>
   </div>
 </template>
 
 <style scoped lang="scss">
+.loader {
+  position: absolute;
+  top: 50%;
+  bottom: 50%;
+  left: 50%;
+  right: 50%;
+}
 .link {
   color: $link;
 }
@@ -83,6 +108,7 @@ export default class Explore extends Vue {
 
   &__section {
     padding: .5rem 0;
+    position: relative;
   }
 
   &__header {
@@ -94,6 +120,7 @@ export default class Explore extends Vue {
   }
 
   &__trends {
+    min-height: 400px;
     h1 {
       padding: .5em 1rem;
     }
