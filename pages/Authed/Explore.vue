@@ -75,12 +75,9 @@ export default class Explore extends Vue {
       </template>
     </section>
     <section class="explore__section explore__posts">
-      <v-progress-circular
-        v-if="isLoadingTweets"
-        indeterminate
-        color="primary"
-        class="loader"
-      ></v-progress-circular>
+      <template v-if="isLoadingTweets">
+        <TweetItem v-for="i in 4" :skeleton="true" />
+      </template>
       <template v-else>
         <TweetItem v-for="tweet in tweets" :key="tweet.id" :tweet="tweet" />
       </template>
