@@ -5,7 +5,7 @@ import ContentCard from '~/components/ContentCard.vue';
 import TweetItem from '~/components/TweetItem.vue';
 import { computed, actions } from '~/store/explore/explore.sandbox';
 
-@Component({
+@Component<any>({
   components: {
     ContentCard,
     TweetItem,
@@ -23,8 +23,8 @@ import { computed, actions } from '~/store/explore/explore.sandbox';
 })
 export default class Explore extends Vue {
   created() {
-    this.fetchTrends();
-    this.fetchTweets()
+    (this as any).fetchTrends();
+    (this as any).fetchTweets()
   }
 
   reportNotInteresting(id: string) {
@@ -76,7 +76,7 @@ export default class Explore extends Vue {
     </section>
     <section class="explore__section explore__posts">
       <template v-if="isLoadingTweets">
-        <TweetItem v-for="i in 4" :skeleton="true" />
+        <TweetItem v-for="i in 4" :skeleton="true" :key="i" />
       </template>
       <template v-else>
         <TweetItem v-for="tweet in tweets" :key="tweet.id" :tweet="tweet" />

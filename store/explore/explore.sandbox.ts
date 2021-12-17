@@ -10,11 +10,11 @@ export const computed = {
     'trends',
     'tweets',
   ]),
-};
+} as Record<'isLoadingTrends' | 'isLoadingTweets' | 'trends' | 'tweets', any>;
 
 export const actions = {
   ...mapActions([
     ExploreAction.FetchTrends,
     ExploreAction.FetchTweets
   ]),
-};
+} as Record<ExploreAction.FetchTrends | ExploreAction.FetchTweets, Function>;
