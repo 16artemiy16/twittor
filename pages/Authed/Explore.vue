@@ -3,7 +3,7 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 import ContentCard from '~/components/ContentCard.vue';
 import TweetItem from '~/components/TweetItem.vue';
-import { computed, actions } from'~/store/sandboxes/explore.sandbox';
+import { computed, actions } from '~/store/explore/explore.sandbox';
 
 @Component({
   components: {

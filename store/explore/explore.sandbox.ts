@@ -1,5 +1,5 @@
 import { createNamespacedHelpers } from 'vuex'
-import { ExploreAction } from '~/store/explore';
+import { ExploreAction } from '~/store/explore/actions';
 
 const { mapState, mapActions } = createNamespacedHelpers('explore');
 
