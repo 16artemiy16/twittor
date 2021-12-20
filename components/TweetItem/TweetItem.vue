@@ -19,11 +19,8 @@ interface ActionBottomI {
   },
 })
 export default class TweetItem extends Vue {
-  @Prop({ type: Object })
+  @Prop({ type: Object, required: true })
   tweet!: TweetI;
-
-  @Prop({ type: Boolean, default: false })
-  skeleton!: boolean;
 
   readonly moreActions = [
     { icon: 'mdi-account-plus', text: 'Follow this User' },
@@ -52,32 +49,26 @@ export default class TweetItem extends Vue {
 </script>
 
 <template>
-  <ContainerActionsMenu :actions="!skeleton ? moreActions : []">
-    <article class="tweet" :class="{ skeleton }">
+  <ContainerActionsMenu :actions="moreActions">
+    <article class="tweet">
       <div class="tweet__left">
-        <img v-if="!skeleton" class="user-img" :src="tweet.user.img" width="35" height="35">
-        <div v-else class="user-img"></div>
+        <img class="user-img" :src="tweet.user.img" width="35" height="35">
       </div>
       <div class="tweet__right">
         <div class="tweet__info">
-          <template v-if="!skeleton">
+          <template>
             <span class="user-name">{{ tweet.user.name }}</span>
             <span class="user-login">{{ tweet.user.login }}</span>
             <span class="posted-date">3h</span>
           </template>
-          <template v-else>&nbsp;</template>
         </div>
         <div class="tweet__body">
-          <template v-if="!skeleton">
+          <template>
             {{ tweet.body }}
-          </template>
-          <template v-else>
-            <p>&nbsp</p>
-            <p>&nbsp</p>
           </template>
         </div>
         <div class="tweet__actions">
-          <template v-if="!skeleton">
+          <template>
             <v-btn
               class="tweet__action"
               :class="{ tweet__action_active: action.id === 'like' && tweet.likes.isLikedByMe }"
@@ -93,9 +84,6 @@ export default class TweetItem extends Vue {
               </template>
             </v-btn>
           </template>
-          <template v-else>
-            <span class="skeleton-action" v-for="action in footerActions"></span>
-          </template>
         </div>
       </div>
     </article>
@@ -103,61 +91,12 @@ export default class TweetItem extends Vue {
 </template>
 
 <style scoped lang="scss">
-@keyframes shimmer {
-  100% {
-    transform: translateX(100%);
-  }
-}
-
-.skeleton-action {
-  padding: 1rem;
-  border-radius: 20%;
-  background: $skeleton;
-  margin-top: .25rem;
-}
 .tweet {
   display: flex;
   padding: 1rem;
   cursor: pointer;
   width: 100%;
   position: relative;
-
-  &.skeleton {
-    &::after {
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      transform: translateX(-100%);
-      background-image: linear-gradient(
-          90deg,
-          rgba(#fff, 0) 0,
-          rgba(#fff, 0.2) 20%,
-          rgba(#fff, 0.5) 60%,
-          rgba(#fff, 0)
-      );
-      animation: shimmer 2s infinite;
-      content: '';
-    }
-    .user-img {
-      width: 35px;
-      height: 35px;
-      background: $skeleton;
-    }
-    .tweet__info {
-      width: 300px;
-      background: $skeleton;
-    }
-    .tweet__body {
-      p {
-        background: $skeleton;
-        &:not(:last-child) {
-          margin-bottom: 0.25rem;
-        }
-      }
-    }
-  }
 
   &:hover {
     background: $background-hover-pale;

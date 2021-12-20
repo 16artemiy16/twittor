@@ -1,14 +1,14 @@
 <script lang="ts">
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import ContentCard from '~/components/ContentCard.vue';
-import TweetItem from '~/components/TweetItem.vue';
 import { computed, actions } from '~/store/explore/explore.sandbox';
+import TweetItemSkeleton from '~/components/TweetItem/TweetItemSkeleton.vue';
 
 @Component<any>({
   components: {
-    ContentCard,
-    TweetItem,
+    ContentCard: () => import('~/components/ContentCard.vue'),
+    TweetItem: () => import('~/components/TweetItem/TweetItem.vue'),
+    TweetItemSkeleton,
   },
   computed: {
     trends: computed.trends,
@@ -77,7 +77,7 @@ export default class Explore extends Vue {
     </section>
     <section class="explore__section explore__posts">
       <template v-if="isLoadingTweets">
-        <TweetItem v-for="i in 4" :skeleton="true" :key="i" />
+        <TweetItemSkeleton v-for="i in 4" :key="i" />
       </template>
       <template v-else>
         <TweetItem
