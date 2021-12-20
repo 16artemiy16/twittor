@@ -15,6 +15,12 @@ export const computed = {
 export const actions = {
   ...mapActions([
     ExploreAction.FetchTrends,
-    ExploreAction.FetchTweets
+    ExploreAction.FetchTweets,
+    ExploreAction.ToggleTweetLike
   ]),
-} as Record<ExploreAction.FetchTrends | ExploreAction.FetchTweets, Function>;
+} as Record<
+  ExploreAction.FetchTrends |
+  ExploreAction.FetchTweets |
+  ExploreAction.ToggleTweetLike,
+  Function>
+;

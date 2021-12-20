@@ -19,6 +19,7 @@ import { computed, actions } from '~/store/explore/explore.sandbox';
   methods: {
     fetchTrends: actions.fetchTrends,
     fetchTweets: actions.fetchTweets,
+    toggleTweetLike: actions.toggleTweetLike,
   },
 })
 export default class Explore extends Vue {
@@ -79,7 +80,12 @@ export default class Explore extends Vue {
         <TweetItem v-for="i in 4" :skeleton="true" :key="i" />
       </template>
       <template v-else>
-        <TweetItem v-for="tweet in tweets" :key="tweet.id" :tweet="tweet" />
+        <TweetItem
+          v-for="tweet in tweets"
+          :key="tweet.id"
+          :tweet="tweet"
+          @toggle-like="({ id, isLike }) => toggleTweetLike({ isLike, tweetId: id })"
+        />
       </template>
     </section>
   </div>

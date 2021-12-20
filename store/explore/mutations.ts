@@ -7,6 +7,7 @@ export enum ExploreMutation {
   SetIsLoadingTweets = 'setIsLoadingTweets',
   SetTrends = 'setTrends',
   SetTweets = 'setTweets',
+  ToggleTweetLike = 'toggleTweetLike',
 }
 
 export default {
@@ -21,5 +22,15 @@ export default {
   },
   [ExploreMutation.SetTweets]: (state: ExploreStateI, tweets: TweetI[]) => {
     state.tweets = tweets;
+  },
+  [ExploreMutation.ToggleTweetLike]: (state: ExploreStateI, { tweetId, isLike }: { tweetId: string, isLike: boolean }) => {
+     const tweet = state.tweets.find(({ id }) => id === tweetId);
+
+     if (!tweet) {
+       throw Error(`There is no tweet with id ${tweetId}`);
+     }
+
+     tweet.likes.isLikedByMe = isLike;
+     tweet.likes.total = tweet.likes.total + (isLike ? 1 : -1);
   },
 };

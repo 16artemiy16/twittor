@@ -6,4 +6,8 @@ export interface TweetI {
     login: string;
     img: string;
   };
+  likes: {
+    total: number;
+    isLikedByMe: boolean;
+  };
 }
