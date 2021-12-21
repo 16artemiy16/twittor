@@ -8,7 +8,7 @@ import TweetBtn from '~/components/TweetBtn.vue';
     TweetBtn,
   },
 })
-export default class LayoutLeftBar extends Vue {}
+export default class AuthedLayoutLeftBar extends Vue {}
 </script>
 
 <template>

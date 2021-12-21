@@ -6,8 +6,8 @@ import TweetItemSkeleton from '~/components/TweetItem/TweetItemSkeleton.vue';
 
 @Component<any>({
   components: {
-    ContentCard: () => import('~/components/ContentCard.vue'),
-    TweetItem: () => import('~/components/TweetItem/TweetItem.vue'),
+    ContentCard: () => import('~/components/ContentCard.vue' /* webpackChunkName: "ContentCard" */),
+    TweetItem: () => import('~/components/TweetItem/TweetItem.vue' /* webpackChunkName: "TweetItem" */),
     TweetItemSkeleton,
   },
   computed: {

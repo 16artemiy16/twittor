@@ -5,7 +5,7 @@ import Component from 'vue-class-component';
 
 @Component({
   components: {
-    TweetForm: () => import('~/components/TweetForm' /* webpackChunkName: "TweetForm" */),
+    TweetForm: () => import('~/components/TweetForm.vue' /* webpackChunkName: "TweetForm" */),
   },
 })
 export default class TweetBtn extends Vue {

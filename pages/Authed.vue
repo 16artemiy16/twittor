@@ -1,14 +1,13 @@
 <script lang="ts">
 import Component from 'vue-class-component';
 import Vue from 'vue';
-import LayoutRightBar from '~/components/LayoutRightBar.vue';
-import LayoutLeftBar from '@/components/LayoutLeftBar.vue';
-
+import AuthedLayoutLeftBar from '~/components/AuthedLayoutLeftBar.vue';
+import AuthedLayoutRightBar from '~/components/AuthedLayoutRightBar.vue';
 
 @Component({
   components: {
-    LayoutLeftBar,
-    LayoutRightBar,
+    AuthedLayoutLeftBar,
+    AuthedLayoutRightBar,
   },
 })
 export default class AuthedLayout extends Vue {}
@@ -16,11 +15,11 @@ export default class AuthedLayout extends Vue {}
 
 <template>
   <div class="logged" data-app>
-    <LayoutLeftBar/>
+    <AuthedLayoutLeftBar />
     <main class="content">
       <nuxt-child></nuxt-child>
     </main>
-    <LayoutRightBar/>
+    <AuthedLayoutRightBar />
   </div>
 </template>
 
