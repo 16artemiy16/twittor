@@ -3,26 +3,20 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 
 
-@Component
+@Component({
+  components: {
+    TweetForm: () => import('~/components/TweetForm' /* webpackChunkName: "TweetForm" */),
+  },
+})
 export default class TweetBtn extends Vue {
-  readonly attachmentActions: string[] = [
-    'mdi-panorama-variant-outline',
-    'mdi-file-gif-box',
-    'mdi-chart-box-outline',
-  ];
-
   isOpened: boolean = false;
-  tweet: string = '';
-
-  get isTweetBtnDisabled(): boolean {
-    return this.tweet.trim().length === 0;
-  }
+  tweetModel: Record<string, any> = { text: '' };
 
   close(withData: boolean) {
     this.isOpened = false;
     if (withData) {
-      this.tweet = '';
-      this.$emit('closed', this.tweet);
+      this.$emit('closed', this.tweetModel);
+      this.tweetModel = { text: '' };
       return;
     }
     this.$emit('closed');
@@ -43,34 +37,14 @@ export default class TweetBtn extends Vue {
         Tweet
       </v-btn>
     </template>
-    <v-card light class="modal">
+    <v-card light class="modal" v-if="isOpened">
       <header class="modal__header">
         <v-btn icon text @click="close">
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </header>
       <main class="modal__main">
-        <div class="modal__author">
-          <img class="modal__author-img" width="50" height="50" src="https://www.pravmir.ru/wp-content/uploads/2011/02/pushkin.jpg" />
-        </div>
-        <div class="modal__input">
-          <v-textarea
-            solo
-            autofocus
-            no-resize
-            v-model="tweet"
-            label="What's going on..."
-          ></v-textarea>
-
-          <div class="actions">
-            <div class="actions__attachments">
-              <v-btn text icon v-for="action in attachmentActions" :key="action">
-                <v-icon>{{ action }}</v-icon>
-              </v-btn>
-            </div>
-            <v-btn rounded @click="() => close(true)" :disabled="isTweetBtnDisabled">Tweet</v-btn>
-          </div>
-        </div>
+        <TweetForm v-model="tweetModel" @on-send="close(true)"/>
       </main>
     </v-card>
   </v-dialog>
@@ -87,29 +61,7 @@ export default class TweetBtn extends Vue {
   }
 
   &__main {
-    display: flex;
     padding: 1rem;
-  }
-
-  &__author {
-    flex-basis: 50px;
-    text-align: center;
-    margin-right: 1rem;
-  }
-
-  &__input {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
-
-  &__author-img {
-    border-radius: 50%;
-  }
-
-  .actions {
-    display: flex;
-    justify-content: space-between;
   }
 }
 </style>
