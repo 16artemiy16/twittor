@@ -10,6 +10,9 @@ interface TweetModelI {
   props: ['value'],
 })
 export default class TweetForm extends Vue {
+  readonly TEXT_MAX_SIZE = 280;
+  readonly TEXT_CLOSE_TO_EXCESS = 20;
+
   readonly attachmentActions: string[] = [
     'mdi-panorama-variant-outline',
     'mdi-file-gif-box',
@@ -21,7 +24,37 @@ export default class TweetForm extends Vue {
   };
 
   get isTweetBtnDisabled(): boolean {
-    return this.model.text.trim().length === 0;
+    return this.model.text.trim().length === 0 || this.textExcess > 0;
+  }
+
+  get textProgress(): number {
+    return this.model.text.length * 100 / this.TEXT_MAX_SIZE;
+  }
+
+  get textExcess(): number {
+    return this.model.text.length - this.TEXT_MAX_SIZE;
+  }
+
+  get isTextCloseToExcess(): boolean {
+    return this.textExcess < 0 && Math.abs(this.textExcess) <= this.TEXT_CLOSE_TO_EXCESS;
+  }
+
+  get progressDisplay(): { text: string, color?: string } {
+    if (this.textExcess > 0) {
+      return { text: `${-this.textExcess}`, color: 'red' };
+    }
+
+    const leftToExcess = this.TEXT_MAX_SIZE - this.model.text.length;
+
+    if (this.isTextCloseToExcess) {
+      return { text: `${leftToExcess}`, color: '#ffcc00'};
+    }
+
+    if (leftToExcess === 0) {
+      return { text: '0', color: '#E04B4BFF' };
+    }
+
+    return { text: '' };
   }
 
   setText(e: string) {
@@ -52,7 +85,19 @@ export default class TweetForm extends Vue {
             <v-icon>{{ action }}</v-icon>
           </v-btn>
         </div>
-        <v-btn rounded :disabled="isTweetBtnDisabled" @click="$emit('on-send')">Tweet</v-btn>
+        <div class="actions__submit" :style="{ color: progressDisplay.color }">
+          <v-progress-circular
+            :width="textExcess <= 0 ? 2 : 0"
+            :value="textProgress"
+            :color="progressDisplay.color"
+          >
+            {{ progressDisplay.text }}
+          </v-progress-circular>
+
+          <v-divider vertical></v-divider>
+
+          <v-btn rounded :disabled="isTweetBtnDisabled" @click="$emit('on-send')">Tweet</v-btn>
+        </div>
       </div>
     </div>
   </form>
@@ -92,6 +137,18 @@ export default class TweetForm extends Vue {
   .actions {
     display: flex;
     justify-content: space-between;
+
+    &__submit {
+      display: flex;
+      align-items: center;
+
+      &> * {
+        margin-left: .5rem;
+        &:not(:last-child) {
+          margin-right: .5rem;
+        }
+      }
+    }
   }
 }
 </style>
