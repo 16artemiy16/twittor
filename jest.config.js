@@ -2,7 +2,8 @@ module.exports = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/$1',
     '^~/(.*)$': '<rootDir>/$1',
-    '^vue$': 'vue/dist/vue.common.js'
+    '^vue$': 'vue/dist/vue.common.js',
+    "^vuetify/lib$": "vuetify"
   },
   moduleFileExtensions: [
     'ts',
@@ -21,4 +22,5 @@ module.exports = {
     '<rootDir>/pages/**/*.vue'
   ],
   testEnvironment: 'jsdom',
+  setupFiles: ["<rootDir>/test/setup.ts"],
 }

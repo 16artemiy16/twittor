@@ -1,6 +1,7 @@
 import { shallowMount, Wrapper } from '@vue/test-utils';
 import { TweetI } from '~/interfaces/tweet.interface';
 import TweetItem from '~/components/TweetItem/TweetItem.vue';
+import ContainerActionsMenu from '~/components/ContainerActionsMenu.vue';
 
 const TWEET: TweetI = {
   id: 'a',
@@ -24,6 +25,9 @@ describe('TweetItem', () => {
       propsData: {
         tweet: TWEET,
       },
+      components: {
+        ContainerActionsMenu,
+      }
     });
   });
 
