@@ -1,0 +1,121 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TweetItem renders correctly 1`] = `
+<containeractionsmenu-stub
+  actions="[object Object],[object Object]"
+>
+  <article
+    class="tweet"
+  >
+    <div
+      class="tweet__left"
+    >
+      <img
+        class="user-img"
+        height="35"
+        src="http://john.com/my-img.png"
+        width="35"
+      />
+    </div>
+     
+    <div
+      class="tweet__right"
+    >
+      <div
+        class="tweet__info"
+      >
+        <span
+          class="user-name"
+        >
+          John
+        </span>
+         
+        <span
+          class="user-login"
+        >
+          john
+        </span>
+         
+        <span
+          class="posted-date"
+        >
+          3h
+        </span>
+      </div>
+       
+      <div
+        class="tweet__body"
+      >
+        
+          Hello! Welcome here!
+        
+      </div>
+       
+      <div
+        class="tweet__actions"
+      >
+        <v-btn-stub
+          activeclass=""
+          class="tweet__action"
+          icon="true"
+          tag="button"
+          text="true"
+          type="button"
+        >
+          <v-icon-stub>
+            mdi-message-reply
+          </v-icon-stub>
+          
+              
+            
+        </v-btn-stub>
+        <v-btn-stub
+          activeclass=""
+          class="tweet__action"
+          icon="true"
+          tag="button"
+          text="true"
+          type="button"
+        >
+          <v-icon-stub>
+            mdi-repeat-variant
+          </v-icon-stub>
+          
+              
+            
+        </v-btn-stub>
+        <v-btn-stub
+          activeclass=""
+          class="tweet__action"
+          icon="true"
+          tag="button"
+          text="true"
+          type="button"
+        >
+          <v-icon-stub>
+            mdi-heart-outline
+          </v-icon-stub>
+          
+              15
+            
+        </v-btn-stub>
+        <v-btn-stub
+          activeclass=""
+          class="tweet__action"
+          icon="true"
+          tag="button"
+          text="true"
+          type="button"
+        >
+          <v-icon-stub>
+            mdi-export-variant
+          </v-icon-stub>
+          
+              
+            
+        </v-btn-stub>
+      </div>
+    </div>
+  </article>
+</containeractionsmenu-stub>
+`;

@@ -31,6 +31,10 @@ describe('TweetItem', () => {
     });
   });
 
+  it('renders correctly', () => {
+    expect(wrapper.element).toMatchSnapshot()
+  });
+
   describe('should render text data correctly', () => {
     it('User name', () => {
       expect(wrapper.get('.user-name').text()).toBe(TWEET.user.name);
