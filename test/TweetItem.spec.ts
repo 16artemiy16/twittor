@@ -35,12 +35,20 @@ describe('TweetItem', () => {
     expect(wrapper.element).toMatchSnapshot()
   });
 
-  describe('should render text data correctly', () => {
-    it('User name', () => {
-      expect(wrapper.get('.user-name').text()).toBe(TWEET.user.name);
-    })
-  })
-  it('test', () => {
-    expect(true).toBe(true);
+  describe('should render data correctly', () => {
+    const cases = [
+      { name: 'User name', selector: '.user-name', expected: TWEET.user.name },
+      { name: 'User login', selector: '.user-login', expected: TWEET.user.login },
+      { name: 'Tweet body', selector: '.tweet__body', expected: TWEET.body },
+      { name: 'User image', selector: '.user-img', expected: TWEET.user.img, attr: 'src' },
+      // TODO: posted date is mocked for now
+    ]
+    cases.forEach(({ name, selector, expected, attr }) => {
+      it(name, () => {
+        const el = wrapper.get(selector);
+        const value = attr ? el.attributes(attr) : el.text();
+        expect(value).toBe(expected);
+      });
+    });
   });
 });
