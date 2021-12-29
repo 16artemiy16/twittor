@@ -50,24 +50,22 @@ export default class TweetItem extends Vue {
 
 <template>
   <ContainerActionsMenu :actions="moreActions">
-    <article class="tweet">
+    <article class="tweet d-flex pos-relative pa-4">
       <div class="tweet__left">
-        <img class="user-img" :src="tweet.user.img" width="35" height="35">
+        <img class="user-img rounded-circle" :src="tweet.user.img" width="35" height="35">
       </div>
-      <div class="tweet__right">
-        <div class="tweet__info">
+      <div class="flex-column flex-grow-1">
+        <div class="tweet__info mb-2 d-flex">
           <template>
-            <span class="user-name">{{ tweet.user.name }}</span>
-            <span class="user-login">{{ tweet.user.login }}</span>
+            <span class="user-name mr-2 font-weight-bold">{{ tweet.user.name }}</span>
+            <span class="user-login mr-2">{{ tweet.user.login }}</span>
             <span class="posted-date">3h</span>
           </template>
         </div>
         <div class="tweet__body">
-          <template>
-            {{ tweet.body }}
-          </template>
+          {{ tweet.body }}
         </div>
-        <div class="tweet__actions">
+        <div class="tweet__actions d-flex pr-16 justify-space-between">
           <template>
             <v-btn
               class="tweet__action"
@@ -92,11 +90,8 @@ export default class TweetItem extends Vue {
 
 <style scoped lang="scss">
 .tweet {
-  display: flex;
-  padding: 1rem;
   cursor: pointer;
   width: 100%;
-  position: relative;
 
   &:hover {
     background: $background-hover-pale;
@@ -104,37 +99,6 @@ export default class TweetItem extends Vue {
 
   &__left {
     flex-basis: 50px;
-
-    .user-img {
-      border-radius: 50%;
-    }
-  }
-
-  &__info {
-    margin-bottom: .5rem;
-
-    > * {
-      margin-right: .5rem;
-    }
-  }
-
-  &__right {
-    flex-direction: column;
-    flex: 1;
-  }
-
-  &__info {
-    display: flex;
-
-    .user-name {
-      font-weight: bold;
-    }
-  }
-
-  &__actions {
-    display: flex;
-    justify-content: space-between;
-    padding-right: 5rem;
   }
 
   &__action {

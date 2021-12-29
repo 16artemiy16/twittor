@@ -33,9 +33,9 @@ export default class ContentCard extends Vue {
 
 <template>
   <ContainerActionsMenu :actions="actions">
-    <article class="card" data-app>
+    <article class="card pa-4 d-flex flex-column" data-app>
       <div v-if="topText" class="card__top-text">{{ topText }}</div>
-      <div v-if="mainText" class="card__main-text">{{ mainText }}</div>
+      <div v-if="mainText" class="card__main-text my-1 mx-0 font-weight-bold">{{ mainText }}</div>
       <div v-if="bottomText" class="card__bottom-text">{{ bottomText }}</div>
     </article>
   </ContainerActionsMenu>
@@ -43,34 +43,14 @@ export default class ContentCard extends Vue {
 
 <style scoped lang="scss">
 .card {
-  display: flex;
-  flex-direction: column;
   cursor: pointer;
-  padding: 1rem;
 
   &:hover {
     background: $background-hover-pale;
-  }
-
-  &__main-text {
-    font-weight: bold;
-    margin: 0.25em 0;
   }
 
   &__top-text, &__bottom-text {
     font-size: 0.85em;
-  }
-}
-
-.actions-menu {
-  position: absolute;
-  right: .5rem;
-  top: .5rem;
-}
-
-.v-list-item {
-  &:hover {
-    background: $background-hover-pale;
   }
 }
 </style>

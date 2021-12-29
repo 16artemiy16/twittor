@@ -15,10 +15,10 @@ export default class Home extends Vue {
 
 <template>
   <div class="home">
-    <header class="header">
+    <header class="pa-4">
       <h2>Home</h2>
     </header>
-    <div class="new-tweet">
+    <div class="new-tweet pa-4">
       <TweetForm v-model="tweetModel" />
     </div>
   </div>
@@ -29,7 +29,6 @@ export default class Home extends Vue {
   padding: 1rem;
 }
 .new-tweet {
-  padding: 1rem;
   border-bottom: 1px $grey solid;
 }
 </style>

@@ -37,8 +37,8 @@ export default class Explore extends Vue {
 </script>
 
 <template>
-  <div class="explore">
-    <header class="explore__section explore__header">
+  <div class="explore pos-relative">
+    <header class="explore__header py-2 px-4">
       <v-text-field
         hide-details
         outlined
@@ -48,8 +48,8 @@ export default class Explore extends Vue {
         placeholder="Search Twittor"
       ></v-text-field>
     </header>
-    <section class="explore__section explore__trends">
-      <h1>Trends for you</h1>
+    <section class="explore__trends py-2 pos-relative">
+      <h1 class="py-2 px-4">Trends for you</h1>
       <v-progress-circular
         v-if="isLoadingTrends"
         indeterminate
@@ -58,7 +58,6 @@ export default class Explore extends Vue {
       ></v-progress-circular>
       <template v-else>
         <ContentCard
-          class="trend"
           v-for="trend in trends"
           :key="trend.id"
           :main-text="trend.title"
@@ -75,7 +74,7 @@ export default class Explore extends Vue {
         />
       </template>
     </section>
-    <section class="explore__section explore__posts">
+    <section class="explore__posts py-2">
       <template v-if="isLoadingTweets">
         <TweetItemSkeleton v-for="i in 4" :key="i" />
       </template>
@@ -103,19 +102,11 @@ export default class Explore extends Vue {
   color: $link;
 }
 .explore {
-  position: relative;
-
   &__header, &__trends {
     border-bottom: 1px $grey solid;
   }
 
-  &__section {
-    padding: .5rem 0;
-    position: relative;
-  }
-
   &__header {
-    padding: .5rem 1rem;
     position: sticky;
     top: 0;
     z-index: 1;
@@ -124,9 +115,6 @@ export default class Explore extends Vue {
 
   &__trends {
     min-height: 400px;
-    h1 {
-      padding: .5em 1rem;
-    }
   }
 }
 </style>

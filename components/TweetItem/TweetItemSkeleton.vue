@@ -7,24 +7,20 @@ export default class TweetItemSkeleton extends Vue {}
 </script>
 
 <template>
-  <article class="tweet skeleton">
+  <article class="tweet skeleton d-flex pa-4 pos-relative">
     <div class="tweet__left">
-      <div class="user-img"></div>
+      <div class="user-img rounded-circle"></div>
     </div>
-    <div class="tweet__right">
-      <div class="tweet__info">
-        <template>&nbsp;</template>
+    <div class="tweet__right flex-grow-1 flex-column">
+      <div class="tweet__info mb-2">
+        &nbsp;
       </div>
       <div class="tweet__body">
-        <template>
-          <p>&nbsp</p>
-          <p>&nbsp</p>
-        </template>
+        <p class="mb-1">&nbsp</p>
+        <p class="mb-1">&nbsp</p>
       </div>
-      <div class="tweet__actions">
-        <template>
-          <span class="skeleton-action" v-for="i in 4"></span>
-        </template>
+      <div class="tweet__actions d-flex justify-space-between">
+        <span class="skeleton-action pa-4 rounded-lg mt-1" v-for="i in 4"></span>
       </div>
     </div>
   </article>
@@ -38,17 +34,11 @@ export default class TweetItemSkeleton extends Vue {}
 }
 
 .skeleton-action {
-  padding: 1rem;
-  border-radius: 20%;
   background: $skeleton;
-  margin-top: .25rem;
 }
 .tweet {
-  display: flex;
-  padding: 1rem;
   cursor: pointer;
   width: 100%;
-  position: relative;
 
   &.skeleton {
     &::after {
@@ -80,9 +70,6 @@ export default class TweetItemSkeleton extends Vue {}
     .tweet__body {
       p {
         background: $skeleton;
-        &:not(:last-child) {
-          margin-bottom: 0.25rem;
-        }
       }
     }
   }
@@ -93,28 +80,9 @@ export default class TweetItemSkeleton extends Vue {}
 
   &__left {
     flex-basis: 50px;
-
-    .user-img {
-      border-radius: 50%;
-    }
-  }
-
-  &__info {
-    margin-bottom: .5rem;
-
-    > * {
-      margin-right: .5rem;
-    }
-  }
-
-  &__right {
-    flex-direction: column;
-    flex: 1;
   }
 
   &__actions {
-    display: flex;
-    justify-content: space-between;
     padding-right: 5rem;
   }
 }

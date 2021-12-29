@@ -20,10 +20,10 @@ export default class Profile extends Vue {
 
 <template>
   <header>
-    <div class="top-text">
+    <div class="py-2 px-4">
       <v-layout>
         <h2>{{ user.name }}</h2>
-        <v-icon class="verified" v-if="user.isVerified">mdi-checkbox-marked-circle-outline</v-icon>
+        <v-icon class="verified ml-1" v-if="user.isVerified">mdi-checkbox-marked-circle-outline</v-icon>
       </v-layout>
 
       <div>{{ user.totalTweets }} Tweets</div>
@@ -33,11 +33,11 @@ export default class Profile extends Vue {
 
     <div class="description">
       <v-layout>
-        <div class="img" :style="{ backgroundImage: 'url(' + user.img + ')' }"></div>
+        <div class="img rounded-circle ml-6" :style="{ backgroundImage: 'url(' + user.img + ')' }"></div>
         <v-layout></v-layout>
-        <div class="description__actions">
+        <div class="pa-4">
           <v-btn
-            class="mx-2"
+            class="mr-6"
             fab
             small
           >
@@ -46,17 +46,17 @@ export default class Profile extends Vue {
           <v-btn rounded>Follow</v-btn>
         </div>
       </v-layout>
-      <div class="description__detailed">
+      <div class="description__detailed pa-4">
         <v-layout>
           <h2>{{ user.name }}</h2>
           <v-icon class="verified" v-if="user.isVerified">mdi-checkbox-marked-circle-outline</v-icon>
         </v-layout>
         <div class="login">{{ user.login }}</div>
-        <div class="description__about">{{ user.about }}</div>
+        <div class="description__about my-4 mx-0">{{ user.about }}</div>
       </div>
     </div>
-    <v-layout class="description__numbers">
-      <div><b>{{ user.followingCount }}</b> <span>Following</span></div>
+    <v-layout class="description__numbers pa-4">
+      <div class="mr-4"><b>{{ user.followingCount }}</b> <span>Following</span></div>
       <div><b>{{ user.followersCount }}</b> <span>Followers</span></div>
     </v-layout>
   </header>
@@ -65,12 +65,6 @@ export default class Profile extends Vue {
 <style scoped lang="scss">
 .profile-img {
   height: 200px;
-}
-.top-text {
-  padding: .5rem 1rem;
-}
-.verified {
-    margin-left: .25rem;
 }
 .header-image {
   background: lightgrey;
@@ -84,34 +78,13 @@ export default class Profile extends Vue {
   width: 130px;
   height: 130px;
   top: -65px;
-  border-radius: 50%;
-  margin-left: 1.5rem;
 }
 .description  {
-  &__actions {
-    padding: 1rem;
-
-    button:not(:first-child) {
-      margin-left: 1.5rem;
-    }
-  }
-
   &__detailed {
-    padding: 1rem;
     margin-top: -65px;
   }
 
-  &__about {
-    margin: 1rem 0;
-  }
-
   &__numbers {
-    padding: 1rem;
-
-    div:not(:first-child) {
-      margin-left: 1rem;
-    }
-
     div span {
       color: $middle-grey;
     }
