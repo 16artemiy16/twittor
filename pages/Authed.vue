@@ -14,13 +14,15 @@ export default class AuthedLayout extends Vue {}
 </script>
 
 <template>
-  <div class="logged" data-app>
-    <AuthedLayoutLeftBar />
-    <main class="content">
-      <nuxt-child></nuxt-child>
-    </main>
-    <AuthedLayoutRightBar />
-  </div>
+  <v-app>
+    <div class="logged" data-app>
+      <AuthedLayoutLeftBar />
+      <main class="content">
+        <nuxt-child></nuxt-child>
+      </main>
+      <AuthedLayoutRightBar />
+    </div>
+  </v-app>
 </template>
 
 <style scoped lang="scss">
