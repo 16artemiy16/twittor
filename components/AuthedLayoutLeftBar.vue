@@ -27,7 +27,7 @@ export default class AuthedLayoutLeftBar extends Vue {}
           </v-icon>
           <span class="sidebar__nav-item-text">Explore</span>
         </NuxtLink>
-        <NuxtLink to="/authed/profile" class="sidebar__nav-item">
+        <NuxtLink to="/authed/profile/john.snow" class="sidebar__nav-item">
           <v-icon large arial-label="Profile page">
             mdi-account
           </v-icon>
