@@ -17,10 +17,12 @@ export const actions = {
     ProfileAction.InitProfile,
     ProfileAction.FetchProfileInfo,
     ProfileAction.FetchTweets,
+    ProfileAction.ToggleTweetLike,
   ]),
 } as Record<
   ProfileAction.InitProfile |
   ProfileAction.FetchProfileInfo |
-  ProfileAction.FetchTweets,
+  ProfileAction.FetchTweets |
+  ProfileAction.ToggleTweetLike,
   Function
 >;

@@ -2,7 +2,7 @@ import { ActionContext } from 'vuex';
 import { ProfileStateI } from '~/store/profile/state';
 import { getUserProfile } from '~/services/users';
 import { ProfileMutation } from '~/store/profile/mutations';
-import { getTweets } from '~/services/tweets';
+import { getTweets, toggleTweetLike } from '~/services/tweets';
 
 type ProfileActionContext = ActionContext<ProfileStateI, any>
 
@@ -10,6 +10,7 @@ export enum ProfileAction {
   InitProfile = 'initProfile',
   FetchTweets = 'fetchTweets',
   FetchProfileInfo = 'fetchProfileInfo',
+  ToggleTweetLike = 'toggleTweetLike',
 }
 
 export default {
@@ -37,6 +38,17 @@ export default {
       // TODO: handle error
     } finally {
       commit(ProfileMutation.SetIsLoadingTweets, false);
+    }
+  },
+  [ProfileAction.ToggleTweetLike]: async (
+    { commit }: ProfileActionContext,
+    { tweetId, isLike }: { tweetId: string, isLike: boolean }
+  ) => {
+    commit(ProfileMutation.ToggleTweetLike, { tweetId, isLike });
+    try {
+      await toggleTweetLike(tweetId, isLike);
+    } catch (err) {
+      commit(ProfileMutation.ToggleTweetLike, { tweetId, isLike: !isLike });
     }
   }
 }

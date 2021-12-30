@@ -7,6 +7,7 @@ export enum ProfileMutation {
   SetIsLoadingTweets = 'setIsLoadingTweets',
   SetProfileInfo = 'setProfileInfo',
   SetTweets = 'setTweets',
+  ToggleTweetLike = 'toggleTweetLike',
 }
 
 export default {
@@ -22,4 +23,14 @@ export default {
   [ProfileMutation.SetTweets]: (state: ProfileStateI, tweets: TweetI[]) => {
     state.tweets = tweets;
   },
+  [ProfileMutation.ToggleTweetLike]: (state: ProfileStateI, { tweetId, isLike }: { tweetId: string, isLike: boolean }) => {
+    const tweet = state.tweets.find(({ id }) => id === tweetId);
+
+    if (!tweet) {
+      throw Error(`There is no tweet with id ${tweetId}`);
+    }
+
+    tweet.likes.isLikedByMe = isLike;
+    tweet.likes.total = tweet.likes.total + (isLike ? 1 : -1);
+  }
 }

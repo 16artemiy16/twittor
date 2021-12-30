@@ -5,14 +5,19 @@ import { actions, computed } from '~/store/profile/sandbox';
 
 @Component<any>({
   computed: {
-    isLoadingProfile: computed.isLoadingProfileInfo
+    isLoadingProfile: computed.isLoadingProfileInfo,
+    isLoadingTweets: computed.isLoadingTweets,
+    tweets: computed.tweets,
   },
   methods: {
     initProfile: actions.initProfile,
+    toggleTweetLike: actions.toggleTweetLike,
   },
   components: {
     ProfileDescriptionSection: () => import('~/components/Profile/ProfileDescriptionSection.vue' /* webpackChunkName: "ProfileDescriptionSection" */),
     ProfileDescriptionSectionSkeleton: () => import('~/components/Profile/ProfileDescriptionSectionSkeleton.vue' /* webpackChunkName: "ProfileDescriptionSectionSkeleton" */),
+    TweetItemSkeleton: () => import('~/components/TweetItem/TweetItemSkeleton.vue' /* webpackChunkName: "TweetItemSkeleton" */),
+    TweetItem: () => import('~/components/TweetItem/TweetItem.vue' /* webpackChunkName: "TweetItem" */),
   },
 })
 export default class Profile extends Vue {
@@ -23,8 +28,23 @@ export default class Profile extends Vue {
 </script>
 
 <template>
-  <ProfileDescriptionSection v-if="!isLoadingProfile" />
-  <ProfileDescriptionSectionSkeleton v-else />
+  <div>
+    <ProfileDescriptionSection v-if="!isLoadingProfile" />
+    <ProfileDescriptionSectionSkeleton v-else />
+    <section class="explore__posts py-2">
+      <template v-if="isLoadingTweets">
+        <TweetItemSkeleton v-for="i in 4" :key="i" />
+      </template>
+      <template v-else>
+        <TweetItem
+          v-for="tweet in tweets"
+          :key="tweet.id"
+          :tweet="tweet"
+          @toggle-like="({ id, isLike }) => toggleTweetLike({ isLike, tweetId: id })"
+        />
+      </template>
+    </section>
+  </div>
 </template>
 
 <style scoped lang="scss">
