@@ -25,7 +25,7 @@ export default {
     } catch (e) {
       // TODO: handle error
     } finally {
-      commit(ProfileMutation.SetIsLoadingProfileInfo, true);
+      commit(ProfileMutation.SetIsLoadingProfileInfo, false);
     }
   },
   [ProfileAction.FetchTweets]: async ({ commit }: ProfileActionContext, userId: string) => {
