@@ -1,4 +1,4 @@
-from app import db
+from db import db
 
 
 class UserModel(db.Model):
@@ -11,7 +11,10 @@ class UserModel(db.Model):
     login = db.Column(db.String(40), unique=True, nullable=False)
     img = db.Column(db.String(255))
 
-    tweets = db.relationship('TweetModel', backref='user', lazy=True)
+    tweets = db.relationship('TweetModel', backref='user', lazy='dynamic')
+
+    def json(self):
+        return {'id': self.id, 'login': self.login, 'img': self.img}
 
     def save_to_db(self):
         db.session.add(self)

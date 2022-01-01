@@ -1,4 +1,4 @@
-from app import db
+from db import db
 
 
 class TweetModel(db.Model):
@@ -8,4 +8,10 @@ class TweetModel(db.Model):
     body = db.Column(db.String(300))
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    user = db.relationship('UserModel')
+
+    def json(self):
+        return {'id': self.id, 'body': self.body, 'user_id': self.user_id}
+
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
