@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_restful import Api
 from flask_jwt_extended import JWTManager
+from flask_bcrypt import Bcrypt
 
 from config import DevConfig
 
@@ -9,6 +10,7 @@ app.config.from_object(DevConfig)
 
 api = Api(app)
 jwt = JWTManager(app)
+bcrypt = Bcrypt(app)
 
 if __name__ == '__main__':
     from db import db

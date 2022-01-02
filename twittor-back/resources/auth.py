@@ -2,6 +2,7 @@ from flask_restful import Resource, reqparse
 from models.user import UserModel
 from flask_jwt_extended import create_access_token
 
+from app import bcrypt
 
 class SignUp(Resource):
     def __parse_params_sign_up(self):
@@ -22,7 +23,7 @@ class SignUp(Resource):
             return {'message': 'User with this login already exists.'}, 400
 
         user = UserModel(login)
-        user.password = password
+        user.password = bcrypt.generate_password_hash(password).decode('utf-8')
 
         try:
             user.save_to_db()
@@ -47,7 +48,7 @@ class SignIn(Resource):
 
             user = UserModel.find_by_login(login)
 
-            if user and user.password == password:
+            if user and bcrypt.check_password_hash(user.password, password):
                 claims = {'id': user.id, 'login': user.login}
                 token = create_access_token(user.id, additional_claims=claims)
                 return {'token': token}
