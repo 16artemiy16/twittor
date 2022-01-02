@@ -2,11 +2,12 @@ from flask_restful import Resource, reqparse
 from models.user import UserModel
 from reqparsers.pagination import parse_pagination
 
+
 class TweetListByUser(Resource):
     def get(self, login):
         pagination = parse_pagination(reqparse.RequestParser())
 
-        user = UserModel.query.filter_by(login=login).first()
+        user = UserModel.find_by_login(login)
 
         if not user:
             return {'message': 'User with this login is not found.'}, 404

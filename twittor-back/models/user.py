@@ -9,6 +9,7 @@ class UserModel(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     login = db.Column(db.String(40), unique=True, nullable=False)
+    password = db.Column(db.String(255), nullable=False)
     img = db.Column(db.String(255))
 
     tweets = db.relationship('TweetModel', backref='user', lazy='dynamic')
@@ -19,3 +20,11 @@ class UserModel(db.Model):
     def save_to_db(self):
         db.session.add(self)
         db.session.commit()
+
+    @classmethod
+    def find_by_id(cls, id):
+        return cls.query.filter_by(id=id).first()
+
+    @classmethod
+    def find_by_login(cls, login):
+        return cls.query.filter_by(login=login).first()
