@@ -1,6 +1,6 @@
 def parse_pagination(parser):
     parser.add_argument('limit', type=int, help='Limit should be integer', default=10)
-    parser.add_argument('page', type=int, help='Page should be integer', default=0)
+    parser.add_argument('page', type=int, help='Page should be integer', default=1)
 
     args = parser.parse_args()
     limit = args['limit']
