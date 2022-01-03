@@ -9,6 +9,9 @@ class TweetModel(db.Model):
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
+    def __init__(self, body):
+        self.body = body
+
     def json(self):
         return {'id': self.id, 'body': self.body, 'user_id': self.user_id}
 
