@@ -12,9 +12,9 @@ export default class AuthedLayoutLeftBar extends Vue {}
 </script>
 
 <template>
-  <div class="sidebar">
-    <div class="wrapper">
-      <nav class="sidebar__nav">
+  <div class="sidebar d-flex flex-column align-end pa-12">
+    <div class="wrapper  d-flex flex-column ">
+      <nav class="sidebar__nav mb-4">
         <NuxtLink to="/authed/home" class="sidebar__nav-item">
           <v-icon large arial-label="Home page">
             mdi-home
@@ -35,6 +35,40 @@ export default class AuthedLayoutLeftBar extends Vue {}
         </NuxtLink>
       </nav>
       <TweetBtn />
+      <v-menu
+        top
+        offset-y
+        min-width="310"
+        max-width="310"
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <div
+            class="user-card mt-auto d-flex align-center rounded-pill pa-2 w-100"
+            v-on="on"
+            v-bind="attrs"
+          >
+            <div class="user-card__img rounded-circle flex-shrink-0"></div>
+            <div class="flex-grow-1 ml-2 d-flex flex-column">
+              <div class="user-menu__name font-weight-bold">John Snow</div>
+              <div class="user-card__login">@john.snow</div>
+            </div>
+            <v-icon>mdi-dots-horizontal</v-icon>
+          </div>
+        </template>
+        <div class="user-menu d-flex flex-column pa-4">
+          <div class="d-flex align-center">
+            <div class="user-menu__img rounded-circle flex-shrink-0"></div>
+            <div class="ml-3 d-flex flex-column">
+              <div class="font-weight-bold">John Snow</div>
+              <div>@john.snow</div>
+            </div>
+          </div>
+        </div>
+        <v-divider></v-divider>
+        <v-list>
+          <v-list-item>Log out</v-list-item>
+        </v-list>
+      </v-menu>
     </div>
   </div>
 </template>
@@ -43,25 +77,13 @@ export default class AuthedLayoutLeftBar extends Vue {}
 .sidebar {
   height: 100vh;
   width: 30%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  padding: 3rem;
 
   .wrapper {
     width: 230px;
-  }
-
-  &__tweet {
-    width: 100%;
-    margin-top: 1rem;
+    height: 100%;
   }
 
   &__nav {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 1rem;
-
     .nuxt-link-active {
       i {
         color: black;
@@ -89,5 +111,54 @@ export default class AuthedLayoutLeftBar extends Vue {}
     margin-right: 0.25rem; // Due to the icon (left) and text (right) border indents are not visually equal
     font-size: 1.5rem;
   }
+
+  .user-card {
+    cursor: pointer;
+
+    &:hover {
+      background: $background-hover-pale;
+    }
+
+    &__img {
+      width: 40px;
+      height: 40px;
+      background-image: url("https://www.pravmir.ru/wp-content/uploads/2011/02/pushkin.jpg");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+    }
+
+    &__login, &__name {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+.user-menu {
+  &__img {
+    width: 40px;
+    height: 40px;
+    background-image: url("https://www.pravmir.ru/wp-content/uploads/2011/02/pushkin.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+
+  &__login {
+    font-weight: bold;
+  }
+}
+
+.v-list-item {
+  &:hover {
+    background: $background-hover-pale;
+    cursor: pointer;
+  }
+}
+
+.v-menu__content {
+  background: white;
 }
 </style>
