@@ -8,7 +8,11 @@ import TweetBtn from '~/components/TweetBtn.vue';
     TweetBtn,
   },
 })
-export default class AuthedLayoutLeftBar extends Vue {}
+export default class AuthedLayoutLeftBar extends Vue {
+  logOut() {
+    this.$router.push({ path: '/guest/sign-in' })
+  }
+}
 </script>
 
 <template>
@@ -66,7 +70,7 @@ export default class AuthedLayoutLeftBar extends Vue {}
         </div>
         <v-divider></v-divider>
         <v-list>
-          <v-list-item>Log out</v-list-item>
+          <v-list-item @click="logOut()">Log out</v-list-item>
         </v-list>
       </v-menu>
     </div>

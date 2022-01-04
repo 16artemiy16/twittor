@@ -64,7 +64,7 @@ export default {
   router: {
     extendRoutes(routes) {
       routes.push({
-        path: '*',
+        path: '/authed/*',
         redirect: '/authed/home',
       });
     }
