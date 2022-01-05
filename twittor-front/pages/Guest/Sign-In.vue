@@ -9,12 +9,12 @@ export default class SignIn extends Vue {
   errorMsg: string = '';
 
   async logIn() {
-    const { success, msg } = await (this as any).$authService.logIn(this.login, this.password);
+    const { success, msg } = await this.$authService.logIn(this.login, this.password);
     if (success) {
       this.$router.push({ path: '/authed/home' });
       return;
     }
-    this.errorMsg = msg;
+    this.errorMsg = msg || '';
   }
 }
 </script>
