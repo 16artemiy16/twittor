@@ -2,7 +2,9 @@
 import Component from 'vue-class-component';
 import Vue from 'vue';
 
-@Component
+@Component({
+  middleware: ['guest']
+})
 export default class SignIn extends Vue {
   login: string = '';
   password: string = '';

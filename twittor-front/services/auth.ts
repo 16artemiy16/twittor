@@ -1,7 +1,8 @@
 import Vue from 'vue';
 import { Inject } from '@nuxt/types/app';
+import jwtDecode from 'jwt-decode';
 
-const LS_KEY_TOKEN = 'token';
+const COOKIE_KEY_TOKEN = 'token';
 
 interface LogInI {
   success: boolean;
@@ -11,21 +12,28 @@ interface LogInI {
 export interface AuthServiceI {
   logIn: (login: string, password: string) => Promise<LogInI>,
   logOut: () => void;
+  token: () => string;
+  user: () => Record<string, any> | null;
 }
 
-export default ({ $axios }: Vue, inject: Inject) => {
+export default ({ $axios, $cookies }: Vue, inject: Inject) => {
   const authService: AuthServiceI = {
     logIn: async (login: string, password: string): Promise<LogInI> => {
       try {
         const { data } = await $axios.post('/sign-in', { login, password });
-        localStorage.setItem(LS_KEY_TOKEN, data.token);
+        $cookies.set(COOKIE_KEY_TOKEN, data.token);
         return { success: true }
       } catch (err) {
         return { success: false, msg: err.response.data.message };
       }
     },
     logOut: () => {
-      localStorage.removeItem(LS_KEY_TOKEN);
+      $cookies.remove(COOKIE_KEY_TOKEN);
+    },
+    token: () => $cookies.get(COOKIE_KEY_TOKEN),
+    user: () => {
+      const token = $cookies.get(COOKIE_KEY_TOKEN);
+      return token ? jwtDecode(token) : null;
     }
   };
 

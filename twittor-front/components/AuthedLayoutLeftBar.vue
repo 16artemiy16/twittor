@@ -10,6 +10,7 @@ import TweetBtn from '~/components/TweetBtn.vue';
 })
 export default class AuthedLayoutLeftBar extends Vue {
   logOut() {
+    this.$authService.logOut();
     this.$router.push({ path: '/guest/sign-in' })
   }
 }

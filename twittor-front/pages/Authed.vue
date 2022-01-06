@@ -9,6 +9,7 @@ import AuthedLayoutRightBar from '~/components/AuthedLayoutRightBar.vue';
     AuthedLayoutLeftBar,
     AuthedLayoutRightBar,
   },
+  middleware: ['auth']
 })
 export default class AuthedLayout extends Vue {}
 </script>
