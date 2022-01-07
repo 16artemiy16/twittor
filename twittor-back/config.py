@@ -5,3 +5,4 @@ class DevConfig:
     SQLALCHEMY_DATABASE_URI = 'sqlite:///data.db'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     JWT_SECRET_KEY = 'secret'
+    JWT_ACCESS_TOKEN_EXPIRES = 864000  # 10 days
