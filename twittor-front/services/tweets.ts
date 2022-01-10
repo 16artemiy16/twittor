@@ -1,4 +1,10 @@
 import { TweetI } from '~/interfaces/tweet.interface';
+import { Inject } from '@nuxt/types/app';
+import Vue from 'vue';
+
+export interface TweetsServiceI {
+  getUserTweets: (userId: string, pagination?: { page: number, size: number }) => Promise<TweetI[]>
+}
 
 export const getTweets = (userId?: string): Promise<TweetI[]> => {
   const DELAY = 500;
@@ -22,3 +28,15 @@ export const getTweets = (userId?: string): Promise<TweetI[]> => {
 export const toggleTweetLike = async (tweedId: string, isLike: boolean): Promise<void> => {
 
 };
+
+export default ({ $axios }: Vue, inject: Inject) => {
+  const tweetsService: TweetsServiceI = {
+    getUserTweets: async (userId: string, { page, size } = { page: 1, size: 10 }) => {
+      const { data } = await $axios.get(`/tweets-by-user/${userId}`);
+      return data.tweets;
+    },
+  };
+
+  inject('tweetsService', tweetsService);
+};
+

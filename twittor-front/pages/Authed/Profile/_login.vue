@@ -22,7 +22,8 @@ import { actions, computed } from '~/store/profile/sandbox';
 })
 export default class Profile extends Vue {
   created() {
-    (this as any).initProfile()
+    const userId = this.$authService.user()?.id;
+    (this as any).initProfile(userId)
   }
 }
 </script>

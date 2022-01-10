@@ -1,8 +1,8 @@
 import { getTrends } from '~/services/trends';
-import { getTweets, toggleTweetLike } from '~/services/tweets';
 import { ExploreMutation } from '~/store/explore/mutations';
 import { ActionContext } from 'vuex';
 import { ExploreStateI } from '~/store/explore/state';
+import { getTweets, toggleTweetLike } from '~/services/tweets';
 
 type ExploreActionContext = ActionContext<ExploreStateI, any>;
 
@@ -46,4 +46,4 @@ export default {
       commit(ExploreMutation.ToggleTweetLike, { tweetId, isLike: !isLike });
     }
   }
-} ;
+};

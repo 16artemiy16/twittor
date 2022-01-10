@@ -26,7 +26,9 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    '@/services/auth.ts'
+    '@/services/auth.ts',
+    '@/services/tweets.ts',
+    '@/plugins/axios.ts'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -48,7 +50,15 @@ export default {
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
+  axios: {
+    requestInterceptor: (config, { $cookies }) => {
+      const token = $cookies.get('token');
+      if (token) {
+        config.headers.common['Authorization'] = `Bearer ${token}`;
+      }
+      return token;
+    }
+  },
 
   publicRuntimeConfig: {
     axios: {
