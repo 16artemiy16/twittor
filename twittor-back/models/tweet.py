@@ -13,7 +13,15 @@ class TweetModel(db.Model):
         self.body = body
 
     def json(self):
-        return {'id': self.id, 'body': self.body, 'user_id': self.user_id}
+        return {
+            'id': self.id,
+            'body': self.body,
+            'user': self.user.json(),
+            'likes': {
+                'total': 12,
+                'isLikedByMe': False
+            },
+        }
 
     def save_to_db(self):
         db.session.add(self)
