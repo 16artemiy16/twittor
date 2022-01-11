@@ -17,7 +17,7 @@ bcrypt = Bcrypt(app)
 if __name__ == '__main__':
     from db import db
 
-    from resources.tweet import TweetListByUser, Tweet
+    from resources.tweet import TweetListByUser, Tweet, ExploreTweets
     from resources.auth import SignUp, SignIn
     from models.tweet import TweetModel
     from models.user import UserModel
@@ -31,4 +31,5 @@ if __name__ == '__main__':
     api.add_resource(Tweet, '/tweet')
     api.add_resource(SignUp, '/sign-up')
     api.add_resource(SignIn, '/sign-in')
+    api.add_resource(ExploreTweets, '/explore/tweets')
     app.run()

@@ -46,3 +46,26 @@ class Tweet(Resource):
         tweet.save_to_db()
 
         return {'tweet': tweet.json()}
+
+
+class ExploreTweets(Resource):
+    # TODO: this is mocked for now to return the user's tweets
+    @jwt_required()
+    def get(self):
+        pagination = parse_pagination(reqparse.RequestParser())
+
+        user = UserModel.find_by_id(get_jwt_identity())
+
+        paginated_tweets = user.tweets.offset(pagination['skip']).limit(pagination['limit'])
+        total = user.tweets.count()
+        has_next_page = total - (pagination['page'] * pagination['limit']) > 0
+
+        return {
+            'tweets': [t.json() for t in paginated_tweets],
+            'pagination': {
+                'page': pagination['page'],
+                'limit': pagination['limit'],
+                'total': total,
+                'hasNextPage': has_next_page
+            }
+        }
