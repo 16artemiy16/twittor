@@ -13,7 +13,7 @@ export enum ExploreAction {
 }
 
 export default {
-  [ExploreAction.FetchTrends]: async ({ commit }: ExploreActionContext) => {
+  async [ExploreAction.FetchTrends]({ commit }: ExploreActionContext) {
     commit(ExploreMutation.SetIsLoadingTrends, true);
     try {
       const trends = await getTrends();
@@ -24,10 +24,10 @@ export default {
       commit(ExploreMutation.SetIsLoadingTrends, false);
     }
   },
-  [ExploreAction.FetchTweets]: async ({ commit }: ExploreActionContext) => {
+  async [ExploreAction.FetchTweets]({ commit }: ExploreActionContext) {
     commit(ExploreMutation.SetIsLoadingTweets, true);
     try {
-      const tweets = await getTweets();
+      const tweets = await this.$tweetsService.getExploreTweets();
       commit(ExploreMutation.SetTweets, tweets);
     } catch (err) {
 
@@ -46,4 +46,4 @@ export default {
       commit(ExploreMutation.ToggleTweetLike, { tweetId, isLike: !isLike });
     }
   }
-};
+} as any;

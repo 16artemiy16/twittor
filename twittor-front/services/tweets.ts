@@ -2,9 +2,14 @@ import { TweetI } from '~/interfaces/tweet.interface';
 import { Inject } from '@nuxt/types/app';
 import Vue from 'vue';
 
+interface PaginationI { page: number, size: number }
+
 export interface TweetsServiceI {
-  getUserTweets: (userId: string, pagination?: { page: number, size: number }) => Promise<TweetI[]>
+  getUserTweets: (userId: string, pagination?: PaginationI) => Promise<TweetI[]>,
+  getExploreTweets: (pagination?: PaginationI) => Promise<TweetI[]>
 }
+
+const DEFAULT_PAGINATION: PaginationI = { page: 1, size: 10 };
 
 export const getTweets = (userId?: string): Promise<TweetI[]> => {
   const DELAY = 500;
@@ -31,8 +36,12 @@ export const toggleTweetLike = async (tweedId: string, isLike: boolean): Promise
 
 export default ({ $axios }: Vue, inject: Inject) => {
   const tweetsService: TweetsServiceI = {
-    getUserTweets: async (userId: string, { page, size } = { page: 1, size: 10 }) => {
-      const { data } = await $axios.get(`/tweets-by-user/${userId}`);
+    getUserTweets: async (userId: string, { page, size } = DEFAULT_PAGINATION) => {
+      const { data } = await $axios.get(`/tweets-by-user/${userId}`, { params: { page, size } });
+      return data.tweets;
+    },
+    getExploreTweets: async ({ page, size } = DEFAULT_PAGINATION) => {
+      const { data } = await $axios.get(`/explore/tweets`, { params: { page, size } });
       return data.tweets;
     },
   };
