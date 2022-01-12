@@ -19,8 +19,10 @@ if __name__ == '__main__':
 
     from resources.tweet import TweetListByUser, Tweet, ExploreTweets
     from resources.auth import SignUp, SignIn
+    from resources.like import TweetLike
     from models.tweet import TweetModel
     from models.user import UserModel
+    from models.like import LikeModel
 
     @app.before_first_request
     def create_tables():
@@ -32,4 +34,5 @@ if __name__ == '__main__':
     api.add_resource(SignUp, '/sign-up')
     api.add_resource(SignIn, '/sign-in')
     api.add_resource(ExploreTweets, '/explore/tweets')
+    api.add_resource(TweetLike, '/like/tweet/<int:tweet_id>')
     app.run()

@@ -9,6 +9,8 @@ class TweetModel(db.Model):
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
+    likes = db.relationship('LikeModel', backref='tweet', lazy='dynamic')
+
     def __init__(self, body):
         self.body = body
 
@@ -16,12 +18,12 @@ class TweetModel(db.Model):
         return {
             'id': self.id,
             'body': self.body,
-            'user': self.user.json(),
-            'likes': {
-                'total': 12,
-                'isLikedByMe': False
-            },
+            'user': self.user.json()
         }
+
+    @classmethod
+    def find_by_id(cls, _id):
+        return cls.query.filter_by(id=_id).first()
 
     def save_to_db(self):
         db.session.add(self)

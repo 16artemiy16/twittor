@@ -13,6 +13,7 @@ class UserModel(db.Model):
     img = db.Column(db.String(255))
 
     tweets = db.relationship('TweetModel', backref='user', lazy='dynamic')
+    likes = db.relationship('LikeModel', backref='user', lazy='dynamic')
 
     def json(self):
         return {'id': self.id, 'login': self.login, 'img': self.img}

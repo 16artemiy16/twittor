@@ -3,7 +3,16 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 
 from models.user import UserModel
 from models.tweet import TweetModel
+from models.like import LikeModel
 from reqparsers.pagination import parse_pagination
+
+
+def _add_likes_details(data, user_id):
+    data['likes'] = {
+        'total': LikeModel.get_count_in_tweet(data['id']),
+        'isLikedByMe': LikeModel.is_tweet_liked_by_user(data['id'], user_id)
+    }
+    return data
 
 
 class TweetListByUser(Resource):
@@ -21,7 +30,7 @@ class TweetListByUser(Resource):
         has_next_page = total - (pagination['page'] * pagination['limit']) > 0
 
         return {
-            'tweets': [t.json() for t in paginated_tweets],
+            'tweets': [_add_likes_details(t.json(), get_jwt_identity()) for t in paginated_tweets],
             'pagination': {
                 'page': pagination['page'],
                 'limit': pagination['limit'],
@@ -61,7 +70,7 @@ class ExploreTweets(Resource):
         has_next_page = total - (pagination['page'] * pagination['limit']) > 0
 
         return {
-            'tweets': [t.json() for t in paginated_tweets],
+            'tweets': [_add_likes_details(t.json(), get_jwt_identity()) for t in paginated_tweets],
             'pagination': {
                 'page': pagination['page'],
                 'limit': pagination['limit'],
