@@ -83,7 +83,7 @@ export default class Explore extends Vue {
           v-for="tweet in tweets"
           :key="tweet.id"
           :tweet="tweet"
-          @toggle-like="({ id, isLike }) => toggleTweetLike({ isLike, tweetId: id })"
+          @toggle-like="({ id }) => toggleTweetLike(id)"
         />
       </template>
     </section>

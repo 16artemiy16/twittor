@@ -2,9 +2,8 @@ import { ActionContext } from 'vuex';
 import { ProfileStateI } from '~/store/profile/state';
 import { getUserProfile } from '~/services/users';
 import { ProfileMutation } from '~/store/profile/mutations';
-import { toggleTweetLike } from '~/services/tweets';
 
-type ProfileActionContext = ActionContext<ProfileStateI, any>
+type ProfileActionContext = ActionContext<ProfileStateI, ProfileStateI>
 
 export enum ProfileAction {
   InitProfile = 'initProfile',
@@ -40,13 +39,21 @@ export default {
       commit(ProfileMutation.SetIsLoadingTweets, false);
     }
   },
-  [ProfileAction.ToggleTweetLike]: async (
-    { commit }: ProfileActionContext,
-    { tweetId, isLike }: { tweetId: string, isLike: boolean }
-  ) => {
+  async [ProfileAction.ToggleTweetLike](
+    { commit, state }: ProfileActionContext,
+    tweetId: string,
+  ) {
+    const tweet = (state as ProfileStateI).tweets.find(({ id }) => id === tweetId);
+
+    if (!tweet) {
+      throw Error(`No tweet with such id (${tweetId})`)
+    }
+
+    const isLike = !tweet.likes.isLikedByMe;
+
     commit(ProfileMutation.ToggleTweetLike, { tweetId, isLike });
     try {
-      await toggleTweetLike(tweetId, isLike);
+      await this.$tweetsService.toggleTweetLike(tweetId);
     } catch (err) {
       commit(ProfileMutation.ToggleTweetLike, { tweetId, isLike: !isLike });
     }

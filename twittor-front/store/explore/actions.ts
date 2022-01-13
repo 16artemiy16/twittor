@@ -2,7 +2,6 @@ import { getTrends } from '~/services/trends';
 import { ExploreMutation } from '~/store/explore/mutations';
 import { ActionContext } from 'vuex';
 import { ExploreStateI } from '~/store/explore/state';
-import { getTweets, toggleTweetLike } from '~/services/tweets';
 
 type ExploreActionContext = ActionContext<ExploreStateI, any>;
 
@@ -35,13 +34,21 @@ export default {
       commit(ExploreMutation.SetIsLoadingTweets, false);
     }
   },
-  [ExploreAction.ToggleTweetLike]: async (
-    { commit }: ExploreActionContext,
-    { tweetId, isLike }: { tweetId: string, isLike: boolean }
-  ) => {
+  async [ExploreAction.ToggleTweetLike](
+    { commit, state }: ExploreActionContext,
+    tweetId: string,
+  ) {
+    const tweet = (state as ExploreStateI).tweets.find(({ id }) => id === tweetId);
+
+    if (!tweet) {
+      throw Error(`No tweet with such id (${tweetId})`)
+    }
+
+    const isLike = !tweet.likes.isLikedByMe;
+
     commit(ExploreMutation.ToggleTweetLike, { tweetId, isLike });
     try {
-      await toggleTweetLike(tweetId, isLike);
+      await this.$tweetsService.toggleTweetLike(tweetId);
     } catch (err) {
       commit(ExploreMutation.ToggleTweetLike, { tweetId, isLike: !isLike });
     }
