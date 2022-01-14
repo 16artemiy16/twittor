@@ -1,6 +1,7 @@
 export interface TweetI {
   id: string;
   body: string;
+  created: number;
   user: {
     name: string;
     login: string;

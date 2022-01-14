@@ -6,6 +6,7 @@ import ContainerActionsMenu from '~/components/ContainerActionsMenu.vue';
 const TWEET: TweetI = {
   id: 'a',
   body: 'Hello! Welcome here!',
+  created: 1642140791026.572,
   user: {
     name: 'John',
     login: 'john',

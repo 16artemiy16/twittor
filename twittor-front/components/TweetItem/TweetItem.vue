@@ -4,6 +4,7 @@ import Vue from 'vue';
 import { Emit, Prop } from 'vue-property-decorator';
 import ContainerActionsMenu from '~/components/ContainerActionsMenu.vue';
 import { TweetI } from '~/interfaces/tweet.interface';
+import { stringifyTimestampDiff } from '~/utils/date-diff.util';
 
 interface ActionBottomI {
   icon: string;
@@ -40,6 +41,10 @@ export default class TweetItem extends Vue {
     { icon: 'mdi-export-variant', title: 'Share' },
   ];
 
+  get dateDiff(): string {
+    return stringifyTimestampDiff(this.tweet.created);
+  }
+
   @Emit('toggle-like')
   toggleLike() {
     const { id, likes } = this.tweet;
@@ -59,7 +64,7 @@ export default class TweetItem extends Vue {
           <template>
             <span class="user-name mr-2 font-weight-bold">{{ tweet.user.name }}</span>
             <span class="user-login mr-2">{{ tweet.user.login }}</span>
-            <span class="posted-date">3h</span>
+            <span class="posted-date">{{ dateDiff }}</span>
           </template>
         </div>
         <div class="tweet__body">
