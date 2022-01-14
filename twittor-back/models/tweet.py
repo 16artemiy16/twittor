@@ -1,4 +1,9 @@
+import time
 from db import db
+
+
+def timestamp_ms():
+    return time.time() * 1000
 
 
 class TweetModel(db.Model):
@@ -6,6 +11,7 @@ class TweetModel(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.String(300))
+    created = db.Column(db.Integer, default=timestamp_ms)
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
@@ -18,7 +24,8 @@ class TweetModel(db.Model):
         return {
             'id': self.id,
             'body': self.body,
-            'user': self.user.json()
+            'created': self.created,
+            'user': self.user.json(),
         }
 
     @classmethod
