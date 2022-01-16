@@ -9,16 +9,23 @@ interface LogInI {
   msg?: string;
 }
 
+interface SignUpPayloadI {
+  login: string;
+  password: string;
+  name: string;
+}
+
 export interface AuthServiceI {
   logIn: (login: string, password: string) => Promise<LogInI>,
   logOut: () => void;
   token: () => string;
   user: () => Record<string, any> | null;
+  signUp: (payload: SignUpPayloadI) => Promise<any>;
 }
 
 export default ({ $axios, $cookies }: Vue, inject: Inject) => {
   const authService: AuthServiceI = {
-    logIn: async (login: string, password: string): Promise<LogInI> => {
+    logIn: async (login, password) => {
       try {
         const { data } = await $axios.post('/sign-in', { login, password });
         $cookies.set(COOKIE_KEY_TOKEN, data.token);
@@ -34,7 +41,10 @@ export default ({ $axios, $cookies }: Vue, inject: Inject) => {
     user: () => {
       const token = $cookies.get(COOKIE_KEY_TOKEN);
       return token ? jwtDecode(token) : null;
-    }
+    },
+    signUp: async ({ login, password, name }) => {
+      await $axios.post('/sign-up', { login, password, name });
+    },
   };
 
   inject('authService', authService);

@@ -33,7 +33,7 @@ export default class SignIn extends Vue {
         </div>
         <v-btn class="w-100 mb-2" @click="logIn()">Login</v-btn>
         <div class="text-center mb-2">OR</div>
-        <v-btn class="w-100">Sign Up</v-btn>
+        <v-btn class="w-100" @click="() => $router.push({ path: '/guest/sign-up/' })">Sign Up</v-btn>
       </form>
     </div>
   </v-app>
