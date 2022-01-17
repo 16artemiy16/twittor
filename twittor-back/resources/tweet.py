@@ -25,7 +25,7 @@ class TweetListByUser(Resource):
         if not user:
             return {'message': 'User with this id is not found.'}, 404
 
-        paginated_tweets = user.tweets.offset(pagination['skip']).limit(pagination['limit'])
+        paginated_tweets = user.tweets.order_by(TweetModel.created.desc()).offset(pagination['skip']).limit(pagination['limit'])
         total = user.tweets.count()
         has_next_page = total - (pagination['page'] * pagination['limit']) > 0
 
@@ -65,7 +65,7 @@ class ExploreTweets(Resource):
 
         user = UserModel.find_by_id(get_jwt_identity())
 
-        paginated_tweets = user.tweets.offset(pagination['skip']).limit(pagination['limit'])
+        paginated_tweets = user.tweets.order_by(TweetModel.created.desc()).offset(pagination['skip']).limit(pagination['limit'])
         total = user.tweets.count()
         has_next_page = total - (pagination['page'] * pagination['limit']) > 0
 
