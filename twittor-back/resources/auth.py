@@ -4,11 +4,13 @@ from flask_jwt_extended import create_access_token
 
 from app import bcrypt
 
+
 class SignUp(Resource):
     def __parse_params_sign_up(self):
         parser = reqparse.RequestParser()
         parser.add_argument('login', type=str, help='Login is required', required=True)
         parser.add_argument('password', type=str, help='Password is required', required=True)
+        parser.add_argument('fullname', type=str, help='Full name is required', required=True)
 
         return parser.parse_args()
 
@@ -16,13 +18,14 @@ class SignUp(Resource):
         body = self.__parse_params_sign_up()
         login = body['login']
         password = body['password']
+        fullname = body['fullname']
 
         user_with_this_login = UserModel.find_by_login(login)
 
         if user_with_this_login:
             return {'message': 'User with this login already exists.'}, 400
 
-        user = UserModel(login)
+        user = UserModel(login, fullname)
         user.password = bcrypt.generate_password_hash(password).decode('utf-8')
 
         try:
@@ -49,7 +52,7 @@ class SignIn(Resource):
             user = UserModel.find_by_login(login)
 
             if user and bcrypt.check_password_hash(user.password, password):
-                claims = {'id': user.id, 'login': user.login}
+                claims = {'id': user.id, 'login': user.login, 'fullname': user.fullname}
                 token = create_access_token(user.id, additional_claims=claims)
                 return {'token': token}
 
