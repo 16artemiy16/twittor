@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import { Inject } from '@nuxt/types/app';
 import jwtDecode from 'jwt-decode';
+import { UserJWTI } from '~/interfaces/user-jwt.interface';
 
 const COOKIE_KEY_TOKEN = 'token';
 
@@ -12,14 +13,14 @@ interface LogInI {
 interface SignUpPayloadI {
   login: string;
   password: string;
-  name: string;
+  fullname: string;
 }
 
 export interface AuthServiceI {
   logIn: (login: string, password: string) => Promise<LogInI>,
   logOut: () => void;
   token: () => string;
-  user: () => Record<string, any> | null;
+  user: () => UserJWTI | null;
   signUp: (payload: SignUpPayloadI) => Promise<any>;
 }
 
@@ -42,8 +43,8 @@ export default ({ $axios, $cookies }: Vue, inject: Inject) => {
       const token = $cookies.get(COOKIE_KEY_TOKEN);
       return token ? jwtDecode(token) : null;
     },
-    signUp: async ({ login, password, name }) => {
-      await $axios.post('/sign-up', { login, password, name });
+    signUp: async ({ login, password, fullname }) => {
+      await $axios.post('/sign-up', { login, password, fullname });
     },
   };
 

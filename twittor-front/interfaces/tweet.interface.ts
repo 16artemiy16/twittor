@@ -3,7 +3,8 @@ export interface TweetI {
   body: string;
   created: number;
   user: {
-    name: string;
+    id: number;
+    fullname: string;
     login: string;
     img: string;
   };

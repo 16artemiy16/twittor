@@ -62,7 +62,7 @@ export default class TweetItem extends Vue {
       <div class="flex-column flex-grow-1">
         <div class="tweet__info mb-2 d-flex">
           <template>
-            <span class="user-name mr-2 font-weight-bold">{{ tweet.user.name }}</span>
+            <span class="user-name mr-2 font-weight-bold">{{ tweet.user.fullname }}</span>
             <span class="user-login mr-2">{{ tweet.user.login }}</span>
             <span class="posted-date">{{ dateDiff }}</span>
           </template>

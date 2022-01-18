@@ -8,7 +8,8 @@ const TWEET: TweetI = {
   body: 'Hello! Welcome here!',
   created: 1642140791026.572,
   user: {
-    name: 'John',
+    id: 1,
+    fullname: 'John',
     login: 'john',
     img: 'http://john.com/my-img.png',
   },
@@ -38,7 +39,7 @@ describe('TweetItem', () => {
 
   describe('should render data correctly', () => {
     const cases = [
-      { name: 'User name', selector: '.user-name', expected: TWEET.user.name },
+      { name: 'User name', selector: '.user-name', expected: TWEET.user.fullname },
       { name: 'User login', selector: '.user-login', expected: TWEET.user.login },
       { name: 'Tweet body', selector: '.tweet__body', expected: TWEET.body },
       { name: 'User image', selector: '.user-img', expected: TWEET.user.img, attr: 'src' },

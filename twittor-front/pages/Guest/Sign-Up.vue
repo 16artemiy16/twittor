@@ -4,7 +4,7 @@ import Vue from 'vue';
 
 interface SignUpFormI {
   login: string;
-  name: string;
+  fullname: string;
   password: string;
   passwordAgain: string;
   isPolicy: boolean;
@@ -14,15 +14,15 @@ interface SignUpFormI {
 export default class SignUp extends Vue {
   form: SignUpFormI = {
     login: '',
-    name: '',
+    fullname: '',
     password: '',
     passwordAgain: '',
     isPolicy: false,
   }
 
   get isFormValid() {
-    const { login, name, password, passwordAgain, isPolicy } = this.form;
-    return login.length >= 3 && name.length >= 3 && isPolicy && password === passwordAgain;
+    const { login, fullname, password, passwordAgain, isPolicy } = this.form;
+    return login.length >= 3 && fullname.length >= 3 && isPolicy && password === passwordAgain;
   }
 
   togglePolicy() {
@@ -30,9 +30,9 @@ export default class SignUp extends Vue {
   }
 
   async signUp() {
-    const { login, password, name } = this.form;
+    const { login, password, fullname } = this.form;
     try {
-      await this.$authService.signUp({ login, password, name });
+      await this.$authService.signUp({ login, password, fullname });
       this.$router.push({ path: '/guest/sign-in' });
     } catch (e) {
     }
@@ -51,7 +51,7 @@ export default class SignUp extends Vue {
         <v-form class="form" ref="form">
           <h2 class="text-center mb-4">Sign Up</h2>
           <v-text-field outlined label="Login" v-model="form.login"  />
-          <v-text-field outlined label="Name" v-model="form.name" />
+          <v-text-field outlined label="Name" v-model="form.fullname" />
           <v-text-field outlined label="Password" type="password" v-model="form.password" />
           <v-text-field outlined label="Password again" type="password" v-model="form.passwordAgain" />
           <div class="d-flex align-center mt-n6">

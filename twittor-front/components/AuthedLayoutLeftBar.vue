@@ -2,6 +2,7 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import TweetBtn from '~/components/TweetBtn.vue';
+import { UserJWTI } from '~/interfaces/user-jwt.interface';
 
 @Component({
   components: {
@@ -9,6 +10,8 @@ import TweetBtn from '~/components/TweetBtn.vue';
   },
 })
 export default class AuthedLayoutLeftBar extends Vue {
+  readonly user: UserJWTI = this.$authService.user() as UserJWTI;
+
   logOut() {
     this.$authService.logOut();
     this.$router.push({ path: '/guest/sign-in' })
@@ -54,8 +57,8 @@ export default class AuthedLayoutLeftBar extends Vue {
           >
             <div class="user-card__img rounded-circle flex-shrink-0"></div>
             <div class="flex-grow-1 ml-2 d-flex flex-column">
-              <div class="user-menu__name font-weight-bold">John Snow</div>
-              <div class="user-card__login">@john.snow</div>
+              <div class="user-menu__name font-weight-bold">{{ user.fullname }}</div>
+              <div class="user-card__login">@{{ user.login }}</div>
             </div>
             <v-icon>mdi-dots-horizontal</v-icon>
           </div>
@@ -64,8 +67,8 @@ export default class AuthedLayoutLeftBar extends Vue {
           <div class="d-flex align-center">
             <div class="user-menu__img rounded-circle flex-shrink-0"></div>
             <div class="ml-3 d-flex flex-column">
-              <div class="font-weight-bold">John Snow</div>
-              <div>@john.snow</div>
+              <div class="font-weight-bold">{{ user.fullname }}</div>
+              <div>@{{ user.login }}</div>
             </div>
           </div>
         </div>
