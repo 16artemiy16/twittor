@@ -1,7 +1,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import TweetForm from '~/components/TweetForm.vue';
+
 
 @Component({
   components: {
@@ -10,6 +10,13 @@ import TweetForm from '~/components/TweetForm.vue';
 })
 export default class Home extends Vue {
   tweetModel: { text: string } = { text: '' };
+
+  async postTweet() {
+    try {
+      await this.$tweetsService.postTweet({body: this.tweetModel.text});
+      this.tweetModel.text = '';
+    } catch (e) {}
+  }
 }
 </script>
 
@@ -19,7 +26,7 @@ export default class Home extends Vue {
       <h2>Home</h2>
     </header>
     <div class="new-tweet pa-4">
-      <TweetForm v-model="tweetModel" />
+      <TweetForm v-model="tweetModel" @on-send="postTweet()"/>
     </div>
   </div>
 </template>

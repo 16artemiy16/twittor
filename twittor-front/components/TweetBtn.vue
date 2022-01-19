@@ -10,13 +10,17 @@ import Component from 'vue-class-component';
 })
 export default class TweetBtn extends Vue {
   isOpened: boolean = false;
-  tweetModel: Record<string, any> = { text: '' };
+  tweetModel: { text: string } = { text: '' };
 
-  close(withData: boolean) {
+  async close(withData: boolean) {
     this.isOpened = false;
+    console.log('close', withData);
     if (withData) {
-      this.$emit('closed', this.tweetModel);
-      this.tweetModel = { text: '' };
+      try {
+        await this.$tweetsService.postTweet({ body: this.tweetModel.text });
+        this.tweetModel = { text: '' };
+        this.$emit('closed', this.tweetModel);
+      } catch(err) {}
       return;
     }
     this.$emit('closed');
@@ -32,14 +36,13 @@ export default class TweetBtn extends Vue {
         rounded
         v-bind="{ ...attrs, ...$attrs }"
         v-on="on"
-        @click="close"
       >
         Tweet
       </v-btn>
     </template>
     <v-card light class="modal" v-if="isOpened">
       <header class="modal__header">
-        <v-btn icon text @click="close">
+        <v-btn icon text @click="close(false)">
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </header>
