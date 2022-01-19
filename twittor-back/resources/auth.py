@@ -3,14 +3,15 @@ from models.user import UserModel
 from flask_jwt_extended import create_access_token
 
 from app import bcrypt
+from reqparsers.types import non_empty_string
 
 
 class SignUp(Resource):
     def __parse_params_sign_up(self):
         parser = reqparse.RequestParser()
-        parser.add_argument('login', type=str, help='Login is required', required=True)
-        parser.add_argument('password', type=str, help='Password is required', required=True)
-        parser.add_argument('fullname', type=str, help='Full name is required', required=True)
+        parser.add_argument('login', type=non_empty_string, help='Login is required', required=True)
+        parser.add_argument('password', type=non_empty_string, help='Password is required', required=True)
+        parser.add_argument('fullname', type=non_empty_string, help='Full name is required', required=True)
 
         return parser.parse_args()
 
@@ -39,8 +40,8 @@ class SignUp(Resource):
 class SignIn(Resource):
         def __parse_params_sign_in(self):
             parser = reqparse.RequestParser()
-            parser.add_argument('login', type=str, help='Login is required', required=True)
-            parser.add_argument('password', type=str, help='Password is required', required=True)
+            parser.add_argument('login', type=non_empty_string, help='Login is required', required=True)
+            parser.add_argument('password', type=non_empty_string, help='Password is required', required=True)
 
             return parser.parse_args()
 

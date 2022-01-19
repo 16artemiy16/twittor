@@ -5,6 +5,7 @@ from models.user import UserModel
 from models.tweet import TweetModel
 from models.like import LikeModel
 from reqparsers.pagination import parse_pagination
+from reqparsers.types import non_empty_string
 
 
 def _add_likes_details(data, user_id):
@@ -43,7 +44,7 @@ class TweetListByUser(Resource):
 class Tweet(Resource):
     def __parse_post(self):
         parser = reqparse.RequestParser()
-        parser.add_argument('body', required=True, help='Body is required', type=str)
+        parser.add_argument('body', required=True, type=non_empty_string, help='Body is required')
         return parser.parse_args()
 
     @jwt_required()
