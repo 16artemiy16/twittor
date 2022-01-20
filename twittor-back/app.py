@@ -20,6 +20,7 @@ if __name__ == '__main__':
     from resources.tweet import TweetListByUser, Tweet, ExploreTweets
     from resources.auth import SignUp, SignIn
     from resources.like import TweetLike
+    from resources.profile import Profile
     from models.tweet import TweetModel
     from models.user import UserModel
     from models.like import LikeModel
@@ -35,4 +36,5 @@ if __name__ == '__main__':
     api.add_resource(SignIn, '/sign-in')
     api.add_resource(ExploreTweets, '/explore/tweets')
     api.add_resource(TweetLike, '/like/tweet/<int:tweet_id>')
+    api.add_resource(Profile, '/profile/<string:login>')
     app.run()

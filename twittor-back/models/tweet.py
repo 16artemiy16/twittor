@@ -32,6 +32,10 @@ class TweetModel(db.Model):
     def find_by_id(cls, _id):
         return cls.query.filter_by(id=_id).first()
 
+    @classmethod
+    def count_by_user_id(cls, _id):
+        return cls.query.filter_by(user_id=_id).count()
+
     def save_to_db(self):
         db.session.add(self)
         db.session.commit()
