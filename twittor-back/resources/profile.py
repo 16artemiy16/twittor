@@ -12,8 +12,9 @@ class Profile(Resource):
         if not user:
             return {'message': 'User with this login does not exist'}, 404
 
-        stats = {
+        profile = user.json()
+        profile['stats'] = {
             'tweets': TweetModel.count_by_user_id(user.id)
         }
 
-        return {'profile': user.json(), 'stats': stats}
+        return {'profile': profile}

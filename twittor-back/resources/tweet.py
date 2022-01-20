@@ -18,13 +18,13 @@ def _add_likes_details(data, user_id):
 
 class TweetListByUser(Resource):
     @jwt_required()
-    def get(self, id):
+    def get(self, login):
         pagination = parse_pagination(reqparse.RequestParser())
 
-        user = UserModel.find_by_id(id)
+        user = UserModel.find_by_login(login)
 
         if not user:
-            return {'message': 'User with this id is not found.'}, 404
+            return {'message': 'User with this login is not found.'}, 404
 
         paginated_tweets = user.tweets.order_by(TweetModel.created.desc()).offset(pagination['skip']).limit(pagination['limit'])
         total = user.tweets.count()
