@@ -1,6 +1,5 @@
 import { ActionContext } from 'vuex';
 import { ProfileStateI } from '~/store/profile/state';
-import { getUserProfile } from '~/services/users';
 import { ProfileMutation } from '~/store/profile/mutations';
 
 type ProfileActionContext = ActionContext<ProfileStateI, ProfileStateI>
@@ -13,14 +12,14 @@ export enum ProfileAction {
 }
 
 export default {
-  [ProfileAction.InitProfile]({ dispatch }: ProfileActionContext, userId: string) {
-    dispatch(ProfileAction.FetchProfileInfo, userId);
-    dispatch(ProfileAction.FetchTweets, userId);
+  [ProfileAction.InitProfile]({ dispatch }: ProfileActionContext, login: string) {
+    dispatch(ProfileAction.FetchProfileInfo, login);
+    dispatch(ProfileAction.FetchTweets, login);
   },
-  async [ProfileAction.FetchProfileInfo]({ commit }: ProfileActionContext, userId: string) {
+  async [ProfileAction.FetchProfileInfo]({ commit }: ProfileActionContext, login: string) {
     commit(ProfileMutation.SetIsLoadingProfileInfo, true);
     try {
-      const profile = await getUserProfile(userId);
+      const profile = await this.$usersService.getUserProfile(login);
       commit(ProfileMutation.SetProfileInfo, profile);
     } catch (e) {
       // TODO: handle error
@@ -28,10 +27,10 @@ export default {
       commit(ProfileMutation.SetIsLoadingProfileInfo, false);
     }
   },
-  async [ProfileAction.FetchTweets]({ commit }: ProfileActionContext, userId: string) {
+  async [ProfileAction.FetchTweets]({ commit }: ProfileActionContext, login: string) {
     commit(ProfileMutation.SetIsLoadingTweets, true);
     try {
-      const tweets = await this.$tweetsService.getUserTweets(userId);
+      const tweets = await this.$tweetsService.getUserTweets(login);
       commit(ProfileMutation.SetTweets, tweets);
     } catch (e) {
       // TODO: handle error

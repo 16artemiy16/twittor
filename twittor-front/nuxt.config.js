@@ -28,7 +28,8 @@ export default {
   plugins: [
     '@/services/auth.ts',
     '@/services/tweets.ts',
-    '@/plugins/axios.ts'
+    '@/services/users.ts',
+    '@/plugins/axios.ts',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

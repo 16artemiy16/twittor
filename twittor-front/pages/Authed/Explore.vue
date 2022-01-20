@@ -23,9 +23,12 @@ import TweetItemSkeleton from '~/components/TweetItem/TweetItemSkeleton.vue';
   },
 })
 export default class Explore extends Vue {
+  fetchTrends!: Function;
+  fetchTweets!: Function;
+
   created() {
-    (this as any).fetchTrends();
-    (this as any).fetchTweets()
+    this.fetchTrends();
+    this.fetchTweets();
   }
 
   reportNotInteresting(id: string) {

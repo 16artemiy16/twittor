@@ -2,6 +2,7 @@
 import Component from 'vue-class-component';
 import Vue from 'vue';
 import { actions, computed } from '~/store/profile/sandbox';
+import { Watch } from 'vue-property-decorator';
 
 @Component<any>({
   computed: {
@@ -21,9 +22,17 @@ import { actions, computed } from '~/store/profile/sandbox';
   },
 })
 export default class Profile extends Vue {
-  created() {
-    const userId = this.$authService.user()?.id;
-    (this as any).initProfile(userId)
+  initProfile!: Function;
+
+  @Watch('$route.params.login', { immediate: true })
+  onLoginChange(login: string) {
+    if (!login) {
+      const myLogin = this.$authService.user()?.login as string;
+      this.$router.push({ path: `/authed/profile/${myLogin}` });
+      return;
+    }
+
+    this.initProfile(login);
   }
 }
 </script>

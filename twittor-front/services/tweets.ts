@@ -9,7 +9,7 @@ interface PostTweetDataI {
 }
 
 export interface TweetsServiceI {
-  getUserTweets: (userId: string, pagination?: PaginationI) => Promise<TweetI[]>,
+  getUserTweets: (login: string, pagination?: PaginationI) => Promise<TweetI[]>,
   getExploreTweets: (pagination?: PaginationI) => Promise<TweetI[]>,
   toggleTweetLike: (id: string) => Promise<void>,
   postTweet: (data: PostTweetDataI) => Promise<void>,
@@ -19,8 +19,8 @@ const DEFAULT_PAGINATION: PaginationI = { page: 1, size: 10 };
 
 export default ({ $axios }: Vue, inject: Inject) => {
   const tweetsService: TweetsServiceI = {
-    getUserTweets: async (userId, { page, size } = DEFAULT_PAGINATION) => {
-      const { data } = await $axios.get(`/tweets-by-user/${userId}`, { params: { page, size } });
+    getUserTweets: async (login, { page, size } = DEFAULT_PAGINATION) => {
+      const { data } = await $axios.get(`/tweets-by-user/${login}`, { params: { page, size } });
       return data.tweets;
     },
     getExploreTweets: async ({ page, size } = DEFAULT_PAGINATION) => {

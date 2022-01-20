@@ -2,6 +2,7 @@
 import Component from 'vue-class-component';
 import Vue from 'vue';
 import { computed } from '~/store/profile/sandbox';
+import { UserProfileI } from '~/interfaces/user-profile.interface';
 
 @Component({
   computed: {
@@ -9,7 +10,7 @@ import { computed } from '~/store/profile/sandbox';
   }
 })
 export default class ProfileDescriptionSection extends Vue {
-
+  user: UserProfileI | undefined;
 }
 </script>
 
@@ -17,11 +18,11 @@ export default class ProfileDescriptionSection extends Vue {
   <header v-if="user">
     <div class="py-2 px-4">
       <v-layout>
-        <h2>{{ user.name }}</h2>
+        <h2>{{ user.fullname }}</h2>
         <v-icon class="verified ml-1" v-if="user.isVerified">mdi-checkbox-marked-circle-outline</v-icon>
       </v-layout>
 
-      <div>{{ user.totalTweets }} Tweets</div>
+      <div>{{ user.stats.tweets }} Tweets</div>
     </div>
 
     <div class="header-image"></div>
@@ -43,16 +44,16 @@ export default class ProfileDescriptionSection extends Vue {
       </v-layout>
       <div class="description__detailed pa-4">
         <v-layout>
-          <h2>{{ user.name }}</h2>
+          <h2>{{ user.fullname }}</h2>
           <v-icon class="verified" v-if="user.isVerified">mdi-checkbox-marked-circle-outline</v-icon>
         </v-layout>
-        <div class="login">{{ user.login }}</div>
+        <div class="login">@{{ user.login }}</div>
         <div class="description__about my-4 mx-0">{{ user.about }}</div>
       </div>
     </div>
     <v-layout class="description__numbers pa-4">
-      <div class="mr-4"><b>{{ user.followingCount }}</b> <span>Following</span></div>
-      <div><b>{{ user.followersCount }}</b> <span>Followers</span></div>
+      <div class="mr-4"><b>{{ user.stats.followingCount }}</b> <span>Following</span></div>
+      <div><b>{{ user.stats.followersCount }}</b> <span>Followers</span></div>
     </v-layout>
   </header>
 </template>

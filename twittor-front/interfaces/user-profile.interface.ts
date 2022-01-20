@@ -1,11 +1,16 @@
 export interface UserProfileI {
-  name: string;
+  id: number;
+  login: string;
+  img: string | null;
+  fullname: string;
+  stats: {
+    tweets: number;
+    // TODO: all the fields below are mocked for now
+    followingCount: number,
+    followersCount: number,
+  };
   isVerified: boolean,
-  totalTweets: number,
   headerImg: string | null,
-  img: string | null,
-  login: string,
   about: string,
-  followingCount: number,
-  followersCount: number,
+
 }
