@@ -4,7 +4,7 @@ import TweetItem from '~/components/TweetItem/TweetItem.vue';
 import ContainerActionsMenu from '~/components/ContainerActionsMenu.vue';
 
 const TWEET: TweetI = {
-  id: 'a',
+  id: 1,
   body: 'Hello! Welcome here!',
   created: 1642140791026.572,
   user: {

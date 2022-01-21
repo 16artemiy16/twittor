@@ -13,6 +13,7 @@ export interface TweetsServiceI {
   getExploreTweets: (pagination?: PaginationI) => Promise<TweetI[]>,
   toggleTweetLike: (id: string) => Promise<void>,
   postTweet: (data: PostTweetDataI) => Promise<void>,
+  removeTweet: (id: number) => Promise<void>,
 }
 
 const DEFAULT_PAGINATION: PaginationI = { page: 1, size: 10 };
@@ -32,6 +33,9 @@ export default ({ $axios }: Vue, inject: Inject) => {
     },
     postTweet: async ({ body }) => {
       await $axios.post('/tweet', { body });
+    },
+    removeTweet: async (id) => {
+      await $axios.delete(`/tweet/${id}`);
     },
   };
 

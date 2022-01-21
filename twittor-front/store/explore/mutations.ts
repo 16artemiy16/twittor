@@ -23,7 +23,7 @@ export default {
   [ExploreMutation.SetTweets]: (state: ExploreStateI, tweets: TweetI[]) => {
     state.tweets = tweets;
   },
-  [ExploreMutation.ToggleTweetLike]: (state: ExploreStateI, { tweetId, isLike }: { tweetId: string, isLike: boolean }) => {
+  [ExploreMutation.ToggleTweetLike]: (state: ExploreStateI, { tweetId, isLike }: { tweetId: number, isLike: boolean }) => {
      const tweet = state.tweets.find(({ id }) => id === tweetId);
 
      if (!tweet) {

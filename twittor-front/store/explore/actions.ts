@@ -36,7 +36,7 @@ export default {
   },
   async [ExploreAction.ToggleTweetLike](
     { commit, state }: ExploreActionContext,
-    tweetId: string,
+    tweetId: number,
   ) {
     const tweet = (state as ExploreStateI).tweets.find(({ id }) => id === tweetId);
 

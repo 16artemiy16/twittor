@@ -14,6 +14,12 @@ interface ActionBottomI {
   text?: () => string;
 }
 
+interface MoreActionI {
+  icon: string;
+  text: string;
+  onClick?: () => void;
+}
+
 @Component({
   components: {
     ContainerActionsMenu,
@@ -23,10 +29,23 @@ export default class TweetItem extends Vue {
   @Prop({ type: Object, required: true })
   tweet!: TweetI;
 
-  readonly moreActions = [
-    { icon: 'mdi-account-plus', text: 'Follow this User' },
-    { icon: 'mdi-flag-outline', text: 'Report this Tweet' },
-  ];
+  get moreActions(): MoreActionI[] {
+    const actions: MoreActionI[] = [
+      { icon: 'mdi-account-plus', text: 'Follow this User' },
+      { icon: 'mdi-flag-outline', text: 'Report this Tweet' },
+    ];
+    // TODO: move user and tweet removing to store
+    if (this.$authService.user()) {
+      actions.push({
+        icon: 'mdi-delete-outline',
+        text: 'Remove',
+        onClick: () => {
+          this.$tweetsService.removeTweet(this.tweet.id);
+        },
+      })
+    }
+    return actions;
+  }
 
   readonly footerActions: ActionBottomI[] = [
     { icon: 'mdi-message-reply', title: 'Reply' },

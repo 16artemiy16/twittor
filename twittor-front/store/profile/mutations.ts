@@ -23,7 +23,7 @@ export default {
   [ProfileMutation.SetTweets]: (state: ProfileStateI, tweets: TweetI[]) => {
     state.tweets = tweets;
   },
-  [ProfileMutation.ToggleTweetLike]: (state: ProfileStateI, { tweetId, isLike }: { tweetId: string, isLike: boolean }) => {
+  [ProfileMutation.ToggleTweetLike]: (state: ProfileStateI, { tweetId, isLike }: { tweetId: number, isLike: boolean }) => {
     const tweet = state.tweets.find(({ id }) => id === tweetId);
 
     if (!tweet) {

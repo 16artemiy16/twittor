@@ -40,7 +40,7 @@ export default {
   },
   async [ProfileAction.ToggleTweetLike](
     { commit, state }: ProfileActionContext,
-    tweetId: string,
+    tweetId: number,
   ) {
     const tweet = (state as ProfileStateI).tweets.find(({ id }) => id === tweetId);
 
