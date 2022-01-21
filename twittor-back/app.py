@@ -31,7 +31,7 @@ if __name__ == '__main__':
 
     db.init_app(app)
     api.add_resource(TweetListByUser, '/tweets-by-user/<string:login>')
-    api.add_resource(Tweet, '/tweet')
+    api.add_resource(Tweet, '/tweet', '/tweet/<int:tweet_id>')
     api.add_resource(SignUp, '/sign-up')
     api.add_resource(SignIn, '/sign-in')
     api.add_resource(ExploreTweets, '/explore/tweets')

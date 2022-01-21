@@ -57,6 +57,22 @@ class Tweet(Resource):
 
         return {'tweet': tweet.json()}
 
+    @jwt_required()
+    def delete(self, tweet_id):
+        tweet = TweetModel.find_by_id(tweet_id)
+
+        if not tweet:
+            return {'message': 'There is no tweet with this id'}, 404
+
+        user = UserModel.find_by_id(get_jwt_identity())
+
+        if user.id != tweet.user_id:
+            return {'message': 'You can\'t delete this tweet'}, 400
+
+        tweet.delete_from_db()
+
+        return {'message': 'The tweet have been successfully removed'}
+
 
 class ExploreTweets(Resource):
     # TODO: this is mocked for now to return the user's tweets
