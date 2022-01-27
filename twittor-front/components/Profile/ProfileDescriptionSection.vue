@@ -5,6 +5,9 @@ import { computed } from '~/store/profile/sandbox';
 import { UserProfileI } from '~/interfaces/user-profile.interface';
 
 @Component({
+  components: {
+    AppUserImg: () => import('~/components/app/AppUserImg.vue' /* webpackChunkName: "AppUserImg" */),
+  },
   computed: {
     user: computed.profileInfo
   }
@@ -29,7 +32,7 @@ export default class ProfileDescriptionSection extends Vue {
 
     <div class="description">
       <v-layout>
-        <div class="img rounded-circle ml-6" :style="{ backgroundImage: 'url(' + user.img + ')' }"></div>
+        <AppUserImg class="img ml-6" :user="user" size="130"/>
         <v-layout></v-layout>
         <div class="pa-4">
           <v-btn
@@ -67,12 +70,7 @@ export default class ProfileDescriptionSection extends Vue {
   height: 200px;
 }
 .img {
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
   position: relative;
-  width: 130px;
-  height: 130px;
   top: -65px;
 }
 .description  {

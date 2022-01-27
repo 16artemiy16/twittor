@@ -8,6 +8,9 @@ interface TweetModelI {
 
 @Component({
   props: ['value'],
+  components: {
+    AppUserImg: () => import('~/components/app/AppUserImg.vue' /* webpackChunkName: "AppUserImg" */),
+  }
 })
 export default class TweetForm extends Vue {
   readonly TEXT_MAX_SIZE = 280;
@@ -22,6 +25,10 @@ export default class TweetForm extends Vue {
   model: TweetModelI = {
     text: '',
   };
+
+  get user() {
+    return this.$authService.user();
+  }
 
   get isTweetBtnDisabled(): boolean {
     return this.model.text.trim().length === 0 || this.textExcess > 0;
@@ -67,7 +74,7 @@ export default class TweetForm extends Vue {
 <template>
   <form class="tweet-form">
     <div class="tweet-form__author">
-      <img class="tweet-form__author-img" width="50" height="50" src="https://www.pravmir.ru/wp-content/uploads/2011/02/pushkin.jpg" />
+      <AppUserImg size="50" :user="user" />
     </div>
     <div class="tweet-form__input">
       <v-textarea
@@ -128,10 +135,6 @@ export default class TweetForm extends Vue {
     flex: 1;
     display: flex;
     flex-direction: column;
-  }
-
-  &__author-img {
-    border-radius: 50%;
   }
 
   .actions {

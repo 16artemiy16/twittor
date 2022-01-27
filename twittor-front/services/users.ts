@@ -13,7 +13,7 @@ export default ({ $axios }: Vue, inject: Inject) => {
       const { profile } = data;
       return {
         ...profile,
-        img: 'https://www.pravmir.ru/wp-content/uploads/2011/02/pushkin.jpg',
+        img: null,
         isVerified: true,
         headerImg: null,
         about: 'This is the section about me!',

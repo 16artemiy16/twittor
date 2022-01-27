@@ -23,6 +23,7 @@ interface MoreActionI {
 @Component({
   components: {
     ContainerActionsMenu,
+    AppUserImg: () => import('~/components/app/AppUserImg.vue' /* webpackChunkName: "AppUserImg" */),
   },
 })
 export default class TweetItem extends Vue {
@@ -76,7 +77,7 @@ export default class TweetItem extends Vue {
   <ContainerActionsMenu :actions="moreActions">
     <article class="tweet d-flex pos-relative pa-4">
       <div class="tweet__left">
-        <img class="user-img rounded-circle" :src="tweet.user.img" width="35" height="35">
+        <AppUserImg :user="tweet.user" size="35" />
       </div>
       <div class="flex-column flex-grow-1">
         <div class="tweet__info mb-2 d-flex">

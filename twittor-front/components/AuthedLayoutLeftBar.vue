@@ -6,6 +6,7 @@ import { UserJWTI } from '~/interfaces/user-jwt.interface';
 
 @Component({
   components: {
+    AppUserImg: () => import('~/components/app/AppUserImg.vue' /* webpackChunkName: "AppUserImg" */),
     TweetBtn,
   },
 })
@@ -59,7 +60,7 @@ export default class AuthedLayoutLeftBar extends Vue {
             v-on="on"
             v-bind="attrs"
           >
-            <div class="user-card__img rounded-circle flex-shrink-0"></div>
+            <AppUserImg :user="user" size="40" class="flex-shrink-0" />
             <div class="flex-grow-1 ml-2 d-flex flex-column">
               <div class="user-menu__name font-weight-bold">{{ user.fullname }}</div>
               <div class="user-card__login">@{{ user.login }}</div>
@@ -69,7 +70,7 @@ export default class AuthedLayoutLeftBar extends Vue {
         </template>
         <div class="user-menu d-flex flex-column pa-4">
           <div class="d-flex align-center">
-            <div class="user-menu__img rounded-circle flex-shrink-0"></div>
+            <AppUserImg :user="user" size="40" class="flex-shrink-0" />
             <div class="ml-3 d-flex flex-column">
               <div class="font-weight-bold">{{ user.fullname }}</div>
               <div>@{{ user.login }}</div>
@@ -131,35 +132,11 @@ export default class AuthedLayoutLeftBar extends Vue {
       background: $background-hover-pale;
     }
 
-    &__img {
-      width: 40px;
-      height: 40px;
-      background-image: url("https://www.pravmir.ru/wp-content/uploads/2011/02/pushkin.jpg");
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: cover;
-    }
-
     &__login, &__name {
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
     }
-  }
-}
-
-.user-menu {
-  &__img {
-    width: 40px;
-    height: 40px;
-    background-image: url("https://www.pravmir.ru/wp-content/uploads/2011/02/pushkin.jpg");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-  }
-
-  &__login {
-    font-weight: bold;
   }
 }
 
