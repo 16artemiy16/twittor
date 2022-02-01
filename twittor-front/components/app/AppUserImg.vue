@@ -7,10 +7,10 @@ import { UserProfileI } from '~/interfaces/user-profile.interface';
 @Component
 export default class AppUserImg extends Vue {
   @Prop({ required: true })
-  user: UserProfileI;
+  user!: UserProfileI;
 
   @Prop({ required: true })
-  size: number;
+  size!: number;
 
   // TODO: think about the color; move to constants later
   readonly imgFallbackBG: string = 'antiquewhite';
