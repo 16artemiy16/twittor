@@ -10,4 +10,10 @@ export default ({ $axios, $authService }: Vue) => {
 
     return config;
   });
+
+  $axios.onResponseError((error) => {
+    if (error.response?.status === 401) {
+      $authService.logOut();
+    }
+  });
 }
