@@ -4,6 +4,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from models.user import UserModel
 from models.tweet import TweetModel
 from reqparsers.types import non_empty_string
+from .utils import add_likes_details_empty
 
 
 class Tweet(Resource):
@@ -20,7 +21,7 @@ class Tweet(Resource):
         tweet.user_id = get_jwt_identity()
         tweet.save_to_db()
 
-        return {'tweet': tweet.json()}
+        return {'tweet': add_likes_details_empty(tweet.json())}
 
     @jwt_required()
     def delete(self, tweet_id):
