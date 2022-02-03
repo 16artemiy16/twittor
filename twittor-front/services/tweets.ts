@@ -1,18 +1,16 @@
 import { TweetI } from '~/interfaces/tweet.interface';
 import { Inject } from '@nuxt/types/app';
 import Vue from 'vue';
+import { CreateTweetDto } from '~/dtos/create-tweet.dto';
 
 interface PaginationI { page: number, size: number }
 
-interface PostTweetDataI {
-  body: string;
-}
 
 export interface TweetsServiceI {
   getUserTweets: (login: string, pagination?: PaginationI) => Promise<TweetI[]>,
   getExploreTweets: (pagination?: PaginationI) => Promise<TweetI[]>,
   toggleTweetLike: (id: string) => Promise<void>,
-  postTweet: (data: PostTweetDataI) => Promise<void>,
+  postTweet: (data: CreateTweetDto) => Promise<void>,
   removeTweet: (id: number) => Promise<void>,
 }
 
@@ -32,7 +30,8 @@ export default ({ $axios }: Vue, inject: Inject) => {
       await $axios.post(`/like/tweet/${id}`);
     },
     postTweet: async ({ body }) => {
-      await $axios.post('/tweet', { body });
+      const res = await $axios.post('/tweet', { body });
+      return res.data;
     },
     removeTweet: async (id) => {
       await $axios.delete(`/tweet/${id}`);

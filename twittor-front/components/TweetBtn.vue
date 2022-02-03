@@ -14,7 +14,6 @@ export default class TweetBtn extends Vue {
 
   async close(withData: boolean) {
     this.isOpened = false;
-    console.log('close', withData);
     if (withData) {
       try {
         await this.$tweetsService.postTweet({ body: this.tweetModel.text });

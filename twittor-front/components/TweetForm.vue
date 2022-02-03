@@ -3,7 +3,7 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 
 interface TweetModelI {
-  text: string;
+  body: string;
 }
 
 @Component({
@@ -23,7 +23,7 @@ export default class TweetForm extends Vue {
   ];
 
   model: TweetModelI = {
-    text: '',
+    body: '',
   };
 
   get user() {
@@ -31,15 +31,15 @@ export default class TweetForm extends Vue {
   }
 
   get isTweetBtnDisabled(): boolean {
-    return this.model.text.trim().length === 0 || this.textExcess > 0;
+    return this.model.body.trim().length === 0 || this.textExcess > 0;
   }
 
   get textProgress(): number {
-    return this.model.text.length * 100 / this.TEXT_MAX_SIZE;
+    return this.model.body.length * 100 / this.TEXT_MAX_SIZE;
   }
 
   get textExcess(): number {
-    return this.model.text.length - this.TEXT_MAX_SIZE;
+    return this.model.body.length - this.TEXT_MAX_SIZE;
   }
 
   get isTextCloseToExcess(): boolean {
@@ -51,7 +51,7 @@ export default class TweetForm extends Vue {
       return { text: `${-this.textExcess}`, color: 'red' };
     }
 
-    const leftToExcess = this.TEXT_MAX_SIZE - this.model.text.length;
+    const leftToExcess = this.TEXT_MAX_SIZE - this.model.body.length;
 
     if (this.isTextCloseToExcess) {
       return { text: `${leftToExcess}`, color: '#ffcc00'};
@@ -65,7 +65,7 @@ export default class TweetForm extends Vue {
   }
 
   setText(e: string) {
-    this.model.text = e;
+    this.model.body = e;
     this.$emit('input', this.model);
   }
 }
@@ -81,7 +81,7 @@ export default class TweetForm extends Vue {
         solo
         autofocus
         no-resize
-        :value="value.text"
+        :value="value.body"
         @input="setText"
         label="What's going on..."
       ></v-textarea>

@@ -3,6 +3,7 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 import { computed, actions } from '~/store/home/sandbox';
 import { TweetI } from '~/interfaces/tweet.interface';
+import { CreateTweetDto } from '~/dtos/create-tweet.dto';
 
 @Component<any>({
   components: {
@@ -16,24 +17,25 @@ import { TweetI } from '~/interfaces/tweet.interface';
   },
   methods: {
     fetchTweets: actions.fetchTweets,
-    toggleTweetLike: actions.toggleTweetLike
+    toggleTweetLike: actions.toggleTweetLike,
+    createTweet: actions.createTweet
   }
 })
 export default class Home extends Vue {
   fetchTweets!: Function;
   toggleTweetLike!: Function;
+  createTweet!: Function;
+
   tweets!: TweetI[];
-  tweetModel: { text: string } = { text: '' };
+
+  tweetModel: CreateTweetDto = { body: '' };
 
   created() {
     this.fetchTweets();
   }
 
   async postTweet() {
-    try {
-      await this.$tweetsService.postTweet({body: this.tweetModel.text});
-      this.tweetModel.text = '';
-    } catch (e) {}
+    this.createTweet(this.tweetModel);
   }
 }
 </script>

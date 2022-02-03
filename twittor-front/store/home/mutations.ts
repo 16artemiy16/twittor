@@ -1,11 +1,13 @@
 import { TweetI } from '~/interfaces/tweet.interface';
 import { HomeStateI } from '~/store/home/state';
-import { ExploreMutation } from '~/store/explore/mutations';
+
 
 export enum HomeMutation {
   SetIsLoadingTweets= 'setIsLoadingTweets',
+  SetIsTweetSending = 'setIsTweetSending',
   SetTweets = 'setTweets',
   ToggleTweetLike = 'toggleTweetLike',
+  AddTweet = 'addTweet',
 }
 
 export default {
@@ -15,7 +17,7 @@ export default {
   [HomeMutation.SetTweets]: (state: HomeStateI, tweets: TweetI[]) => {
     state.tweets = tweets;
   },
-  [ExploreMutation.ToggleTweetLike]: (state: HomeStateI, { tweetId, isLike }: { tweetId: number, isLike: boolean }) => {
+  [HomeMutation.ToggleTweetLike]: (state: HomeStateI, { tweetId, isLike }: { tweetId: number, isLike: boolean }) => {
     const tweet = state.tweets.find(({ id }) => id === tweetId);
 
     if (!tweet) {
@@ -24,5 +26,11 @@ export default {
 
     tweet.likes.isLikedByMe = isLike;
     tweet.likes.total = tweet.likes.total + (isLike ? 1 : -1);
+  },
+  [HomeMutation.AddTweet]: (state: HomeStateI, tweet: TweetI) => {
+    state.tweets.push(tweet);
+  },
+  [HomeMutation.SetIsTweetSending]: (state: HomeStateI, flag: boolean) => {
+    state.isTweetSending = flag;
   },
 }

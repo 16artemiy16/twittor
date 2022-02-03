@@ -1,12 +1,14 @@
 import { ActionContext } from 'vuex';
 import { HomeStateI } from '~/store/home/state';
 import { HomeMutation } from '~/store/home/mutations';
+import { CreateTweetDto } from '~/dtos/create-tweet.dto';
 
 type HomeActionContext = ActionContext<HomeStateI, any>
 
 export enum HomeAction {
   FetchTweets = 'fetchTweets',
   ToggleTweetLike = 'toggleTweetLike',
+  CreateTweet = 'createTweet',
 }
 
 export default {
@@ -39,6 +41,17 @@ export default {
       await this.$tweetsService.toggleTweetLike(tweetId);
     } catch (err) {
       commit(HomeMutation.ToggleTweetLike, { tweetId, isLike: !isLike });
+    }
+  },
+  async [HomeAction.CreateTweet]({ commit, state }: HomeActionContext, dto: CreateTweetDto) {
+    commit(HomeMutation.SetIsTweetSending, true)
+    try {
+      const { tweet } = await this.$tweetsService.postTweet(dto);
+      commit(HomeMutation.AddTweet, tweet);
+    } catch (err) {
+
+    } finally {
+      commit(HomeMutation.SetIsTweetSending, false)
     }
   }
 } as any;
