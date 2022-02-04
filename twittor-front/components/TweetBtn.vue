@@ -7,17 +7,21 @@ import Component from 'vue-class-component';
   components: {
     TweetForm: () => import('~/components/TweetForm.vue' /* webpackChunkName: "TweetForm" */),
   },
+  props: {
+    disabled: { type: Boolean, default: false, }
+  },
 })
 export default class TweetBtn extends Vue {
+  disabled!: boolean;
   isOpened: boolean = false;
-  tweetModel: { text: string } = { text: '' };
+  tweetModel: { body: string } = { body: '' };
 
   async close(withData: boolean) {
     this.isOpened = false;
     if (withData) {
       try {
-        await this.$tweetsService.postTweet({ body: this.tweetModel.text });
-        this.tweetModel = { text: '' };
+        await this.$tweetsService.postTweet(this.tweetModel);
+        this.tweetModel.body = '';
         this.$emit('closed', this.tweetModel);
       } catch(err) {}
       return;
@@ -31,6 +35,7 @@ export default class TweetBtn extends Vue {
   <v-dialog persistent max-width="600" v-model="isOpened">
     <template v-slot:activator="{ on, attrs }">
       <v-btn
+        :disabled="disabled"
         class="tweet-btn"
         rounded
         v-bind="{ ...attrs, ...$attrs }"

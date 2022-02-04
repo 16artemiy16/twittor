@@ -48,6 +48,7 @@ export default {
     try {
       const { tweet } = await this.$tweetsService.postTweet(dto);
       commit(HomeMutation.AddTweet, tweet);
+      commit(HomeMutation.SetLastCreatedTweet, tweet);
     } catch (err) {
 
     } finally {

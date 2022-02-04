@@ -6,12 +6,13 @@ const { mapState, mapActions, mapGetters } = createNamespacedHelpers('home');
 export const computed = {
   ...mapState([
     'isLoadingTweets',
-    'isTweetSending'
+    'isTweetSending',
+    'lastCreatedTweet'
   ]),
   ...mapGetters([
     'tweets'
   ]),
-} as Record<'isLoadingTweets' | 'tweets' | 'isTweetSending', any>;
+} as Record<'isLoadingTweets' | 'tweets' | 'isTweetSending' | 'lastCreatedTweet', any>;
 
 export const actions = {
   ...mapActions([

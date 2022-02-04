@@ -3,14 +3,20 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 import TweetBtn from '~/components/TweetBtn.vue';
 import { UserJWTI } from '~/interfaces/user-jwt.interface';
+import { computed } from '~/store/home/sandbox';
 
 @Component({
   components: {
     AppUserImg: () => import('~/components/app/AppUserImg.vue' /* webpackChunkName: "AppUserImg" */),
     TweetBtn,
   },
+  computed: {
+    isTweetSending: computed.isTweetSending
+  }
 })
 export default class AuthedLayoutLeftBar extends Vue {
+  isTweetSending!: boolean;
+
   readonly user: UserJWTI = this.$authService.user() as UserJWTI;
 
   get profileLink(): string {
@@ -47,7 +53,7 @@ export default class AuthedLayoutLeftBar extends Vue {
           <span class="sidebar__nav-item-text">Profile</span>
         </NuxtLink>
       </nav>
-      <TweetBtn />
+      <TweetBtn :disabled="isTweetSending" />
       <v-menu
         top
         offset-y

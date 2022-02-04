@@ -4,6 +4,7 @@ import Component from 'vue-class-component';
 import { computed, actions } from '~/store/home/sandbox';
 import { TweetI } from '~/interfaces/tweet.interface';
 import { CreateTweetDto } from '~/dtos/create-tweet.dto';
+import { Watch } from 'vue-property-decorator';
 
 @Component<any>({
   components: {
@@ -14,6 +15,8 @@ import { CreateTweetDto } from '~/dtos/create-tweet.dto';
   computed: {
     tweets: computed.tweets,
     isLoadingTweets: computed.isLoadingTweets,
+    isTweetSending: computed.isTweetSending,
+    lastCreatedTweet: computed.lastCreatedTweet,
   },
   methods: {
     fetchTweets: actions.fetchTweets,
@@ -27,8 +30,14 @@ export default class Home extends Vue {
   createTweet!: Function;
 
   tweets!: TweetI[];
+  isTweetSending!: boolean;
 
   tweetModel: CreateTweetDto = { body: '' };
+
+  @Watch('lastCreatedTweet')
+  onTweetCreated() {
+    this.tweetModel.body = '';
+  }
 
   created() {
     this.fetchTweets();
@@ -46,7 +55,7 @@ export default class Home extends Vue {
       <h2>Home</h2>
     </header>
     <div class="new-tweet pa-4">
-      <TweetForm v-model="tweetModel" @on-send="postTweet()"/>
+      <TweetForm v-model="tweetModel" @on-send="postTweet()" :disabled="isTweetSending"/>
     </div>
     <section class="home__posts py-2">
       <template v-if="isLoadingTweets">

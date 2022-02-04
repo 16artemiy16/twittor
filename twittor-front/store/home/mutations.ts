@@ -8,6 +8,7 @@ export enum HomeMutation {
   SetTweets = 'setTweets',
   ToggleTweetLike = 'toggleTweetLike',
   AddTweet = 'addTweet',
+  SetLastCreatedTweet = 'setLastCreatedTweet',
 }
 
 export default {
@@ -32,5 +33,8 @@ export default {
   },
   [HomeMutation.SetIsTweetSending]: (state: HomeStateI, flag: boolean) => {
     state.isTweetSending = flag;
+  },
+  [HomeMutation.SetLastCreatedTweet]: (state: HomeStateI, tweet: TweetI) => {
+    state.lastCreatedTweet = tweet;
   },
 }

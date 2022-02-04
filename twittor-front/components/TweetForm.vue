@@ -7,7 +7,10 @@ interface TweetModelI {
 }
 
 @Component({
-  props: ['value'],
+  props: {
+    value: { type: Object },
+    disabled: { type: Boolean, default: false },
+  },
   components: {
     AppUserImg: () => import('~/components/app/AppUserImg.vue' /* webpackChunkName: "AppUserImg" */),
   }
@@ -84,11 +87,12 @@ export default class TweetForm extends Vue {
         :value="value.body"
         @input="setText"
         label="What's going on..."
+        :disabled="disabled"
       ></v-textarea>
 
       <div class="actions">
-        <div class="actions__attachments" v-once>
-          <v-btn text icon v-for="action in attachmentActions" :key="action">
+        <div class="actions__attachments">
+          <v-btn text icon v-for="action in attachmentActions" :key="action" :disabled="disabled">
             <v-icon>{{ action }}</v-icon>
           </v-btn>
         </div>
@@ -103,7 +107,7 @@ export default class TweetForm extends Vue {
 
           <v-divider vertical></v-divider>
 
-          <v-btn rounded :disabled="isTweetBtnDisabled" @click="$emit('on-send')">Tweet</v-btn>
+          <v-btn rounded :disabled="isTweetBtnDisabled || disabled" @click="$emit('on-send')">Tweet</v-btn>
         </div>
       </div>
     </div>
