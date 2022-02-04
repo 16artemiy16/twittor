@@ -79,7 +79,7 @@ export default class TweetItem extends Vue {
       <div class="tweet__left">
         <AppUserImg :user="tweet.user" size="35" />
       </div>
-      <div class="flex-column flex-grow-1">
+      <div class="tweet__right flex-column flex-grow-1">
         <div class="tweet__info mb-2 d-flex">
           <template>
             <router-link
@@ -131,7 +131,13 @@ export default class TweetItem extends Vue {
   }
 
   &__left {
-    flex-basis: 50px;
+    min-width: 50px;
+  }
+
+  &__right {
+    overflow: hidden;
+    overflow-wrap: break-word;
+    word-break: break-word;;
   }
 
   &__action {
