@@ -34,6 +34,10 @@ export default class Profile extends Vue {
 
     this.initProfile(login);
   }
+
+  removeTweet(id: number) {
+    this.$tweetsService.removeTweet(id);
+  }
 }
 </script>
 
@@ -51,6 +55,7 @@ export default class Profile extends Vue {
           :key="tweet.id"
           :tweet="tweet"
           @toggle-like="({ id }) => toggleTweetLike(id)"
+          @remove-tweet="({ id }) => removeTweet(id)"
         />
       </template>
     </section>

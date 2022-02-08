@@ -40,10 +40,8 @@ export default class TweetItem extends Vue {
       actions.push({
         icon: 'mdi-delete-outline',
         text: 'Remove',
-        onClick: () => {
-          this.$tweetsService.removeTweet(this.tweet.id);
-        },
-      })
+        onClick: () => this.removeTweet(),
+      });
     }
     return actions;
   }
@@ -69,6 +67,11 @@ export default class TweetItem extends Vue {
   toggleLike() {
     const { id, likes } = this.tweet;
     return { id, isLike: !likes.isLikedByMe };
+  }
+
+  @Emit('remove-tweet')
+  removeTweet() {
+    return { id: this.tweet.id };
   }
 }
 </script>

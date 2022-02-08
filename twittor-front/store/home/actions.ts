@@ -9,6 +9,7 @@ export enum HomeAction {
   FetchTweets = 'fetchTweets',
   ToggleTweetLike = 'toggleTweetLike',
   CreateTweet = 'createTweet',
+  RemoveTweet = 'removeTweet',
 }
 
 export default {
@@ -54,5 +55,12 @@ export default {
     } finally {
       commit(HomeMutation.SetIsTweetSending, false)
     }
-  }
+  },
+  async [HomeAction.RemoveTweet]({ commit, state }: HomeActionContext, tweetId: number) {
+    console.log('ACTION removeTweet', tweetId);
+    commit(HomeMutation.RemoveTweet, tweetId)
+    try {
+      await this.$tweetsService.removeTweet(tweetId);
+    } catch (err) {}
+  },
 } as any;

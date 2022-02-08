@@ -21,13 +21,15 @@ import { Watch } from 'vue-property-decorator';
   methods: {
     fetchTweets: actions.fetchTweets,
     toggleTweetLike: actions.toggleTweetLike,
-    createTweet: actions.createTweet
+    createTweet: actions.createTweet,
+    removeTweet: actions.removeTweet,
   }
 })
 export default class Home extends Vue {
   fetchTweets!: Function;
   toggleTweetLike!: Function;
   createTweet!: Function;
+  removeTweet!: Function;
 
   tweets!: TweetI[];
   isTweetSending!: boolean;
@@ -67,6 +69,7 @@ export default class Home extends Vue {
           :key="tweet.id"
           :tweet="tweet"
           @toggle-like="({ id }) => toggleTweetLike(id)"
+          @remove-tweet="({ id }) => removeTweet(id)"
         />
       </template>
     </section>

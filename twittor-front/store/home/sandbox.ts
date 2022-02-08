@@ -18,6 +18,12 @@ export const actions = {
   ...mapActions([
     HomeAction.ToggleTweetLike,
     HomeAction.FetchTweets,
-    HomeAction.CreateTweet
+    HomeAction.CreateTweet,
+    HomeAction.RemoveTweet,
   ]),
-} as Record<HomeAction.ToggleTweetLike | HomeAction.FetchTweets | HomeAction.CreateTweet, Function>;
+} as Record<
+  HomeAction.ToggleTweetLike |
+  HomeAction.FetchTweets |
+  HomeAction.CreateTweet |
+  HomeAction.RemoveTweet,
+  Function>;

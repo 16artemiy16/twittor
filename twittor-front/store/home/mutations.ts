@@ -9,6 +9,7 @@ export enum HomeMutation {
   ToggleTweetLike = 'toggleTweetLike',
   AddTweet = 'addTweet',
   SetLastCreatedTweet = 'setLastCreatedTweet',
+  RemoveTweet = 'removeTweet',
 }
 
 export default {
@@ -36,5 +37,8 @@ export default {
   },
   [HomeMutation.SetLastCreatedTweet]: (state: HomeStateI, tweet: TweetI) => {
     state.lastCreatedTweet = tweet;
+  },
+  [HomeMutation.RemoveTweet]: (state: HomeStateI, tweetId: number) => {
+    state.tweets = state.tweets.filter(({ id }) => id !== tweetId);
   },
 }

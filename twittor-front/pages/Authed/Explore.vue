@@ -31,10 +31,14 @@ export default class Explore extends Vue {
     this.fetchTweets();
   }
 
-  reportNotInteresting(id: string) {
+  removeTweet(id: number) {
+    this.$tweetsService.removeTweet(id);
   }
 
-  reportSpam(id: string) {
+  reportNotInteresting(id: number) {
+  }
+
+  reportSpam(id: number) {
   }
 }
 </script>
@@ -87,6 +91,7 @@ export default class Explore extends Vue {
           :key="tweet.id"
           :tweet="tweet"
           @toggle-like="({ id }) => toggleTweetLike(id)"
+          @remove-tweet="({ id }) => removeTweet(id)"
         />
       </template>
     </section>
