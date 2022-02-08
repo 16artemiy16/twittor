@@ -64,19 +64,39 @@ export default class Home extends Vue {
         <TweetItemSkeleton v-for="i in 4" :key="i" />
       </template>
       <template v-else>
-        <TweetItem
-          v-for="tweet in tweets"
-          :key="tweet.id"
-          :tweet="tweet"
-          @toggle-like="({ id }) => toggleTweetLike(id)"
-          @remove-tweet="({ id }) => removeTweet(id)"
-        />
+        <transition-group name="tw">
+          <TweetItem
+            v-for="tweet in tweets"
+            :key="tweet.id"
+            :tweet="tweet"
+            @toggle-like="({ id }) => toggleTweetLike(id)"
+            @remove-tweet="({ id }) => removeTweet(id)"
+          />
+        </transition-group>
       </template>
     </section>
   </div>
 </template>
 
 <style scoped lang="scss">
+.tw-enter {
+  background: $skeleton;
+  opacity: 0;
+}
+.tw-enter-active {
+  transition: all 1s;
+}
+.tw-leave-active {
+  transition: all 1s;
+  background: $remove-animation;
+}
+.tw-leave-to {
+  opacity: 0;
+}
+.tw-enter-to {
+  opacity: 1;
+}
+
 .header {
   padding: 1rem;
 }

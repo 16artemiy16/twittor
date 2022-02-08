@@ -57,7 +57,6 @@ export default {
     }
   },
   async [HomeAction.RemoveTweet]({ commit, state }: HomeActionContext, tweetId: number) {
-    console.log('ACTION removeTweet', tweetId);
     commit(HomeMutation.RemoveTweet, tweetId)
     try {
       await this.$tweetsService.removeTweet(tweetId);
