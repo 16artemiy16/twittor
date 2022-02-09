@@ -1,4 +1,5 @@
 from flask_restful import Resource, reqparse
+from flasgger import swag_from
 
 from reqparsers.types import non_empty_string
 from models.user import UserModel
@@ -14,6 +15,7 @@ class SignUp(Resource):
 
         return parser.parse_args()
 
+    @swag_from('sign_up.yaml')
     def post(self):
         body = self.__parse_params_sign_up()
         login = body['login']

@@ -1,0 +1,53 @@
+Sign Up to the system
+---
+tags:
+  - auth
+parameters:
+  - in: body
+    name: login
+    type: string
+    required: true
+    description: This will be used when Log In and identifies a user in the system
+    example: user10
+  - in: body
+    name: password
+    type: string
+    required: true
+    example: 123456
+  - in: body
+    name: fullname
+    type: string
+    required: true
+    description: Can be changed in future
+    example: User Ten
+responses:
+  200:
+    description: The user successfully created
+    schema:
+      id: CreatedUserSchema
+      properties:
+        message:
+          type: string
+          example: The user successfully created.
+        user:
+          properties:
+            id:
+              type: number
+              example: 4
+            login:
+              type: string
+              example: user10
+            img:
+              type: string
+              example: null
+            fullname:
+              type: string
+              example: User Ten
+  400:
+    description: If the login already occupied, responses the error
+    schema:
+      id: CreatedUserErrorSchema
+      properties:
+        message:
+          type: string
+          example: User with this login already exists.

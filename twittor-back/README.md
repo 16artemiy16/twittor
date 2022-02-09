@@ -22,3 +22,5 @@ source venv/bin/activate
 python app.py
 ```
 
+### OpenAPI
+Swagger can be found here http://localhost:5000/apidocs/

@@ -6,3 +6,7 @@ class DevConfig:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     JWT_SECRET_KEY = 'secret'
     JWT_ACCESS_TOKEN_EXPIRES = 864000  # 10 days
+    SWAGGER = {
+        'title': 'Twittor API',
+        'uiversion': '3'
+    }

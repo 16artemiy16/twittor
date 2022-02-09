@@ -3,6 +3,7 @@ from flask_restful import Api
 from flask_jwt_extended import JWTManager
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
+from flasgger import Swagger
 
 from config import DevConfig
 import resources
@@ -14,6 +15,7 @@ CORS(app)
 api = Api(app)
 jwt = JWTManager(app)
 bcrypt = Bcrypt(app)
+swagger = Swagger(app)
 
 if __name__ == '__main__':
     from db import db
