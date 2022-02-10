@@ -1,10 +1,10 @@
 from flask_restful import Resource, reqparse
-from flask_jwt_extended import create_access_token
 from flasgger import swag_from
 
 from app import bcrypt
 from reqparsers.types import non_empty_string
 from models.user import UserModel
+from services.jwt import generate_token
 
 
 class SignIn(Resource):
@@ -24,8 +24,7 @@ class SignIn(Resource):
         user = UserModel.find_by_login(login)
 
         if user and bcrypt.check_password_hash(user.password, password):
-            claims = {'id': user.id, 'login': user.login, 'fullname': user.fullname}
-            token = create_access_token(user.id, additional_claims=claims)
+            token = generate_token(user)
             return {'token': token}
 
         return {'message': 'Bad login or password'}, 401

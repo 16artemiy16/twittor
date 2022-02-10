@@ -26,3 +26,4 @@ htmlcov/
 *,cover
 
 data.db
+filestorage
