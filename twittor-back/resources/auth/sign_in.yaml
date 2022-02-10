@@ -1,0 +1,32 @@
+Log in to the system
+---
+tags:
+  - auth
+parameters:
+  - in: body
+    name: login
+    type: string
+    required: true
+    example: user1
+  - in: body
+    name: password
+    type: string
+    required: true
+    example: 123456
+responses:
+  200:
+    description: Returns token if the credentials are correct
+    schema:
+      id: SignInSuccess
+      properties:
+        token:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+  401:
+    description: Login or password is incorrect
+    schema:
+      id: SignInFail
+      properties:
+        message:
+          type: string
+          example: Bad login or password

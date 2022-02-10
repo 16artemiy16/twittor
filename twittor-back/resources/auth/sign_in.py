@@ -1,5 +1,6 @@
 from flask_restful import Resource, reqparse
 from flask_jwt_extended import create_access_token
+from flasgger import swag_from
 
 from app import bcrypt
 from reqparsers.types import non_empty_string
@@ -14,6 +15,7 @@ class SignIn(Resource):
 
         return parser.parse_args()
 
+    @swag_from('sign_in.yaml')
     def post(self):
         body = self.__parse_params_sign_in()
         login = body['login']
