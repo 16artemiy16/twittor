@@ -1,0 +1,36 @@
+Get user profile details
+---
+tags:
+  - profile
+parameters:
+  - in: path
+    name: login
+    required: false
+    example: user1
+    type: string
+    description: |
+      User's login, which profile should be checked.
+      If not provided, returns the profile of the user who sent the request.
+responses:
+  200:
+    description: The found user's profile
+    examples:
+      application/json:
+        {
+          "profile": {
+              "id": 2,
+              "login": "user1",
+              "img": "91b9bc9b841047cf9aaede8c4ecfed8f.png",
+              "fullname": "Harry Potter",
+              "stats": {
+                  "tweets": 4
+              }
+          }
+        }
+  404:
+    description: User with this login doesn't exist
+    examples:
+      application/json:
+        {
+          "message": "User with this login does not exist"
+        }

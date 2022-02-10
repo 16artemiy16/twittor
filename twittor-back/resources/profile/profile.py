@@ -1,6 +1,7 @@
 from flask import request
 from flask_restful import Resource, reqparse
 from flask_jwt_extended import jwt_required, get_jwt_identity
+from flasgger import swag_from
 
 from models.user import UserModel
 from models.tweet import TweetModel
@@ -31,6 +32,7 @@ class Profile(Resource):
         return args
 
     @jwt_required()
+    @swag_from('profile_get.yaml')
     def get(self, login=None):
         user = UserModel.find_by_login(login) if login else UserModel.find_by_id(get_jwt_identity())
 
