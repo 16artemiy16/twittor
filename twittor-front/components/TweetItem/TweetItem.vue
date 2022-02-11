@@ -35,14 +35,12 @@ export default class TweetItem extends Vue {
       { icon: 'mdi-account-plus', text: 'Follow this User' },
       { icon: 'mdi-flag-outline', text: 'Report this Tweet' },
     ];
-    // TODO: move user and tweet removing to store
-    if (this.$authService.user()) {
-      actions.push({
-        icon: 'mdi-delete-outline',
-        text: 'Remove',
-        onClick: () => this.removeTweet(),
-      });
-    }
+    // TODO: check if the user is the tweet owner
+    actions.push({
+      icon: 'mdi-delete-outline',
+      text: 'Remove',
+      onClick: () => this.removeTweet(),
+    });
     return actions;
   }
 

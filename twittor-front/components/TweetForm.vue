@@ -1,6 +1,8 @@
 <script lang="ts">
 import Vue from 'vue';
 import Component from 'vue-class-component';
+import { computed as authComputed } from '~/store/auth/sandbox';
+import { UserJWTI } from '~/interfaces/user-jwt.interface';
 
 interface TweetModelI {
   body: string;
@@ -13,9 +15,14 @@ interface TweetModelI {
   },
   components: {
     AppUserImg: () => import('~/components/app/AppUserImg.vue' /* webpackChunkName: "AppUserImg" */),
-  }
+  },
+  computed: {
+    user: authComputed.user,
+  },
 })
 export default class TweetForm extends Vue {
+  user!: UserJWTI;
+
   readonly TEXT_MAX_SIZE = 280;
   readonly TEXT_CLOSE_TO_EXCESS = 20;
 
@@ -28,10 +35,6 @@ export default class TweetForm extends Vue {
   model: TweetModelI = {
     body: '',
   };
-
-  get user() {
-    return this.$authService.user();
-  }
 
   get isTweetBtnDisabled(): boolean {
     return this.model.body.trim().length === 0 || this.textExcess > 0;

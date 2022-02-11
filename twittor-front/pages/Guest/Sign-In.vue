@@ -1,20 +1,26 @@
 <script lang="ts">
 import Component from 'vue-class-component';
 import Vue from 'vue';
+import { actions as authActions } from '~/store/auth/sandbox';
 
 @Component({
-  middleware: ['guest']
-})
+  middleware: ['guest'],
+  methods: {
+    logIn: authActions.logIn,
+  },
+} as any)
 export default class SignIn extends Vue {
+  logIn!: Function;
+
   login: string = '';
   password: string = '';
   errorMsg: string = '';
 
-  async logIn() {
-    const { success, msg } = await this.$authService.logIn(this.login, this.password);
+  async handleLogIn() {
+    const { login, password } = this;
+    const { success, msg } = await this.logIn({ login, password });
     if (success) {
-      this.$router.push({ path: '/authed/home' });
-      return;
+      return this.$router.push({ path: '/authed/home' });
     }
     this.errorMsg = msg || '';
   }
@@ -31,7 +37,7 @@ export default class SignIn extends Vue {
         <div class="sign-in__error mb-4 text-center">
           {{ errorMsg }}
         </div>
-        <v-btn class="w-100 mb-2" @click="logIn()">Login</v-btn>
+        <v-btn class="w-100 mb-2" @click="handleLogIn()">Login</v-btn>
         <div class="text-center mb-2">OR</div>
         <v-btn class="w-100" @click="() => $router.push({ path: '/guest/sign-up/' })">Sign Up</v-btn>
       </form>

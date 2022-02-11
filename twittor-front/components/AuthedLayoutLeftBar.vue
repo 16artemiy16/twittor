@@ -4,6 +4,7 @@ import Component from 'vue-class-component';
 import TweetBtn from '~/components/TweetBtn.vue';
 import { UserJWTI } from '~/interfaces/user-jwt.interface';
 import { computed } from '~/store/home/sandbox';
+import { actions as authActions, computed as  authComputed } from '~/store/auth/sandbox';
 
 @Component({
   components: {
@@ -11,20 +12,25 @@ import { computed } from '~/store/home/sandbox';
     TweetBtn,
   },
   computed: {
-    isTweetSending: computed.isTweetSending
+    isTweetSending: computed.isTweetSending,
+    user: authComputed.user,
+  },
+  methods: {
+    logOut: authActions.logOut,
   }
-})
+} as any)
 export default class AuthedLayoutLeftBar extends Vue {
+  user!: UserJWTI;
   isTweetSending!: boolean;
+  logOut!: Function;
 
-  readonly user: UserJWTI = this.$authService.user() as UserJWTI;
 
   get profileLink(): string {
     return `/authed/profile/${this.user.login}`;
   }
 
-  logOut() {
-    this.$authService.logOut();
+  handleLogOut() {
+    this.logOut();
     this.$router.push({ path: '/guest/sign-in' })
   }
 }
@@ -85,7 +91,7 @@ export default class AuthedLayoutLeftBar extends Vue {
         </div>
         <v-divider></v-divider>
         <v-list>
-          <v-list-item @click="logOut()">Log out</v-list-item>
+          <v-list-item @click="handleLogOut()">Log out</v-list-item>
         </v-list>
       </v-menu>
     </div>

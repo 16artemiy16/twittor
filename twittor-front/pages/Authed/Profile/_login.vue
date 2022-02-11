@@ -1,14 +1,17 @@
 <script lang="ts">
 import Component from 'vue-class-component';
 import Vue from 'vue';
-import { actions, computed } from '~/store/profile/sandbox';
 import { Watch } from 'vue-property-decorator';
+import { actions, computed } from '~/store/profile/sandbox';
+import { computed as authComputed } from '~/store/auth/sandbox';
+import { UserJWTI } from '~/interfaces/user-jwt.interface';
 
 @Component<any>({
   computed: {
     isLoadingProfile: computed.isLoadingProfileInfo,
     isLoadingTweets: computed.isLoadingTweets,
     tweets: computed.tweets,
+    currentUser: authComputed.user,
   },
   methods: {
     initProfile: actions.initProfile,
@@ -22,13 +25,13 @@ import { Watch } from 'vue-property-decorator';
   },
 })
 export default class Profile extends Vue {
+  currentUser!: UserJWTI;
   initProfile!: Function;
 
   @Watch('$route.params.login', { immediate: true })
   onLoginChange(login: string) {
     if (!login) {
-      const myLogin = this.$authService.user()?.login as string;
-      this.$router.push({ path: `/authed/profile/${myLogin}` });
+      this.$router.push({ path: `/authed/profile/${this.currentUser.login}` });
       return;
     }
 

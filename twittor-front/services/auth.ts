@@ -17,7 +17,7 @@ interface SignUpPayloadI {
 }
 
 export interface AuthServiceI {
-  logIn: (login: string, password: string) => Promise<LogInI>,
+  logIn: (login: string, password: string) => Promise<string>,
   logOut: () => void;
   token: () => string;
   user: () => UserJWTI | null;
@@ -27,13 +27,8 @@ export interface AuthServiceI {
 export default ({ $axios, $cookies }: Vue, inject: Inject) => {
   const authService: AuthServiceI = {
     logIn: async (login, password) => {
-      try {
-        const { data } = await $axios.post('/sign-in', { login, password });
-        $cookies.set(COOKIE_KEY_TOKEN, data.token);
-        return { success: true }
-      } catch (err) {
-        return { success: false, msg: err.response.data.message };
-      }
+      const { data } = await $axios.post('/sign-in', {login, password});
+      return data.token;
     },
     logOut: () => {
       $cookies.remove(COOKIE_KEY_TOKEN);
@@ -41,7 +36,12 @@ export default ({ $axios, $cookies }: Vue, inject: Inject) => {
     token: () => $cookies.get(COOKIE_KEY_TOKEN),
     user: () => {
       const token = $cookies.get(COOKIE_KEY_TOKEN);
-      return token ? jwtDecode(token) : null;
+      try {
+        return token ? jwtDecode(token) : null;
+      } catch (e) {
+        $cookies.remove(COOKIE_KEY_TOKEN);
+        return null;
+      }
     },
     signUp: async ({ login, password, fullname }) => {
       await $axios.post('/sign-up', { login, password, fullname });
