@@ -17,8 +17,18 @@ class UserModel(db.Model):
     tweets = db.relationship('TweetModel', backref='user', lazy='dynamic')
     likes = db.relationship('LikeModel', backref='user', lazy='dynamic')
 
+    @property
+    def img_path(self):
+        # TODO: a piece of img path is hardcoded, works only with localhost
+        return f'http://localhost:5000/filestorage/profile/{self.img}'
+
     def json(self):
-        return {'id': self.id, 'login': self.login, 'img': self.img, 'fullname': self.fullname}
+        return {
+            'id': self.id,
+            'login': self.login,
+            'img': self.img_path,
+            'fullname': self.fullname
+        }
 
     def save_to_db(self):
         db.session.add(self)

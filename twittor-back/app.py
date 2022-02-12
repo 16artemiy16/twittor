@@ -8,7 +8,7 @@ from flasgger import Swagger
 from config import DevConfig
 import resources
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='filestorage')
 app.config.from_object(DevConfig)
 CORS(app)
 
