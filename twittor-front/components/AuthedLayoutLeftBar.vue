@@ -29,6 +29,10 @@ export default class AuthedLayoutLeftBar extends Vue {
     return `/authed/profile/${this.user.login}`;
   }
 
+  get isProfileLinkActive(): boolean {
+    return this.$nuxt.$route.name === 'Authed-Profile-login';
+  }
+
   handleLogOut() {
     this.logOut();
     this.$router.push({ path: '/guest/sign-in' })
@@ -52,7 +56,7 @@ export default class AuthedLayoutLeftBar extends Vue {
           </v-icon>
           <span class="sidebar__nav-item-text">Explore</span>
         </NuxtLink>
-        <NuxtLink :to="profileLink" class="sidebar__nav-item">
+        <NuxtLink :to="profileLink" class="sidebar__nav-item" :class="{ 'nuxt-link-active': isProfileLinkActive }">
           <v-icon large arial-label="Profile page">
             mdi-account
           </v-icon>

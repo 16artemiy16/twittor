@@ -83,12 +83,12 @@ export default class TweetItem extends Vue {
       <div class="tweet__right flex-column flex-grow-1">
         <div class="tweet__info mb-2 d-flex">
           <template>
-            <router-link
-                :to="{ path: '/authed/profile', params: { login: tweet.user.login } }"
+            <NuxtLink
+                :to="{ path: '/authed/profile/' + tweet.user.login }"
             >
               <span class="user-name mr-2 font-weight-bold">{{ tweet.user.fullname }}</span>
               <span class="user-login mr-2">@{{ tweet.user.login }}</span>
-            </router-link>
+            </NuxtLink>
             <span class="posted-date">{{ dateDiff }}</span>
           </template>
         </div>
