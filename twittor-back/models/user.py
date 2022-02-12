@@ -20,7 +20,7 @@ class UserModel(db.Model):
     @property
     def img_path(self):
         # TODO: a piece of img path is hardcoded, works only with localhost
-        return f'http://localhost:5000/filestorage/profile/{self.img}'
+        return f'http://localhost:5000/filestorage/profile/{self.img}' if self.img else None
 
     def json(self):
         return {
