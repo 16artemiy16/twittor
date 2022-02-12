@@ -22,7 +22,7 @@ export default class AppUserImg extends Vue {
       height: `${this.size}px`,
       fontSize: `${this.size / 2}px`,
       ...bgImg
-        ? { backgroundImage: `url("${bgImg}")` }
+        ? { backgroundImage: `url(${bgImg})` }
         : { backgroundColor: this.imgFallbackBG }
     };
   }

@@ -1,6 +1,5 @@
 import { createNamespacedHelpers } from 'vuex';
 import { AuthAction } from '~/store/auth/actions';
-import { UserJWTI } from '~/interfaces/user-jwt.interface';
 
 const { mapState, mapActions } = createNamespacedHelpers('auth')
 
