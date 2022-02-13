@@ -1,19 +1,29 @@
 <script lang="ts">
 import Component from 'vue-class-component';
 import Vue from 'vue';
-import { computed } from '~/store/profile/sandbox';
+import { computed as profileComputed } from '~/store/profile/sandbox';
+import { computed as authComputed } from '~/store/auth/sandbox';
+
 import { UserProfileI } from '~/interfaces/user-profile.interface';
+import { UserJWTI } from '~/interfaces/user-jwt.interface';
 
 @Component({
   components: {
     AppUserImg: () => import('~/components/app/AppUserImg.vue' /* webpackChunkName: "AppUserImg" */),
   },
   computed: {
-    user: computed.profileInfo
+    user: profileComputed.profileInfo,
+    currentUser: authComputed.user,
   }
 })
 export default class ProfileDescriptionSection extends Vue {
   user: UserProfileI | undefined;
+  currentUser!: UserJWTI;
+
+
+  get isProfileMine(): boolean {
+    return this.currentUser.id === this.user?.id;
+  }
 }
 </script>
 
@@ -34,7 +44,7 @@ export default class ProfileDescriptionSection extends Vue {
       <v-layout>
         <AppUserImg class="img ml-6" :user="user" size="130"/>
         <v-layout></v-layout>
-        <div class="pa-4">
+        <div v-if="!isProfileMine" class="pa-4">
           <v-btn
             class="mr-6"
             fab
@@ -43,6 +53,9 @@ export default class ProfileDescriptionSection extends Vue {
             <v-icon>mdi-dots-horizontal</v-icon>
           </v-btn>
           <v-btn rounded>Follow</v-btn>
+        </div>
+        <div v-else class="pa-4">
+          <v-btn rounded>Edit profile</v-btn>
         </div>
       </v-layout>
       <div class="description__detailed pa-4">

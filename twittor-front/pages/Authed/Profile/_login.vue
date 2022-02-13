@@ -2,20 +2,18 @@
 import Component from 'vue-class-component';
 import Vue from 'vue';
 import { Watch } from 'vue-property-decorator';
-import { actions, computed } from '~/store/profile/sandbox';
-import { computed as authComputed } from '~/store/auth/sandbox';
+import { actions as profileActions, computed as profileComputed } from '~/store/profile/sandbox';
 import { UserJWTI } from '~/interfaces/user-jwt.interface';
 
 @Component<any>({
   computed: {
-    isLoadingProfile: computed.isLoadingProfileInfo,
-    isLoadingTweets: computed.isLoadingTweets,
-    tweets: computed.tweets,
-    currentUser: authComputed.user,
+    isLoadingProfile: profileComputed.isLoadingProfileInfo,
+    isLoadingTweets: profileComputed.isLoadingTweets,
+    tweets: profileComputed.tweets,
   },
   methods: {
-    initProfile: actions.initProfile,
-    toggleTweetLike: actions.toggleTweetLike,
+    initProfile: profileActions.initProfile,
+    toggleTweetLike: profileActions.toggleTweetLike,
   },
   components: {
     ProfileDescriptionSection: () => import('~/components/Profile/ProfileDescriptionSection.vue' /* webpackChunkName: "ProfileDescriptionSection" */),
