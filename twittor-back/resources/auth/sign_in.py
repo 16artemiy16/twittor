@@ -2,8 +2,8 @@ from flask_restful import Resource, reqparse
 from flasgger import swag_from
 
 from app import bcrypt
-from reqparsers.types import non_empty_string
-from models.user import UserModel
+from reqparsers import non_empty_string
+from models import UserModel
 from services.jwt import generate_token
 
 

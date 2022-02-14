@@ -1,8 +1,8 @@
 from flask_restful import Resource, reqparse
 from flasgger import swag_from
 
-from reqparsers.types import non_empty_string
-from models.user import UserModel
+from reqparsers import non_empty_string
+from models import UserModel
 from app import bcrypt
 
 
