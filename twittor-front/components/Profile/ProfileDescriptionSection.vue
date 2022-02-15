@@ -10,6 +10,7 @@ import { UserJWTI } from '~/interfaces/user-jwt.interface';
 @Component({
   components: {
     AppUserImg: () => import('~/components/app/AppUserImg.vue' /* webpackChunkName: "AppUserImg" */),
+    ProfileDescriptionSectionEditProfile: () => import('~/components/Profile/ProfileDescriptionSectionEditProfile.vue' /* webpackChunkName: "ProfileDescriptionSection" */),
   },
   computed: {
     user: profileComputed.profileInfo,
@@ -42,7 +43,7 @@ export default class ProfileDescriptionSection extends Vue {
 
     <div class="description">
       <v-layout>
-        <AppUserImg class="img ml-6" :user="user" size="130"/>
+        <AppUserImg class="img ml-6" :user="user" size="130" />
         <v-layout></v-layout>
         <div v-if="!isProfileMine" class="pa-4">
           <v-btn
@@ -55,7 +56,7 @@ export default class ProfileDescriptionSection extends Vue {
           <v-btn rounded>Follow</v-btn>
         </div>
         <div v-else class="pa-4">
-          <v-btn rounded>Edit profile</v-btn>
+          <ProfileDescriptionSectionEditProfile />
         </div>
       </v-layout>
       <div class="description__detailed pa-4">
