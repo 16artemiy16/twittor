@@ -3,7 +3,7 @@ from flasgger import swag_from
 
 from reqparsers import non_empty_string
 from models import UserModel
-from app import bcrypt
+from entities import bcrypt
 
 
 class SignUp(Resource):
