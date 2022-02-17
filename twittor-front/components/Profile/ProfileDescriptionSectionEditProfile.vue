@@ -62,6 +62,20 @@ export default class ProfileDescriptionSectionEditProfile extends Vue {
         </v-btn>
         <v-btn @click="handleSave()" :disabled="isProfileUpdating">Save</v-btn>
       </v-layout>
+      <template>
+
+        <v-progress-linear
+          v-if="isProfileUpdating"
+          indeterminate
+          color="cyan"
+        ></v-progress-linear>
+        <!--
+          When progressbar appears from nowhere the layout jumps,
+          this spacer replaces the progressbar when it's absent,
+          making its appearance smooth
+        -->
+        <div class="mb-1" v-else></div>
+      </template>
       <main class="modal__main">
         <form class="w-100 form">
           <div class="w-100 form__header-img"></div>
