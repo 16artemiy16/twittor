@@ -1,11 +1,10 @@
 from flask_restful import Resource, reqparse
 from flasgger import swag_from
 
-from entities import bcrypt
-from reqparsers import non_empty_string
-from models import UserModel
-from services.jwt import generate_token
-
+from application.reqparsers import non_empty_string
+from application.models import UserModel
+from application.services.jwt import generate_token
+from application import bcrypt
 
 class SignIn(Resource):
     def __parse_params_sign_in(self):

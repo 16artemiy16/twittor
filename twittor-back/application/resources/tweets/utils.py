@@ -1,4 +1,4 @@
-from models import LikeModel
+from application.models import LikeModel
 
 
 def add_likes_details(data, user_id):

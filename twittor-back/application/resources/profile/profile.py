@@ -3,9 +3,9 @@ from flask_restful import Resource, reqparse
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from flasgger import swag_from
 
-from models import UserModel, TweetModel
-from services.filesaver import FileSaver, WrongExtError, IMG_ALLOWED_EXTS
-from services.jwt import generate_token
+from application.models import UserModel, TweetModel
+from application.services.filesaver import FileSaver, WrongExtError, IMG_ALLOWED_EXTS
+from application.services.jwt import generate_token
 
 def _res_error_img_extension(field):
     return {

@@ -25,5 +25,5 @@ htmlcov/
 .coverage.*
 *,cover
 
-data.db
-filestorage
+application/data.db
+application/filestorage

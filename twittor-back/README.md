@@ -19,7 +19,7 @@ pip install -r requirements.txt
 source venv/bin/activate 
 
 # Start the app
-python app.py
+python wsgi.py 
 ```
 
 ### OpenAPI

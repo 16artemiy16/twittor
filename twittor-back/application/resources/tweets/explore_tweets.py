@@ -1,8 +1,8 @@
 from flask_restful import Resource, reqparse
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
-from models import TweetModel
-from reqparsers import parse_pagination
+from application.models import TweetModel
+from application.reqparsers import parse_pagination
 from .utils import add_likes_details
 
 

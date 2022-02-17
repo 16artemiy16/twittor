@@ -1,5 +1,5 @@
 import time
-from entities.db import db
+from application import db
 
 
 def timestamp_ms():

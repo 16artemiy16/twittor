@@ -1,9 +1,9 @@
 from flask_restful import Resource, reqparse
 from flasgger import swag_from
 
-from reqparsers import non_empty_string
-from models import UserModel
-from entities import bcrypt
+from application.reqparsers import non_empty_string
+from application.models import UserModel
+from application import bcrypt
 
 
 class SignUp(Resource):

@@ -8,7 +8,7 @@ class WrongExtError(Exception):
 
 
 class FileSaver:
-    _STORAGE_PATH = 'filestorage'
+    _STORAGE_PATH = 'application/filestorage'
     _PROFILE_IMG_PATH = f'{_STORAGE_PATH}/profile/'
 
     @classmethod
