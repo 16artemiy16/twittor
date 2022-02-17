@@ -2,6 +2,7 @@ import Vue from 'vue';
 import { Inject } from '@nuxt/types/app';
 import jwtDecode from 'jwt-decode';
 import { UserJWTI } from '~/interfaces/user-jwt.interface';
+import { UpdateUserDto } from '~/dtos/update-user.dto';
 
 const COOKIE_KEY_TOKEN = 'token';
 
@@ -22,6 +23,7 @@ export interface AuthServiceI {
   token: () => string;
   user: () => UserJWTI | null;
   signUp: (payload: SignUpPayloadI) => Promise<any>;
+  updateUser: (dto: UpdateUserDto) => Promise<any>;
 }
 
 export default ({ $axios, $cookies }: Vue, inject: Inject) => {
@@ -46,6 +48,14 @@ export default ({ $axios, $cookies }: Vue, inject: Inject) => {
     signUp: async ({ login, password, fullname }) => {
       await $axios.post('/sign-up', { login, password, fullname });
     },
+    updateUser: async (dto) => {
+      const formData = new FormData();
+      // TODO: implement img
+      // dto.img && data.append('profileImg', '')
+      dto.fullname && formData.append('fullname', dto.fullname);
+      const { data } = await $axios.put('/profile/', formData);
+      return data;
+    }
   };
 
   inject('authService', authService);

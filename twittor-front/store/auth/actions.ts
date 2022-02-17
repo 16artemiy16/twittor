@@ -2,13 +2,14 @@ import { ActionContext } from 'vuex';
 import jwtDecode from 'jwt-decode';
 import { AuthStateI } from '~/store/auth/state';
 import { AuthMutation } from '~/store/auth/mutations';
-import { UserJWTI } from '~/interfaces/user-jwt.interface';
+import { UpdateUserDto } from '~/dtos/update-user.dto';
 
 type AuthActionContext = ActionContext<AuthStateI, any>;
 
 export enum AuthAction {
   LogIn = 'logIn',
-  LogOut = 'logOut'
+  LogOut = 'logOut',
+  UpdateProfile = 'updateProfile',
 }
 
 const COOKIE_KEY_TOKEN = 'token';
@@ -33,4 +34,14 @@ export default {
   [AuthAction.LogOut]() {
     this.$cookies.remove(COOKIE_KEY_TOKEN);
   },
+  async [AuthAction.UpdateProfile]({ commit }: AuthActionContext, dto: UpdateUserDto) {
+    commit(AuthMutation.SetIsProfileUpdating, true);
+    const { token } = await this.$authService.updateUser(dto);
+    this.$cookies.set(COOKIE_KEY_TOKEN, token);
+
+    const jwtUser = jwtDecode(token);
+    commit(AuthMutation.SetUser, jwtUser);
+    commit(AuthMutation.SetIsProfileUpdating, false);
+    return { success: true };
+  }
 } as any
