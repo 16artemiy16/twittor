@@ -1,0 +1,21 @@
+Set / unset Tweet's like
+---
+tags:
+  - tweet
+parameters:
+  - in: path
+    name: id
+    type: number
+    required: true
+responses:
+  200:
+    examples:
+      description: Like successfully set / unset
+      application/json:
+        { "message": "Like is set" }
+  404:
+    description: The Tweet with this id does not exist
+    examples:
+      application/json:
+        { "message": "Tweet with this id does not exist, id=3" }
+

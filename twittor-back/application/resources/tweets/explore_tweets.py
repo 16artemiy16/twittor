@@ -1,5 +1,6 @@
 from flask_restful import Resource, reqparse
 from flask_jwt_extended import jwt_required, get_jwt_identity
+from flasgger import swag_from
 
 from application.models import TweetModel
 from application.reqparsers import parse_pagination
@@ -8,6 +9,7 @@ from .utils import add_likes_details
 
 class ExploreTweets(Resource):
     @jwt_required()
+    @swag_from('explore_tweets.yaml')
     def get(self):
         pagination = parse_pagination(reqparse.RequestParser())
 

@@ -1,0 +1,44 @@
+Get Explore tweets
+---
+tags:
+  - tweet
+parameters:
+  - in: query
+    name: limit
+    required: false
+    default: 10
+    type: number
+  - in: query
+    name: page
+    required: false
+    default: 1
+    type: number
+responses:
+  200:
+    description: The list of tweets writter by the user
+    examples:
+      application/json:
+        {
+            "tweets": [
+                {
+                    "id": 13,
+                    "body": "New Tweet's Body",
+                    "created": 1643612289624.1548,
+                    "user": {
+                        "id": 1,
+                        "login": "user2",
+                        "img": null,
+                        "fullname": "Second User"
+                    },
+                    "likes": {
+                        "total": 1,
+                        "isLikedByMe": false
+                    }
+                }
+            ],
+            "pagination": {
+                "page": 1,
+                "limit": 10
+            }
+        }
+

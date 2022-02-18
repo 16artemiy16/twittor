@@ -1,11 +1,13 @@
 from flask_restful import Resource
 from flask_jwt_extended import jwt_required, get_jwt_identity
+from flasgger import swag_from
 
 from application.models import TweetModel, LikeModel
 
 
 class TweetLike(Resource):
     @jwt_required()
+    @swag_from('like.yaml')
     def post(self, tweet_id):
         tweet = TweetModel.find_by_id(tweet_id)
 

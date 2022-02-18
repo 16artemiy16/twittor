@@ -1,0 +1,66 @@
+Get user's tweets
+---
+tags:
+  - tweet
+parameters:
+  - in: query
+    name: limit
+    required: false
+    default: 10
+    type: number
+  - in: query
+    name: page
+    required: false
+    default: 1
+    type: number
+  - in: path
+    name: user
+    required: true
+    type: string
+    example: user1
+responses:
+  200:
+    description: The list of user's Explore tweets
+    examples:
+      application/json:
+        {
+          "tweets": [
+            {
+              "id": 12,
+              "body": "sedfasf\n",
+              "created": 1642572022103.747,
+              "user": {
+                "id": 2,
+                "login": "user1",
+                "img": "http://localhost:5000/filestorage/profile/ce87cd65f4544792b45966991032821d.png",
+                "fullname": "Harry Potter"
+              },
+              "likes": {
+                "total": 0,
+                "isLikedByMe": false
+              }
+            },
+            {
+              "id": 10,
+              "body": "1",
+              "created": 1642571684215.022,
+              "user": {
+                "id": 2,
+                "login": "user1",
+                "img": "http://localhost:5000/filestorage/profile/ce87cd65f4544792b45966991032821d.png",
+                "fullname": "Harry Potter"
+              },
+              "likes": {
+                "total": 0,
+                "isLikedByMe": false
+              }
+            },
+          ],
+          "pagination": {
+            "page": 1,
+            "limit": 10,
+            "total": 2,
+            "hasNextPage": false
+          }
+        }
+
