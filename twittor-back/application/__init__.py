@@ -26,8 +26,13 @@ def init_app(config_name):
     db.init_app(app)
     bcrypt.init_app(app)
 
-    from application import resources
-    resources.api.init_app(app)
+    with app.app_context():
+        from application import resources
+        resources.api.init_app(app)
+
+        @app.before_first_request
+        def create_tables():
+            db.create_all()
 
     return app
 
