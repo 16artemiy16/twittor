@@ -5,6 +5,8 @@ from flasgger import Swagger
 from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
 
+from .config import config_by_name
+
 cors = CORS()
 jwt = JWTManager()
 swagger = Swagger()
@@ -12,9 +14,11 @@ db = SQLAlchemy()
 bcrypt = Bcrypt()
 
 
-def init_app():
+def init_app(config_name):
     app = Flask(__name__, instance_relative_config=False, static_folder='filestorage')
-    app.config.from_object('config.DevConfig')
+    app.config.from_object(
+        config_by_name[config_name]
+    )
 
     cors.init_app(app)
     jwt.init_app(app)
