@@ -7,6 +7,7 @@ from application.models import UserModel, TweetModel
 from application.services.filesaver import FileSaver, WrongExtError, IMG_ALLOWED_EXTS
 from application.services.jwt import generate_token
 
+
 def _res_error_img_extension(field):
     return {
         'success': False,

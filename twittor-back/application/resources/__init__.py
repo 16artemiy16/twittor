@@ -1,8 +1,6 @@
 from flask_restful import Api
 
-import application.resources.profile_resource as profile
-import application.resources.auth_resource as auth
-import application.resources.tweets_resource as tweets
+from . import auth, profile, tweets
 
 
 def _init_all_routes(api):

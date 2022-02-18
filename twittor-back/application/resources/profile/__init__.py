@@ -1,4 +1,4 @@
-from .profile import profile
+from . import profile
 
 
 def init_routes(api):

@@ -1,4 +1,4 @@
-from .tweets import like, tweet, explore_tweets, tweet_list_by_user
+from . import like, tweet, explore_tweets, tweet_list_by_user
 
 
 def init_routes(api):

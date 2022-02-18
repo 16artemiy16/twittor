@@ -1,4 +1,4 @@
-from .auth import sign_up, sign_in
+from . import sign_up, sign_in
 
 
 def init_routes(api):
