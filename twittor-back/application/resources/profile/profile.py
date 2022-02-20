@@ -60,6 +60,7 @@ class Profile(Resource):
         profile_img = args.get('profileImg')
         if profile_img:
             try:
+                FileSaver.remove_profile_img(user.img)
                 filename = FileSaver.save_profile_img(profile_img)
                 user.img = filename
                 updated_fields.append('profileImg')
