@@ -50,8 +50,7 @@ export default ({ $axios, $cookies }: Vue, inject: Inject) => {
     },
     updateUser: async (dto) => {
       const formData = new FormData();
-      // TODO: implement img
-      // dto.img && data.append('profileImg', '')
+      dto.img && formData.append('profileImg', dto.img)
       dto.fullname && formData.append('fullname', dto.fullname);
       const { data } = await $axios.put('/profile/', formData);
       return data;

@@ -10,6 +10,9 @@ interface ProfileModelI {
 }
 
 @Component({
+  components: {
+    AppUserImgUploader: () => import('~/components/app/AppUserImgUploader.vue' /* webpackChunkName: "AppUserImgUploader" */),
+  },
   computed: {
     user: profileComputed.profileInfo,
     isProfileUpdating: authComputed.isProfileUpdating,
@@ -20,6 +23,7 @@ interface ProfileModelI {
 } as any)
 export default class ProfileDescriptionSectionEditProfile extends Vue {
   user!: UserProfileI;
+  isProfileUpdating!: boolean;
   updateProfile!: Function;
 
   model: ProfileModelI = {
@@ -35,12 +39,9 @@ export default class ProfileDescriptionSectionEditProfile extends Vue {
 
   async handleSave() {
     // TODO: img will be in the future
-    const { fullname } = this.model;
-    if (this.user.fullname === fullname) {
-      return;
-    }
-    await this.updateProfile({ fullname });
+    await this.updateProfile(this.model);
     // Reload the page after the profile was updated
+    // TODO: perform live update
     this.$router.go(0)
   }
 
@@ -79,7 +80,10 @@ export default class ProfileDescriptionSectionEditProfile extends Vue {
       <main class="modal__main">
         <form class="w-100 form">
           <div class="w-100 form__header-img"></div>
-          <img class="form__profile-img rounded-circle ml-6" :src="model.img" width="120" height="120" alt="User img" />
+          <AppUserImgUploader
+            v-model="model.img"
+            class="form__profile-img ml-6"
+          />
           <v-text-field
             outlined
             :disabled="isProfileUpdating"
