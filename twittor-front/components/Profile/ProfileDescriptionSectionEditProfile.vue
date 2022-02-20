@@ -17,7 +17,7 @@ interface ProfileModelI {
   methods: {
     updateProfile: authActions.updateProfile,
   },
-})
+} as any)
 export default class ProfileDescriptionSectionEditProfile extends Vue {
   user!: UserProfileI;
   updateProfile!: Function;
