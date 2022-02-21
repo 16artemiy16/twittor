@@ -38,7 +38,6 @@ export default class ProfileDescriptionSectionEditProfile extends Vue {
   }
 
   async handleSave() {
-    // TODO: img will be in the future
     await this.updateProfile(this.model);
     // Reload the page after the profile was updated
     // TODO: perform live update
