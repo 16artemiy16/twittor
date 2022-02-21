@@ -6,6 +6,7 @@ from application.models import UserModel
 from application.services.jwt import generate_token
 from application import bcrypt
 
+
 class SignIn(Resource):
     def __parse_params_sign_in(self):
         parser = reqparse.RequestParser()

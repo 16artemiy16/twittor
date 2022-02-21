@@ -27,8 +27,10 @@ def init_app(config_name):
     bcrypt.init_app(app)
 
     with app.app_context():
+        from application.cmds import cmd_bp
         from application import resources
         resources.api.init_app(app)
+        app.register_blueprint(cmd_bp)
 
         @app.before_first_request
         def create_tables():
