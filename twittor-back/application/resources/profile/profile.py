@@ -21,6 +21,7 @@ class Profile(Resource):
         parser = reqparse.RequestParser()
         parser.add_argument('fullname', required=False)
         parser.add_argument('profileImg', required=False, location='files')
+        parser.add_argument('profileImgRemove', required=False)
 
         args = parser.parse_args()
 
@@ -58,7 +59,12 @@ class Profile(Resource):
             updated_fields.append('fullname')
 
         profile_img = args.get('profileImg')
-        if profile_img:
+
+        if args.get('profileImgRemove'):
+            FileSaver.remove_profile_img(user.img)
+            user.img = None
+            updated_fields.append('profileImg')
+        elif profile_img:
             try:
                 FileSaver.remove_profile_img(user.img)
                 filename = FileSaver.save_profile_img(profile_img)

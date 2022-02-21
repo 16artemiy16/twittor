@@ -26,4 +26,7 @@ class FileSaver:
     @classmethod
     def remove_profile_img(cls, filename):
         path = f'{cls._PROFILE_IMG_PATH}{filename}'
-        os.remove(path)
+        try:
+            os.remove(path)
+        except OSError:
+            pass
