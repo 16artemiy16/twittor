@@ -1,7 +1,6 @@
 import click
 from flask import Blueprint
 
-from application import bcrypt
 from application.models import UserModel
 from application.services import jwt
 
@@ -15,8 +14,7 @@ def create(login, password):
     if UserModel.find_by_login(login):
         return print('[-] User with this login already exists.')
 
-    user = UserModel(login=login, fullname='John Smith')
-    user.password = bcrypt.generate_password_hash(password).decode('utf-8')
+    user = UserModel(login=login, password=password, fullname='John Smith')
     user.save_to_db()
     print('[+] User crated')
 
@@ -28,7 +26,7 @@ def get_token(login, password):
     user = UserModel.find_by_login(login)
     if not user:
         return print(f'[-] User with this login does not exist.')
-    if bcrypt.check_password_hash(user.password, password):
+    if user.is_pass_valid(password):
         token = jwt.generate_token(user)
         return print(f'[+] {token}')
     return print('[-] The password is wrong.')

@@ -4,7 +4,6 @@ from flasgger import swag_from
 from application.reqparsers import non_empty_string
 from application.models import UserModel
 from application.services.jwt import generate_token
-from application import bcrypt
 
 
 class SignIn(Resource):
@@ -23,7 +22,7 @@ class SignIn(Resource):
 
         user = UserModel.find_by_login(login)
 
-        if user and bcrypt.check_password_hash(user.password, password):
+        if user and user.is_pass_valid(password):
             token = generate_token(user)
             return {'token': token}
 

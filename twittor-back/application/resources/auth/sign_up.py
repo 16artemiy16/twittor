@@ -3,7 +3,6 @@ from flasgger import swag_from
 
 from application.reqparsers import non_empty_string
 from application.models import UserModel
-from application import bcrypt
 
 
 class SignUp(Resource):
@@ -27,8 +26,7 @@ class SignUp(Resource):
         if user_with_this_login:
             return {'message': 'User with this login already exists.'}, 400
 
-        user = UserModel(login, fullname)
-        user.password = bcrypt.generate_password_hash(password).decode('utf-8')
+        user = UserModel(login=login, password=password, fullname=fullname)
 
         try:
             user.save_to_db()

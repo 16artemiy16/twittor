@@ -1,11 +1,12 @@
-from application import db
+from application import db, bcrypt
 
 
 class UserModel(db.Model):
     __tablename__ = 'users'
 
-    def __init__(self, login, fullname):
+    def __init__(self, login, password, fullname):
         self.login = login
+        self.password = bcrypt.generate_password_hash(password).decode('utf-8')
         self.fullname = fullname
 
     id = db.Column(db.Integer, primary_key=True)
@@ -21,6 +22,9 @@ class UserModel(db.Model):
     def img_path(self):
         # TODO: a piece of img path is hardcoded, works only with localhost
         return f'http://localhost:5000/filestorage/profile/{self.img}' if self.img else None
+
+    def is_pass_valid(self, explicit_pass):
+        return bcrypt.check_password_hash(self.password, explicit_pass)
 
     def json(self):
         return {
