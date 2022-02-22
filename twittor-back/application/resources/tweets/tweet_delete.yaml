@@ -1,0 +1,22 @@
+Delete Tweet
+---
+tags:
+  - tweet
+parameters:
+  - in: path
+    name: tweet_id
+    required: true
+    example: 5
+responses:
+  200:
+    examples:
+      application/json:
+        {
+            "message": "The tweet have been successfully removed"
+        }
+  404:
+    examples:
+      application/json:
+        {
+          "message": "There is no tweet with this id"
+        }

@@ -1,0 +1,31 @@
+Create Tweet
+---
+tags:
+  - tweet
+parameters:
+  - in: body
+    name: body
+    required: true
+    example: New tweet's text!
+responses:
+  200:
+    examples:
+      description: Tweet successfully created
+      aplication/json:
+        {
+          "tweet": {
+            "id": 16,
+            "body": "New tweet's text!",
+            "created": 1645535122768.997,
+            "user": {
+              "id": 2,
+              "login": "user1",
+              "img": null,
+              "fullname": "Harry Potter"
+            },
+            "likes": {
+              "total": 0,
+              "isLikedByMe": false
+            }
+          }
+        }
