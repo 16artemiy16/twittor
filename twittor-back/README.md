@@ -24,3 +24,9 @@ python wsgi.py
 
 ### OpenAPI
 Swagger can be found here http://localhost:5000/apidocs/
+
+## Tests
+```shell
+# Run unit tests
+python -m unittest 
+```
