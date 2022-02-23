@@ -62,6 +62,12 @@ export default class AuthedLayoutLeftBar extends Vue {
           </v-icon>
           <span class="sidebar__nav-item-text">Profile</span>
         </NuxtLink>
+        <NuxtLink to="/authed/messages" class="sidebar__nav-item">
+          <v-icon large arial-label="Messages page">
+            mdi-email
+          </v-icon>
+          <span class="sidebar__nav-item-text">Messages</span>
+        </NuxtLink>
       </nav>
       <TweetBtn :disabled="isTweetSending" />
       <v-menu
