@@ -12,5 +12,4 @@ export interface UserProfileI {
   isVerified: boolean,
   headerImg: string | null,
   about: string,
-
 }
