@@ -26,4 +26,5 @@ htmlcov/
 *,cover
 
 application/data.db
+application/test_data.db
 application/filestorage

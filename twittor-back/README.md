@@ -27,6 +27,6 @@ Swagger can be found here http://localhost:5000/apidocs/
 
 ## Tests
 ```shell
-# Run unit tests
-python -m unittest 
+# Run tests
+python -m pytest -p  no:warnings -v --capture=tee-sys 
 ```
