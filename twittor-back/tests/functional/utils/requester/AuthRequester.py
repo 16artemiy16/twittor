@@ -11,7 +11,7 @@ class AuthRequester(Requester):
 
     def sign_in(self, login, password):
         return self.client.post(
-            '/sign-up',
+            '/sign-in',
             content_type='application/json',
             json={'login': login, 'password': password}
         )

@@ -32,9 +32,7 @@ def init_app(config_name):
         resources.api.init_app(app)
         app.register_blueprint(cmd_bp)
 
-        @app.before_first_request
-        def create_tables():
-            db.create_all()
+        db.create_all()
 
     return app
 
