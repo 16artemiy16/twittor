@@ -1,8 +1,16 @@
+import pytest
+
 from application.models import UserModel
+from ..utils.requester import AuthRequester
+
+
+@pytest.fixture
+def auth_requester(test_client):
+    return AuthRequester(test_client)
 
 
 class TestUserSignUp:
-    def test_successful(self, test_client):
+    def test_successful(self, auth_requester):
         """
         GIVEN the sign-in endpoint
         WHEN an attempt to Sign Up with valid data
@@ -10,11 +18,8 @@ class TestUserSignUp:
              created user img field should be None,
              should be returned the created user main data
         """
-        res = test_client.post(
-            '/sign-up',
-            content_type='application/json',
-            json={'login': 'user1', 'password': '111111', 'fullname': 'User One'}
-        )
+
+        res = auth_requester.sign_up(login='user1', password='111111', fullname='User One')
 
         # Checking the response for correctness
         assert res.status_code == 200
