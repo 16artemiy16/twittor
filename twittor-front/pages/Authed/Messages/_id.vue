@@ -4,11 +4,13 @@ import { Vue } from 'vue-property-decorator';
 import ContainerActionsMenu from '~/components/ContainerActionsMenu.vue';
 import AppUserImg from '~/components/app/AppUserImg.vue';
 import { MessageI } from '~/interfaces/message.interface';
+import MessagesActionAddNew from '~/components/Messages/messages-action-add-new.vue';
 
 @Component({
   components: {
     AppUserImg,
     ContainerActionsMenu,
+    MessagesActionAddNew,
   }
 })
 export default class Message extends Vue {
@@ -58,9 +60,7 @@ export default class Message extends Vue {
     <v-layout align-center class="messages-page__actions mb-2">
       <h4>Messages</h4>
       <v-layout />
-      <v-btn icon text title="New Message">
-        <v-icon>mdi-email-plus</v-icon>
-      </v-btn>
+      <MessagesActionAddNew />
     </v-layout>
     <v-text-field
       label="Search for people and groups"
@@ -72,7 +72,7 @@ export default class Message extends Vue {
         :key="msg.id"
         :actions="[{ text: 'Delete conversation', icon: 'mdi-delete-outline' }]"
       >
-        <v-layout class="msg-item  py-4 px-2 pr-16">
+        <v-layout class="msg-item py-4 px-2 pr-16">
           <AppUserImg :user="msg.users[0]" size="65" />
           <v-layout column class="ml-4">
             <v-layout>
@@ -94,11 +94,6 @@ export default class Message extends Vue {
 
   &:hover {
     background: $background-hover-pale;
-  }
-
-  &__img {
-    width: 65px;
-    height: 65px;
   }
 }
 </style>
