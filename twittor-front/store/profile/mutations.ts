@@ -8,6 +8,7 @@ export enum ProfileMutation {
   SetProfileInfo = 'setProfileInfo',
   SetTweets = 'setTweets',
   ToggleTweetLike = 'toggleTweetLike',
+  ToggleProfileEdit = 'toggleProfileEdit',
 }
 
 export default {
@@ -22,6 +23,9 @@ export default {
   },
   [ProfileMutation.SetTweets]: (state: ProfileStateI, tweets: TweetI[]) => {
     state.tweets = tweets;
+  },
+  [ProfileMutation.ToggleProfileEdit]: (state: ProfileStateI, flag: boolean) => {
+    state.isProfileEditModalOpened = flag;
   },
   [ProfileMutation.ToggleTweetLike]: (state: ProfileStateI, { tweetId, isLike }: { tweetId: number, isLike: boolean }) => {
     const tweet = state.tweets.find(({ id }) => id === tweetId);

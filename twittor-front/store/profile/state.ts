@@ -6,6 +6,7 @@ export interface ProfileStateI {
   isLoadingTweets: boolean;
   tweets: TweetI[];
   profileInfo: UserProfileI | undefined;
+  isProfileEditModalOpened: boolean;
 }
 
 export default (): ProfileStateI => ({
@@ -13,4 +14,5 @@ export default (): ProfileStateI => ({
   isLoadingTweets: false,
   tweets: [],
   profileInfo: undefined,
+  isProfileEditModalOpened: false,
 });

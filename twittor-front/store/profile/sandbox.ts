@@ -1,16 +1,18 @@
 import { createNamespacedHelpers } from 'vuex';
 import { ProfileAction } from '~/store/profile/actions';
+import { ProfileMutation } from '~/store/profile/mutations';
 
-const { mapState, mapActions } = createNamespacedHelpers('profile');
+const { mapState, mapActions, mapMutations } = createNamespacedHelpers('profile');
 
 export const computed = {
   ...mapState([
     'isLoadingTweets',
     'isLoadingProfileInfo',
     'profileInfo',
-    'tweets'
+    'tweets',
+    'isProfileEditModalOpened'
   ]),
-} as Record<'isLoadingTweets' | 'isLoadingProfileInfo' | 'profileInfo' | 'tweets', any>;
+} as Record<'isLoadingTweets' | 'isLoadingProfileInfo' | 'profileInfo' | 'tweets' | 'isProfileEditModalOpened', any>;
 
 export const actions = {
   ...mapActions([
@@ -26,3 +28,9 @@ export const actions = {
   ProfileAction.ToggleTweetLike,
   Function
 >;
+
+export const mutations = {
+  ...mapMutations([
+    ProfileMutation.ToggleProfileEdit,
+  ]),
+} as Record<ProfileMutation.ToggleProfileEdit, Function>

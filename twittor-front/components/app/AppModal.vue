@@ -34,6 +34,7 @@ export default class AppModal extends Vue {
       <v-btn
         v-for="action in actions"
         :key="action.text"
+        :disabled="action.disabled || isLoading"
         @click="action.handler"
       >
         {{ action.text }}
