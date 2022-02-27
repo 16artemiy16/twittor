@@ -10,6 +10,9 @@ interface ActionI {
 
 @Component
 export default class AppModal extends Vue {
+  @Prop({ type: String })
+  headerText: string | undefined;
+
   @Prop({ default: false, type: Boolean })
   isLoading!: boolean;
 
@@ -23,13 +26,17 @@ export default class AppModal extends Vue {
 
 <template>
   <v-card class="app-modal">
-
     <!-- Header -->
 
-    <v-layout justify-space-between class="app-modal__header pa-2">
+    <v-layout justify-space-between align-center class="app-modal__header pa-2">
       <v-btn icon text @click="close" :disabled="isLoading">
         <v-icon>mdi-close</v-icon>
       </v-btn>
+
+      <div class="app-modal__header-text ml-2" v-if="headerText">
+        {{ headerText }}
+      </div>
+
       <v-spacer></v-spacer>
       <v-btn
         v-for="action in actions"
@@ -40,6 +47,8 @@ export default class AppModal extends Vue {
         {{ action.text }}
       </v-btn>
     </v-layout>
+
+    <v-divider></v-divider>
 
     <!-- Progress Bar -->
 
@@ -66,13 +75,11 @@ export default class AppModal extends Vue {
 </template>
 
 <style scoped lang="scss">
-.modal {
-  &__header {
-    border-bottom: 1px $grey solid;
-  }
-
-  &__main {
-    padding: 1rem;
+.app-modal {
+  &__header-text {
+    font-size: 1.25rem;
+    font-weight: 500;
+    letter-spacing: 0.0125em;
   }
 }
 </style>

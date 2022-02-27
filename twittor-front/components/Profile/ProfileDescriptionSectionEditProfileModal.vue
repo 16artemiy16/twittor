@@ -67,12 +67,14 @@ export default class ProfileDescriptionSectionEditProfileModal extends Vue {
         v-model="model.img"
         class="form__profile-img ml-6"
       />
-      <v-text-field
-        outlined
-        :disabled="isProfileUpdating"
-        class="mt-4"
-        label="Full name" v-model="model.fullname"
-      />
+      <v-layout column class="px-4">
+        <v-text-field
+          outlined
+          :disabled="isProfileUpdating"
+          class="mt-4"
+          label="Full name" v-model="model.fullname"
+        />
+      </v-layout>
     </form>
   </AppModal>
 </template>

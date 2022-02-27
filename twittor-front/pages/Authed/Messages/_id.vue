@@ -21,7 +21,7 @@ export default class Message extends Vue {
       users: [{
         id: 1,
         login: 'test',
-        img: 'http://localhost:5000/filestorage/profile/12f7ba1d24bd46b3a19d187ddb1a4b6b.png',
+        img: null,
         fullname: 'Mr. Green',
         stats: {
           tweets: 1,
