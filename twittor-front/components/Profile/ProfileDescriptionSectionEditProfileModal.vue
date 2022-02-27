@@ -69,7 +69,7 @@ export default class ProfileDescriptionSectionEditProfileModal extends Vue {
       />
       <v-text-field
         outlined
-        :disabled="isLoading"
+        :disabled="isProfileUpdating"
         class="mt-4"
         label="Full name" v-model="model.fullname"
       />
