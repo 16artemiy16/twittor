@@ -7,6 +7,7 @@ from ..utils.requester import AuthRequester
 
 @pytest.fixture
 def auth_requester(test_client):
+    """ Facade for auth requests, contains sign_in, sign_up requests. """
     return AuthRequester(test_client)
 
 
