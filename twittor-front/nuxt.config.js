@@ -29,6 +29,7 @@ export default {
     '@/services/auth.ts',
     '@/services/tweets.ts',
     '@/services/users.ts',
+    '@/services/msg.ts',
     '@/plugins/axios.ts',
   ],
 

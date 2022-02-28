@@ -3,10 +3,18 @@ import Component from 'vue-class-component';
 import { Vue } from 'vue-property-decorator';
 import ContainerActionsMenu from '~/components/ContainerActionsMenu.vue';
 import AppUserImg from '~/components/app/AppUserImg.vue';
-import { MessageI } from '~/interfaces/message.interface';
 import MessagesActionAddNew from '~/components/Messages/messages-action-add-new.vue';
+import { DialogI } from '~/interfaces/dialog.interface';
+import { computed as msgComputed, actions as msgActions } from '~/store/messages/sandbox';
 
 @Component({
+  computed: {
+    dialogs: msgComputed.dialogs,
+    isLoadingDialogs: msgComputed.isLoadingDialogs,
+  },
+  methods: {
+    fetchDialogs: msgActions.fetchDialogs,
+  },
   components: {
     AppUserImg,
     ContainerActionsMenu,
@@ -14,44 +22,13 @@ import MessagesActionAddNew from '~/components/Messages/messages-action-add-new.
   }
 })
 export default class Message extends Vue {
-  messages: MessageI[] = [
-    {
-      id: 1,
-      isGroup: false,
-      users: [{
-        id: 1,
-        login: 'test',
-        img: null,
-        fullname: 'Mr. Green',
-        stats: {
-          tweets: 1,
-          followingCount: 2,
-          followersCount: 5,
-        },
-        isVerified: false,
-        headerImg: null,
-        about: 'Just the green mister',
-      }],
-    },
-    {
-      id: 2,
-      isGroup: false,
-      users: [{
-        id: 2,
-        login: 'lich',
-        img: null,
-        fullname: 'Lich Skeleton',
-        stats: {
-          tweets: 1,
-          followingCount: 2,
-          followersCount: 5,
-        },
-        isVerified: false,
-        headerImg: null,
-        about: 'Hello! My name is Lich!!',
-      }],
-    }
-  ]
+  dialogs!: DialogI[];
+  isLoadingDialogs!: boolean;
+  fetchDialogs!: Function;
+
+  created() {
+    this.fetchDialogs();
+  }
 }
 </script>
 
@@ -68,7 +45,7 @@ export default class Message extends Vue {
     ></v-text-field>
     <v-layout column class="mx-n4">
       <ContainerActionsMenu
-        v-for="msg in messages"
+        v-for="msg in dialogs"
         :key="msg.id"
         :actions="[{ text: 'Delete conversation', icon: 'mdi-delete-outline' }]"
       >

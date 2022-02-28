@@ -26,7 +26,7 @@ interface ProfileModelI {
     updateProfile: authActions.updateProfile,
     toggleProfileEdit: profileMutations.toggleProfileEdit,
   },
-})
+} as any)
 export default class ProfileDescriptionSectionEditProfileModal extends Vue {
   user!: UserProfileI;
   toggleProfileEdit!: Function;
