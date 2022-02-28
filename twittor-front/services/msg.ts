@@ -40,6 +40,7 @@ const MOCKED_DIALOGS: DialogI[] = [
     }],
   }
 ]
+const MOCK_TIME = 1500;
 
 export interface MsgServiceI {
   getMyDialogs: () => Promise<DialogI[]>;
@@ -48,7 +49,9 @@ export interface MsgServiceI {
 export default ({ $axios }: Vue, inject: Inject) => {
   const msgService: MsgServiceI = {
     getMyDialogs: async () => {
-      return MOCKED_DIALOGS;
+      return await new Promise((resolve) => {
+        setTimeout(() => resolve(MOCKED_DIALOGS), MOCK_TIME);
+      });
     },
   };
 

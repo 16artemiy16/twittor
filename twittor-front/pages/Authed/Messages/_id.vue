@@ -44,7 +44,13 @@ export default class Message extends Vue {
       outlined
     ></v-text-field>
     <v-layout column class="mx-n4">
+      <v-progress-linear
+        v-if="isLoadingDialogs"
+        indeterminate
+        color="cyan"
+      ></v-progress-linear>
       <ContainerActionsMenu
+        v-else
         v-for="msg in dialogs"
         :key="msg.id"
         :actions="[{ text: 'Delete conversation', icon: 'mdi-delete-outline' }]"
