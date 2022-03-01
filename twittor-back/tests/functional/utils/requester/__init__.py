@@ -5,3 +5,4 @@ Requester is the base class, to create a specific requester need to inherit this
 """
 from .Requester import *
 from .AuthRequester import *
+from .ProfileRequester import *
