@@ -67,3 +67,15 @@ class TestProfileGet:
                 'stats': {'tweets': 0}
             }
         }
+
+
+class TestSearchUsers:
+    def test_search_users(self, profile_requester):
+        users = [UserModel(login, '111111', 'Test User') for login in ['user1', 'user2', 'user3']]
+        for user in users:
+            user.save_to_db()
+
+        res = profile_requester.search_users('user')
+
+        assert res.status_code == 200
+        assert res.json.get('users') == [u.json() for u in users]
