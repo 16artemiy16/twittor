@@ -20,7 +20,7 @@ import { computed as msgComputed, actions as msgActions } from '~/store/messages
     ContainerActionsMenu,
     MessagesActionAddNew,
   }
-})
+} as any)
 export default class Message extends Vue {
   dialogs!: DialogI[];
   isLoadingDialogs!: boolean;
