@@ -5,7 +5,7 @@ import Component from 'vue-class-component';
 
 @Component({
   components: {
-    TweetForm: () => import('~/components/TweetForm.vue' /* webpackChunkName: "TweetForm" */),
+    TweetAddModal: () => import('~/components/TweetAddModal.vue' /* webpackChunkName: "TweetAddModal" */),
   },
   props: {
     disabled: { type: Boolean, default: false, }
@@ -14,19 +14,13 @@ import Component from 'vue-class-component';
 export default class TweetBtn extends Vue {
   disabled!: boolean;
   isOpened: boolean = false;
-  tweetModel: { body: string } = { body: '' };
 
-  async close(withData: boolean) {
-    this.isOpened = false;
-    if (withData) {
-      try {
-        await this.$tweetsService.postTweet(this.tweetModel);
-        this.tweetModel.body = '';
-        this.$emit('closed', this.tweetModel);
-      } catch(err) {}
-      return;
-    }
-    this.$emit('closed');
+  async createTweet(model: { body: string }) {
+    try {
+      await this.$tweetsService.postTweet(model);
+      this.$emit('closed', model);
+      this.isOpened = false;
+    } catch (e) {}
   }
 }
 </script>
@@ -44,16 +38,7 @@ export default class TweetBtn extends Vue {
         Tweet
       </v-btn>
     </template>
-    <v-card light class="modal" v-if="isOpened">
-      <header class="modal__header">
-        <v-btn icon text @click="close(false)">
-          <v-icon>mdi-close</v-icon>
-        </v-btn>
-      </header>
-      <main class="modal__main">
-        <TweetForm v-model="tweetModel" @on-send="close(true)"/>
-      </main>
-    </v-card>
+    <TweetAddModal v-if="isOpened" @send="createTweet" @close="() => isOpened = false" />
   </v-dialog>
 
 </template>
@@ -61,14 +46,5 @@ export default class TweetBtn extends Vue {
 <style scoped lang="scss">
 .tweet-btn {
   width: 100%;
-}
-.modal {
-  &__header {
-    border-bottom: 1px $grey solid;
-  }
-
-  &__main {
-    padding: 1rem;
-  }
 }
 </style>

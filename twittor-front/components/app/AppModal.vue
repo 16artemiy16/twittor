@@ -16,7 +16,7 @@ export default class AppModal extends Vue {
   @Prop({ default: false, type: Boolean })
   isLoading!: boolean;
 
-  @Prop({ default: [], type: Array })
+  @Prop({ default: () => [], type: Array })
   actions!: ActionI[];
 
   @Emit('close')
