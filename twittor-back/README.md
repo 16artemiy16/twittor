@@ -28,5 +28,7 @@ Swagger can be found here http://localhost:5000/apidocs/
 ## Tests
 ```shell
 # Run tests
-python -m pytest -p  no:warnings -v --capture=tee-sys 
+python -m pytest -p  no:warnings -v --capture=tee-sys
+# Check test coverage
+python -m pytest --cov    
 ```
