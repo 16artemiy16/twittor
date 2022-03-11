@@ -30,6 +30,8 @@ export default class TweetItem extends Vue {
   @Prop({ type: Object, required: true })
   tweet!: TweetI;
 
+  isTooltip: boolean = false;
+
   get moreActions(): MoreActionI[] {
     const actions: MoreActionI[] = [
       { icon: 'mdi-account-plus', text: 'Follow this User' },
@@ -61,6 +63,10 @@ export default class TweetItem extends Vue {
     return stringifyTimestampDiff(this.tweet.created);
   }
 
+  toggleTooltip(flag: boolean): void {
+      this.isTooltip = flag;
+  }
+
   @Emit('toggle-like')
   toggleLike() {
     const { id, likes } = this.tweet;
@@ -84,10 +90,17 @@ export default class TweetItem extends Vue {
         <div class="tweet__info mb-2 d-flex">
           <template>
             <NuxtLink
-                :to="{ path: '/authed/profile/' + tweet.user.login }"
+              :to="{ path: '/authed/profile/' + tweet.user.login }"
+              style="position: relative"
+              @mouseover.native="toggleTooltip(true)"
+              @mouseleave.native="toggleTooltip(false)"
             >
               <span class="user-name mr-2 font-weight-bold">{{ tweet.user.fullname }}</span>
               <span class="user-login mr-2">@{{ tweet.user.login }}</span>
+              <div v-if="isTooltip" class="tooltip d-flex flex-column">
+                <AppUserImg :user="tweet.user" size="35" />
+                {{ tweet.user.fullname }}
+              </div>
             </NuxtLink>
             <span class="posted-date">{{ dateDiff }}</span>
           </template>
@@ -119,6 +132,31 @@ export default class TweetItem extends Vue {
 </template>
 
 <style scoped lang="scss">
+.tooltip {
+  position: absolute;
+  background: white;
+  filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.25));
+  padding: 1rem;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  &:before{
+    content: ' ';
+    position: absolute;
+    top: -8px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid white;
+  }
+}
 .tweet {
   cursor: pointer;
   width: 100%;
