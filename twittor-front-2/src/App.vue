@@ -1,5 +1,4 @@
 <template>
-  <h1>Hello!</h1>
   <router-view/>
 </template>
 
@@ -7,5 +6,12 @@
 * {
   padding: 0;
   margin: 0;
+}
+html, body, #app {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  color: $primary-2;
 }
 </style>

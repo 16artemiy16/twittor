@@ -1,0 +1,18 @@
+// Define color helper
+@mixin define-color($title, $color) {
+  --#{$title}: #{$color};
+}
+
+// Defining colors by default
+:root {
+  @include define-color("primary", #1e91ef);
+  @include define-color("success", #17b217);
+  @include define-color("error", #ff2626);
+  @include define-color("warning", #fafa40);
+}
+
+$primary: var(--#{"primary"});
+$primary-2: var(--#{"primary"}-h);
+$success: var(--#{"success"});
+$warning: var(--#{"warning"});
+
