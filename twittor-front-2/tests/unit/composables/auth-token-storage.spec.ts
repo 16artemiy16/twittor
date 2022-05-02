@@ -1,4 +1,4 @@
-import useAuthTokenStorage from '@/composables/auth-token-storage';
+import useAuthTokenStorage from '@/composables/storage/auth-token-storage';
 import mockLocalStorage from '../../mocks/utils/mock-local-storage';
 
 const LS_KEY_TOKEN = 'token';

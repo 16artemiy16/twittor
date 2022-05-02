@@ -13,6 +13,7 @@ const useAuthApi = (): UseAuthApi => {
         URL_AUTH_SIGN_IN, {
           method: 'POST',
           body: JSON.stringify({ login, password }),
+          headers: { 'Content-Type': 'application/json' }
         })
         .then((res) => {
           if (!res.ok) {
