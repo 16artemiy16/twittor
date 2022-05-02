@@ -4,6 +4,7 @@
 ```
 npm install
 ```
+Rename `.env.example` to `.env` and set up environment there.
 
 ### Compiles and hot-reloads for development
 ```
