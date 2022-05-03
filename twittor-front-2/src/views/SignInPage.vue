@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import useAuthApi from '@/composables/api/auth.api';
 import { ref } from 'vue';
+import { useAuthStore } from '@/store/auth';
 
 const login = ref('');
 const password = ref('');
 
+const authStore = useAuthStore();
+
 const signIn = () => {
-  useAuthApi().signIn(login.value, password.value);
+  authStore.signIn(login.value, password.value);
 };
 
 </script>

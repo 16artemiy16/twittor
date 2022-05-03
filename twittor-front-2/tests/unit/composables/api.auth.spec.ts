@@ -31,7 +31,7 @@ describe('useAuthApi() composable', () => {
       expect(fetch).toHaveBeenCalledWith(URL_AUTH_SIGN_IN, {
         method: 'POST',
         body: JSON.stringify({ login: MOCKED_LOGIN, password: MOCKED_PASS }),
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       });
     });
     it('returns token if credentials are correct', async () => {
