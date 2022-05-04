@@ -1,22 +1,29 @@
-<script setup lang="ts">
-import { ref } from 'vue';
+<script lang="ts">
+import { defineComponent } from 'vue';
 import { useAuthStore } from '@/store/auth';
 
-const login = ref('');
-const password = ref('');
+export default defineComponent({
+  data() {
+    return {
+      login: '',
+      password: '',
+    };
+  },
+  setup() {
+    const { signIn } = useAuthStore();
 
-const authStore = useAuthStore();
-
-const signIn = () => {
-  authStore.signIn(login.value, password.value);
-};
+    return {
+      signIn,
+    };
+  }
+})
 
 </script>
 
 <template>
   <div class="page">
     <h1 class="title">Sign In</h1>
-    <form class="form" @submit.prevent="signIn">
+    <form class="form" @submit.prevent="signIn(login, password)">
       <input v-model.lazy="login" type="text" placeholder="Login" class="form__login" />
       <input v-model.lazy="password" type="password" placeholder="Password" class="form__pass" />
       <button class="form__submit">Sign In</button>

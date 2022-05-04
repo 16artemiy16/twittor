@@ -26,7 +26,7 @@ export type AuthStoreThis = AuthState & AuthGetters & AuthActions;
 export const useAuthStore = defineStore<'auth', AuthState, AuthGetters, AuthActions>('auth', {
   state: () => ({
     userInfo: null,
-  }),
+  } as AuthState),
   getters: {
     isAuthed(this: AuthStoreThis) {
       return !!this.userInfo;
