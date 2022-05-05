@@ -18,8 +18,13 @@ pip install -r requirements.txt
 # Activate venv
 source venv/bin/activate 
 
+# Set FLASK_APP
+export FLASK_APP="application:init_app('dev')"
+
 # Start the app
 python wsgi.py 
+# or
+flask run
 ```
 
 ### OpenAPI
