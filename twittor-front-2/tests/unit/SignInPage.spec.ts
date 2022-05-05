@@ -26,6 +26,13 @@ describe('Login Page', () => {
 
     expect(wrapper.find('button.form__submit').exists()).toBeTruthy();
     expect(wrapper.find('button.form__submit').text()).toBe('Sign In');
+
+    expect(wrapper.find('.or').exists()).toBeTruthy();
+    expect(wrapper.find('.or').text()).toBe('OR');
+
+    expect(wrapper.find('.signup-invite').exists()).toBeTruthy();
+    expect(wrapper.find('.signup-invite .signup-invite__link').exists()).toBeTruthy();
+    expect(wrapper.find('.signup-invite .signup-invite__link').text()).toBe('Sign Up');
   });
   it('send a correct signIn action on submitting form', async () => {
     const MOCKED_USER = 'user1';

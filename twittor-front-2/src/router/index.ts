@@ -7,6 +7,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/SignInPage.vue' /* webpackChunkName: "SignInPage" */),
   },
   {
+    path: '/sign-up',
+    name: 'sign-up',
+    component: () => import('@/views/SignUpPage.vue' /* webpackChunkName: "SignUpPage" */),
+  },
+  {
     path: '/:catchAll(.*)',
     redirect: '/sign-in',
   }
