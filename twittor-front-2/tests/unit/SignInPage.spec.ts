@@ -1,8 +1,8 @@
-import { flushPromises, mount, shallowMount } from '@vue/test-utils';
+import { shallowMount } from '@vue/test-utils';
 import SignInPage from '@/views/SignInPage.vue';
 import { createPinia, setActivePinia } from 'pinia';
 import { useAuthStore } from '@/store/auth';
-import { nextTick, ref } from 'vue';
+import { ref } from 'vue';
 import { createTestingPinia } from '@pinia/testing';
 
 
