@@ -4,35 +4,33 @@ import { createPinia, setActivePinia } from 'pinia';
 import { useAuthStore } from '@/store/auth';
 import { ref } from 'vue';
 import { createTestingPinia } from '@pinia/testing';
+import { DomCorrectnessTester, rule } from '../../helpers/dom-correctness-tester';
 
+enum Selector {
+  Title = 'h1.title',
+  Login = '.form__login',
+  Password = '.form__pass',
+  Submit = '.form__submit',
+  Or = '.or',
+  SignUpInvite = '.signup-invite',
+  SignUpInviteLink = '.signup-invite .signup-invite__link',
+}
 
-describe('Login Page', () => {
+describe('SignInPage', () => {
   beforeEach(() => {
     setActivePinia(createPinia());
   })
   it('has required elements', () => {
     const wrapper = shallowMount(SignInPage);
-
-    // Title
-    expect(wrapper.find('h1.title').exists()).toBeTruthy();
-    expect(wrapper.find('h1.title').text()).toBe('Sign In');
-
-    // Form
-    expect(wrapper.find('.form__login').exists()).toBeTruthy();
-    expect(wrapper.find('.form__pass').exists()).toBeTruthy();
-    expect(
-      wrapper.find('.form__pass').element.getAttribute('type')
-    ).toBe('password');
-
-    expect(wrapper.find('.form__submit').exists()).toBeTruthy();
-    expect(wrapper.find('.form__submit').text()).toBe('Sign In');
-
-    expect(wrapper.find('.or').exists()).toBeTruthy();
-    expect(wrapper.find('.or').text()).toBe('OR');
-
-    expect(wrapper.find('.signup-invite').exists()).toBeTruthy();
-    expect(wrapper.find('.signup-invite .signup-invite__link').exists()).toBeTruthy();
-    expect(wrapper.find('.signup-invite .signup-invite__link').text()).toBe('Sign Up');
+    new DomCorrectnessTester(wrapper).addRules([
+      rule(Selector.Title).text('Sign In'),
+      rule(Selector.Login),
+      rule(Selector.Password).attr('type', 'password'),
+      rule(Selector.Submit).text('Sign In'),
+      rule(Selector.Or).text('OR'),
+      rule(Selector.SignUpInvite),
+      rule(Selector.SignUpInviteLink).text('Sign Up'),
+    ]).test();
   });
   it('send a correct signIn action on submitting form', async () => {
     const MOCKED_USER = 'user1';
