@@ -18,14 +18,14 @@ describe('Login Page', () => {
     expect(wrapper.find('h1.title').text()).toBe('Sign In');
 
     // Form
-    expect(wrapper.find('input.form__login').exists()).toBeTruthy();
-    expect(wrapper.find('input.form__pass').exists()).toBeTruthy();
+    expect(wrapper.find('.form__login').exists()).toBeTruthy();
+    expect(wrapper.find('.form__pass').exists()).toBeTruthy();
     expect(
-      wrapper.find('input.form__pass').element.getAttribute('type')
+      wrapper.find('.form__pass').element.getAttribute('type')
     ).toBe('password');
 
-    expect(wrapper.find('button.form__submit').exists()).toBeTruthy();
-    expect(wrapper.find('button.form__submit').text()).toBe('Sign In');
+    expect(wrapper.find('.form__submit').exists()).toBeTruthy();
+    expect(wrapper.find('.form__submit').text()).toBe('Sign In');
 
     expect(wrapper.find('.or').exists()).toBeTruthy();
     expect(wrapper.find('.or').text()).toBe('OR');

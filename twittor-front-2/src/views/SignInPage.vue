@@ -24,9 +24,9 @@ export default defineComponent({
   <div class="page">
     <h1 class="title">Sign In</h1>
     <form class="form" @submit.prevent="signIn(login, password)">
-      <input v-model.lazy="login" type="text" placeholder="Login" class="form__login" />
-      <input v-model.lazy="password" type="password" placeholder="Password" class="form__pass" />
-      <button class="form__submit">Sign In</button>
+      <ui-input v-model.lazy="login" type="text" placeholder="Login" class="form__login" />
+      <ui-input v-model.lazy="password" type="password" placeholder="Password" class="form__pass" />
+      <ui-btn class="form__submit">Sign In</ui-btn>
       <div class="or">OR</div>
       <div class="signup-invite">
         <router-link to="sign-up" class="signup-invite__link">Sign Up</router-link>
